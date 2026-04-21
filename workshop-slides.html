@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code for Business Owners — Workshop Slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --purple: #7B2FF2;
+      --purple-light: #C084FC;
+      --green: #22c55e;
+      --red: #ef4444;
+      --orange: #f59e0b;
+      --blue: #3b82f6;
+      --text: #1a1a2a;
+      --text-light: #555;
+      --text-muted: #888;
+      --bg: #ffffff;
+      --card-bg: #f5f5f7;
+      --border: #e5e5ea;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== SLIDE SYSTEM ===== */
+    .slide {
+      display: none;
+      position: absolute;
+      inset: 0;
+      padding: 60px 80px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .slide.active { display: flex; }
+    .slide.left { text-align: left; align-items: flex-start; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .nav-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { border-color: var(--purple); color: var(--purple); }
+    .nav-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    .big-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .medium-text {
+      font-size: clamp(20px, 2.5vw, 32px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    .small-text {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .purple { color: var(--purple); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .bold { font-weight: 700; color: var(--text); }
+    .label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+
+    /* ===== COMPONENTS ===== */
+    .card-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .card {
+      flex: 1;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .card p { font-size: 14px; color: var(--text-muted); }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: clamp(18px, 2vw, 24px);
+      padding: 12px 0;
+      text-align: left;
+    }
+    .list-icon { font-size: 24px; flex-shrink: 0; }
+
+    .compare-row {
+      display: flex;
+      gap: 32px;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 24px;
+    }
+    .compare-col {
+      flex: 1;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: left;
+    }
+    .compare-col h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .compare-col li {
+      font-size: 15px;
+      line-height: 2;
+      list-style: none;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .prompt-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px 80px 20px 24px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      text-align: left;
+      max-width: 700px;
+      margin-top: 20px;
+      border-left: 4px solid var(--purple);
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .copy-btn:hover { background: #6622cc; }
+    .copy-btn.copied { background: var(--green); }
+
+    .img-showcase {
+      max-width: 700px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin-top: 24px;
+    }
+
+    .org-chart { margin-top: 20px; text-align: center; }
+    .ceo-circle {
+      display: inline-flex;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: var(--purple);
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 20px rgba(123, 47, 242, 0.3);
+    }
+    .team-row {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 32px;
+    }
+    .team-member { text-align: center; }
+    .team-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      margin: 0 auto 10px;
+    }
+    .team-label { font-size: 16px; font-weight: 700; color: var(--text); }
+    .team-sub { font-size: 13px; color: var(--text-muted); }
+    .connector {
+      width: 3px; height: 32px;
+      background: var(--border);
+      margin: 10px auto;
+    }
+    .connector-h {
+      width: 70%;
+      height: 3px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* ===== SPEAKER NOTES ===== */
+    .speaker-note {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fffbe6;
+      border: 1px solid #f0d860;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: #8a6d00;
+      max-width: 600px;
+      text-align: center;
+      display: none;
+      z-index: 99;
+    }
+    body.show-notes .speaker-note { display: block; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 85vw;
+      max-height: 75vh;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox-caption {
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      margin-top: 16px;
+      text-align: center;
+      max-width: 600px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 36px;
+      cursor: pointer;
+      font-family: sans-serif;
+      line-height: 1;
+    }
+    .gallery-img, .slide img {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .gallery-img:hover, .slide img:hover {
+      transform: scale(1.03);
+    }
+
+    /* ===== TRY IT BREAK SLIDES ===== */
+    .try-it-icon {
+      width: 80px; height: 80px;
+      background: var(--purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 20px;
+      animation: tryPulse 2s ease-in-out infinite;
+    }
+    @keyframes tryPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123,47,242,0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(123,47,242,0); }
+    }
+
+    /* ===== STACK OFFER SLIDE ===== */
+    .stack-item {
+      animation: stackReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      margin-bottom: 8px;
+    }
+    @keyframes stackReveal {
+      from { opacity: 0; transform: translateX(-30px) scale(0.95); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    .stack-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+      gap: 16px;
+    }
+    .stack-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+    }
+    .stack-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 44px;
+      text-align: center;
+    }
+    .stack-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .stack-desc {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.4;
+    }
+    .stack-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--purple);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     SLIDES
+     ============================================================ -->
+
+<!-- 1. TITLE -->
+<div class="slide active" id="s1">
+  <p class="label">Hands-On Workshop &middot; March 14, 2026</p>
+  <h1 class="title">Claude Code for<br><span class="purple">Business Owners</span></h1>
+  <p class="subtitle">Prismz Cafe, Thonglor &middot; Jonny West</p>
+</div>
+
+<!-- 2. RESOURCES LINK -->
+<div class="slide">
+  <p class="label">Before We Start</p>
+  <p class="big-text" style="margin-bottom: 20px;">Download Workshop <span class="purple">Resources</span></p>
+  <p class="medium-text" style="margin-bottom: 24px; max-width: 600px;">All files, prompts, and examples for today's exercises. Open this link on your phone or laptop.</p>
+  <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 40px; text-align: center; max-width: 600px;">
+    <p style="font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--purple); word-break: break-all; letter-spacing: -0.5px;">skillboss-e18pobf9-preview.heyboss.live</p>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">Bookmark this page. You'll use it throughout the workshop.</p>
+  </div>
+  <div class="speaker-note">Give them 30 seconds to open this on their phone. Walk around and make sure everyone has it. "This page has all the files and prompts we'll use today. Whenever I say 'download example 3', this is where you get it."</div>
+</div>
+
+<!-- 3. AI TAKEOFF -->
+<div class="slide" id="s2">
+  <p class="medium-text" style="margin-bottom: 24px;">You are here. Right at the beginning.</p>
+  <img src="ai-takeoff.jpg" alt="AI Takeoff curve showing You Are Here" style="width: 80%; max-width: 900px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);" />
+  <div class="speaker-note">Let this sink in. "Look at where we are on this curve. This is not the middle. This is not the end. We are RIGHT at the takeoff point. The people in this room right now... you're early."</div>
+</div>
+
+<!-- 3. WHO AM I -->
+<div class="slide" id="s3" style="padding: 30px 40px;">
+  <p class="label" style="margin-bottom: 4px;">Your speaker</p>
+  <p style="font-family: 'Montserrat'; font-size: 36px; font-weight: 900; margin-bottom: 20px;">Jonny West</p>
+
+  <!-- Photo gallery -->
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 1000px; margin-bottom: 24px;">
+    <img class="gallery-img" src="story-award-shirts.jpg" data-caption="Students wearing $10K, $50K, and $100K Club award shirts" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-diyecom.jpg" data-caption="With Kantawee Saengsai, $100K Club winner at DIYECOM Bangkok" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-41k-day.png" data-caption="$41.7K gross volume in a single day, 17 payments" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-kids-genius.jpg" data-caption="Kids Genius Zone. AI learning platform for children, built in Thailand" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-50k-student2.jpg" data-caption="$50K Club student celebration" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-50k-student1.jpg" data-caption="Another $50K Club student hitting their milestone" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="story-team.jpg" data-caption="Team meetup with $50K and $10K Club members" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+    <img class="gallery-img" src="smpf.jpg" data-caption="Jonny West. 10 years in online business, based in Bangkok" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
+  </div>
+
+  <!-- Achievements -->
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 1000px;">
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
+      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">2x Comma Club</p>
+      <p style="font-size: 13px; color: var(--text-light);">ClickFunnels 7-Figure Award</p>
+    </div>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
+      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">$100K in 30 Days</p>
+      <p style="font-size: 13px; color: var(--text-light);">Multiple product launches</p>
+    </div>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
+      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">6 &amp; 7 Figure Students</p>
+      <p style="font-size: 13px; color: var(--text-light);">Helped others reach big results</p>
+    </div>
+  </div>
+  <p style="font-size: 14px; color: var(--text-light); margin-top: 14px;">In Thailand: Built <strong>Kids Genius Zone</strong>, the first AI learning platform for children.</p>
+
+  <div class="speaker-note">Quick intro. "I've been doing this for 10 years. I've made and lost money. The reason I'm here is because AI changed everything for me, and I want to show you what I found."</div>
+</div>
+
+<!-- 3. HOOK 1 -->
+<div class="slide" id="s3">
+  <p class="big-text">Everyone is talking about AI.<br>Claude. Cowork.</p>
+  <p class="medium-text" style="margin-top: 24px;">It's everywhere right now.</p>
+</div>
+
+<!-- 3. HOOK 2 -->
+<div class="slide" id="s3">
+  <p class="big-text">Almost nobody is using it<br><span class="purple">to its full capability.</span></p>
+  <p class="medium-text" style="margin-top: 24px; max-width: 700px;">Most people open Claude, ask a question, get a text answer, and close it. That's like buying a Ferrari and only using it to check the clock.</p>
+</div>
+
+<!-- 4. HOOK 3 -->
+<div class="slide" id="s4">
+  <p class="big-text">Today you'll learn something<br><span class="purple">less than 1%</span> of AI users know.</p>
+  <p class="medium-text" style="margin-top: 20px; margin-bottom: 32px;">You're going to make AI <strong>build things for you</strong> that will have massive impact on your business.</p>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 900px;">
+    <div style="text-align: center;">
+      <img src="badge-save-time.png" alt="Save Time" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
+      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Save Time</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="badge-save-cost.png" alt="Save Cost" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
+      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Save Cost</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="badge-get-more-done.png" alt="Get More Done" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
+      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Get More Done</p>
+    </div>
+    <div style="text-align: center;">
+      <img src="badge-make-money.png" alt="Make More Money" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
+      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Make More Money</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5. HOOK 4 -->
+<div class="slide" id="s5">
+  <p class="big-text">When you walk out today,<br>you will have skills your competitors<br><span class="purple">do not have yet.</span></p>
+  <p class="medium-text" style="margin-top: 24px;">That gap is your advantage.</p>
+</div>
+
+<!-- 6. WORKSHOP ROADMAP -->
+<div class="slide" id="s6" style="padding: 30px 60px;">
+  <p class="label">Today's Workshop</p>
+  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(30px, 4vw, 48px);">Here's What We're Doing</p>
+  <div style="display: grid; grid-template-columns: auto 1fr; gap: 14px 24px; max-width: 850px; width: 100%; text-align: left; align-items: center;">
+    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">10:00</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">The Big Shift</span> <span style="color: var(--text-muted); font-size: 15px;">... why AI is not a chatbot, it's a team member</span></div>
+    <div style="background: var(--blue); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">10:45</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">Chat + Show</span> <span style="color: var(--text-muted); font-size: 15px;">... Claude's new visual feature, you try it live</span></div>
+    <div style="background: var(--purple); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">11:15</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">Cowork</span> <span style="color: var(--text-muted); font-size: 15px;">... Ideas, Plugins, Connectors, hands-on tasks</span></div>
+    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">12:15</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">&#127860; Lunch Break</span></div>
+    <div style="background: var(--orange); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">13:15</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">7 Use Cases</span> <span style="color: var(--text-muted); font-size: 15px;">... data charts, CRM, invoices, content, websites + more</span></div>
+    <div style="background: var(--green); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">15:00</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">Content Creation</span> <span style="color: var(--text-muted); font-size: 15px;">... viral scripts using proven frameworks</span></div>
+    <div style="background: var(--red); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">15:30</div>
+    <div style="font-size: 18px;"><span style="font-weight: 700;">Q&A + What's Next</span> <span style="color: var(--text-muted); font-size: 15px;">... community, resources, keep building</span></div>
+  </div>
+</div>
+
+<!-- SETUP CHECK -->
+<div class="slide" style="padding: 40px 60px;">
+  <p class="label">Before We Start</p>
+  <p class="big-text" style="margin-bottom: 20px;">Quick Setup Check</p>
+  <div style="max-width: 600px; width: 100%; text-align: left;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 24px;">&#9989;</span>
+      <div><strong>Claude account</strong><br><span style="font-size: 13px; color: var(--text-muted);">Go to claude.ai and sign up (free works for Chat)</span></div>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 24px;">&#9989;</span>
+      <div><strong>Pro plan ($20/mo) for Cowork</strong><br><span style="font-size: 13px; color: var(--text-muted);">Upgrade at claude.ai/settings if you haven't yet</span></div>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 24px;">&#128101;</span>
+      <div><strong>No Pro yet? No problem.</strong><br><span style="font-size: 13px; color: var(--text-muted);">Pair up with someone who has it. You'll still learn everything.</span></div>
+    </div>
+  </div>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Set this up now while we talk. You'll need it in ~30 minutes.</p>
+  <div class="speaker-note">Give them 2 min to check. Anyone without Pro? Pair them up.</div>
+</div>
+
+<!-- 7. BIG SHIFT TITLE -->
+<div class="slide" id="s7">
+  <p class="label">The Big Shift</p>
+  <p class="big-text">What most people <span class="red">think</span> AI is<br>vs what it <span class="purple">actually</span> is</p>
+</div>
+
+<!-- 7. WHAT MOST PEOPLE DO -->
+<div class="slide" id="s7">
+  <p class="label" style="color: var(--red);">What most people do with AI</p>
+  <div style="margin-top: 16px;">
+    <div class="list-item"><span class="list-icon">&#10060;</span> Ask a question, get a text answer</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> Copy-paste it into a document</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> Still do all the real work themselves</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> Use it like a fancy Google search</div>
+  </div>
+</div>
+
+<!-- 8. WHAT AI CAN ACTUALLY DO - TITLE -->
+<div class="slide" id="s8">
+  <p class="label">What AI Can Actually Do</p>
+  <p class="big-text">Real examples.<br>This is what you'll learn today.</p>
+</div>
+
+<!-- 9. CAPABILITY 1 -->
+<div class="slide" id="s9">
+  <p class="label">Capability 1</p>
+  <p class="big-text" style="margin-bottom: 20px;">Build a custom business tool<br>from scratch</p>
+  <img src="https://assets.justinmind.com/wp-content/uploads/2020/02/dashboard-design-example-hcare.png" alt="Dashboard" class="img-showcase" />
+  <p class="small-text" style="margin-top: 12px;">A real dashboard. Built by AI. In 5 minutes. No coding.</p>
+</div>
+
+<!-- 10. CAPABILITY 2 -->
+<div class="slide" id="s10">
+  <p class="label">Capability 2</p>
+  <p class="big-text" style="margin-bottom: 20px;">Give AI a task,<br>get a finished file</p>
+  <img src="expense-report-visual.png" alt="AI-generated Q1 Expense Report" style="width: 100%; max-width: 600px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1);" />
+  <p class="small-text" style="margin-top: 16px;">You say it. AI makes it. You download it.</p>
+</div>
+
+<!-- 11. CAPABILITY 3 -->
+<div class="slide" id="s11">
+  <p class="label">Capability 3</p>
+  <p class="big-text" style="margin-bottom: 24px;">Use AI and the internet<br>to build automations</p>
+  <div style="max-width: 400px;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 8px; font-size: 15px;">&#128176; New purchase detected</div>
+    <div style="text-align: center; color: var(--text-muted); font-size: 18px;">&darr;</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 8px; font-size: 15px;">&#128172; Send welcome DM <span style="float:right; color: var(--green);">&#10003;</span></div>
+    <div style="text-align: center; color: var(--text-muted); font-size: 18px;">&darr;</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 8px; font-size: 15px;">&#128231; Send onboarding email <span style="float:right; color: var(--green);">&#10003;</span></div>
+    <div style="text-align: center; color: var(--text-muted); font-size: 18px;">&darr;</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; font-size: 15px;">&#128276; Notify you on LINE <span style="float:right; color: var(--green);">&#10003;</span></div>
+  </div>
+</div>
+
+<!-- 12. CAPABILITY 4 -->
+<div class="slide" id="s12" style="padding: 30px 40px;">
+  <p class="label">Capability 4</p>
+  <p class="big-text" style="margin-bottom: 20px;">Find what's going viral<br>and make it work for your business</p>
+  <img src="scout-viral-content.png" alt="AI CEO Studio Scout - finds viral content automatically" style="width: 100%; max-width: 900px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+  <p class="small-text" style="margin-top: 12px;">AI scans trending content, scores it, and helps you create your own version.</p>
+</div>
+
+<!-- 13. CAPABILITY 5 -->
+<div class="slide" id="s13">
+  <p class="label">Capability 5</p>
+  <p class="big-text" style="margin-bottom: 24px;">Handle customer questions<br>using your own business data</p>
+  <div style="max-width: 500px; text-align: left;">
+    <div style="background: #fef2f2; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; font-size: 14px;">
+      <strong style="color: var(--red);">Customer:</strong> "I ordered 3 days ago and still no tracking info."
+    </div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px 16px; margin-bottom: 12px; font-size: 12px; color: var(--text-muted);">&#9889; AI checks order database, shipping status, company policy...</div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; font-size: 14px;">
+      <strong style="color: var(--green);">AI reply:</strong> "Hi! Order #4821 shipped yesterday. Tracking: TH38291. Arrives Friday!"
+    </div>
+  </div>
+</div>
+
+<!-- 14. CAPABILITY 6 -->
+<div class="slide" id="s14">
+  <p class="label">Capability 6</p>
+  <p class="big-text" style="margin-bottom: 24px;">Connect AI to the tools<br>you already use</p>
+  <p class="medium-text" style="margin-bottom: 20px;">One click. Claude can read, write, and act inside your apps.</p>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 700px;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#9993;</div>
+      <p style="font-size: 14px; font-weight: 700;">Gmail</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Draft, reply, search inbox</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#128197;</div>
+      <p style="font-size: 14px; font-weight: 700;">Google Calendar</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Schedule, manage meetings</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#127912;</div>
+      <p style="font-size: 14px; font-weight: 700;">Canva</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Design posts, graphics</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#128221;</div>
+      <p style="font-size: 14px; font-weight: 700;">Notion</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Notes, databases, docs</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#128172;</div>
+      <p style="font-size: 14px; font-weight: 700;">Slack</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Send messages, updates</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#9998;</div>
+      <p style="font-size: 14px; font-weight: 700;">Excalidraw</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Diagrams, flowcharts</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#128188;</div>
+      <p style="font-size: 14px; font-weight: 700;">HubSpot</p>
+      <p style="font-size: 11px; color: var(--text-muted);">CRM, contacts, deals</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 16px 12px; text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 6px;">&#128194;</div>
+      <p style="font-size: 14px; font-weight: 700;">Google Drive</p>
+      <p style="font-size: 11px; color: var(--text-muted);">Files, sheets, docs</p>
+    </div>
+  </div>
+  <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">20+ connectors available. We'll try some of these later today.</p>
+</div>
+
+<!-- 15. REFRAME -->
+<div class="slide" id="s15">
+  <p class="label">The Reframe</p>
+  <p class="big-text">Each one of these<br>is an <span class="purple">employee</span>.</p>
+  <p class="medium-text" style="margin-top: 20px; max-width: 600px;">Not a feature. Not a tool.<br>A person you don't have to hire.</p>
+</div>
+
+<!-- 15. ORG CHART -->
+<div class="slide" id="s15">
+  <div class="org-chart">
+    <div class="ceo-circle">YOU</div>
+    <p style="margin-top: 14px; font-family: 'Montserrat'; font-weight: 800; font-size: 28px;">The AI CEO</p>
+    <p style="font-size: 18px; color: var(--text-muted);">You command. They execute.</p>
+    <div class="connector"></div>
+    <div class="connector-h"></div>
+    <div class="team-row">
+      <div class="team-member">
+        <div class="team-icon">&#9889;</div>
+        <div class="team-label">Builder</div>
+        <div class="team-sub">Tools &amp; Apps</div>
+      </div>
+      <div class="team-member">
+        <div class="team-icon">&#128196;</div>
+        <div class="team-label">Analyst</div>
+        <div class="team-sub">Data &amp; Reports</div>
+      </div>
+      <div class="team-member">
+        <div class="team-icon">&#127760;</div>
+        <div class="team-label">Automator</div>
+        <div class="team-sub">Workflows</div>
+      </div>
+      <div class="team-member">
+        <div class="team-icon">&#128197;</div>
+        <div class="team-label">Content Pro</div>
+        <div class="team-sub">Viral Strategy</div>
+      </div>
+      <div class="team-member">
+        <div class="team-icon">&#128172;</div>
+        <div class="team-label">Support</div>
+        <div class="team-sub">Customers</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT I DO WITH CLAUDE -->
+<div class="slide" style="padding: 30px 60px;">
+  <p class="label">Real Example: My Last 30 Days</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(26px, 3.5vw, 40px);">What Claude does for <span class="purple">my</span> business</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; max-width: 900px; width: 100%; text-align: left;">
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128187;</span>
+      <span>Built a <strong>desktop software app</strong> from zero (Windows + Mac)</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128101;</span>
+      <span><strong>68 paying users</strong> using it right now</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#127760;</span>
+      <span><strong>5 sales funnels</strong> running 24/7 on autopilot</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128231;</span>
+      <span>Email sequences that <strong>write and send themselves</strong></span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#127916;</span>
+      <span>Professional <strong>video ads</strong> for Facebook and Instagram</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128218;</span>
+      <span>Full <strong>online course</strong> with video lessons</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128172;</span>
+      <span>Social media posts <strong>written in my voice</strong></span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128176;</span>
+      <span>Facebook ads <strong>created and managed</strong> automatically</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128272;</span>
+      <span>License keys <strong>auto-delivered</strong> to new customers every hour</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+      <span style="font-size: 20px;">&#128240;</span>
+      <span>AI news research delivered to my phone <strong>daily</strong></span>
+    </div>
+  </div>
+  <div style="background: var(--purple); color: #fff; border-radius: 12px; padding: 16px 24px; margin-top: 20px; max-width: 900px; text-align: center;">
+    <p style="font-size: 18px; font-weight: 700;">This would normally need a team of 8-10 people.</p>
+    <p style="font-size: 15px; opacity: 0.9; margin-top: 4px;">For me, it's just Claude. No developers. No designers. No marketing team.</p>
+  </div>
+  <div class="speaker-note">Let this sink in. Go through each one slowly. "I built a real software app. I didn't write one line of code. 68 people are paying for it. My emails go out automatically. My ads get created automatically. All of this... is Claude." Pause. "And I'm going to show you how to do this today."</div>
+</div>
+
+<!-- AI WON'T REPLACE YOU -->
+<div class="slide">
+  <p class="label">The Fear Everyone Has</p>
+  <p class="big-text" style="margin-bottom: 28px; max-width: 800px;">"Will AI <span class="red">replace</span> me?"</p>
+  <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 32px; max-width: 750px; text-align: left; margin-bottom: 20px; display: flex; align-items: center; gap: 24px;">
+    <img src="jensen-huang.jpg" alt="Jensen Huang" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" />
+    <div>
+      <p style="font-size: 22px; font-weight: 600; line-height: 1.5; color: var(--text);">"You're not going to lose your job to AI.<br>You're going to lose your job to <span class="purple">someone who uses AI</span>."</p>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Jensen Huang, CEO of NVIDIA (the company that powers all AI)</p>
+    </div>
+  </div>
+  <div style="background: #f0fdf4; border-radius: 16px; padding: 28px 32px; max-width: 750px; text-align: left; display: flex; align-items: center; gap: 24px;">
+    <img src="karim-lakhani.jpg" alt="Karim Lakhani" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" />
+    <div>
+      <p style="font-size: 22px; font-weight: 600; line-height: 1.5; color: var(--text);">"AI won't replace managers.<br>But managers who use AI will replace those who <span class="red">don't</span>."</p>
+      <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Karim Lakhani, Harvard Business School</p>
+    </div>
+  </div>
+  <p class="medium-text" style="margin-top: 24px; font-weight: 600;">The people in this room? You're on the <span class="purple">right side</span>.</p>
+  <div class="speaker-note">Look at kornpat here. "I know some of you worry about this. The answer is simple. The person who controls AI won't be replaced. That's you, right now."</div>
+</div>
+
+<!-- 16. AI vs REAL TEAM -->
+<div class="slide" id="s16">
+  <p class="big-text" style="margin-bottom: 32px;">Benefits of owning an AI team</p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px;">
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">💰</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">&#3647;700/month</p>
+      <p style="font-size: 14px; color: var(--text-light);">Instead of &#3647;250,000+ in salaries</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">⏰</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Works 24/7</p>
+      <p style="font-size: 14px; color: var(--text-light);">Weekends, holidays, 3am</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">⚡</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Learns in seconds</p>
+      <p style="font-size: 14px; color: var(--text-light);">No weeks of training needed</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">🔄</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Never quits</p>
+      <p style="font-size: 14px; color: var(--text-light);">No sick days, no complaints</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">📈</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Scales instantly</p>
+      <p style="font-size: 14px; color: var(--text-light);">5 tasks or 500, same cost</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
+      <p style="font-size: 32px; margin-bottom: 8px;">🎯</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Does exactly what you say</p>
+      <p style="font-size: 14px; color: var(--text-light);">No miscommunication</p>
+    </div>
+  </div>
+</div>
+
+<!-- 17. #1 SKILL -->
+<div class="slide" id="s17">
+  <p class="subtitle" style="margin-bottom: 12px;">Your #1 skill in 2026?</p>
+  <p class="big-text">Learning how to <span class="purple">communicate</span><br>with your AI team.</p>
+  <p class="medium-text" style="margin-top: 20px;">Tell them what you want. They build it. You grow.</p>
+</div>
+
+<!-- 18. EXCITED? -->
+<div class="slide" id="s18">
+  <p class="big-text">Who is <span class="purple">excited</span> to learn<br>some of this today?</p>
+  <div class="speaker-note">Pause. Look around. Let them raise hands. "I see you. Let's go."</div>
+</div>
+
+<!-- 19. CHATBOT vs COWORKER -->
+<div class="slide" id="s19">
+  <p class="big-text">Most AI tools live <span class="red">in the cloud</span>.</p>
+  <p class="big-text" style="margin-top: 16px;">Claude lives <span class="purple">on your computer</span>.</p>
+  <p class="medium-text" style="margin-top: 24px; color: var(--text-muted);">That's why we're here today.</p>
+</div>
+
+<!-- CLAUDE vs CHATGPT COMPARISON -->
+<div class="slide" style="padding: 25px 50px;">
+  <p class="label">Honest Comparison</p>
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(26px, 3.5vw, 42px);">Claude vs ChatGPT</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">Both $20/mo. Both can create files and connect to apps. Here's where they <strong>actually</strong> differ.</p>
+  <div style="max-width: 900px; width: 100%;">
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); font-size: 14px;">
+      <div style="background: var(--card-bg); padding: 10px 14px; font-weight: 700; border-bottom: 1px solid var(--border);">Feature</div>
+      <div style="background: var(--card-bg); padding: 10px 14px; font-weight: 700; text-align: center; border-bottom: 1px solid var(--border);">ChatGPT Plus</div>
+      <div style="background: #f5f0ff; padding: 10px 14px; font-weight: 700; text-align: center; border-bottom: 1px solid var(--border); color: var(--purple);">Claude Pro</div>
+
+      <div style="padding: 8px 14px; border-bottom: 1px solid var(--border);">Create files (XLSX, PDF)</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border);">&#9989; Yes</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #fafafa;">&#9989; Yes</div>
+
+      <div style="padding: 8px 14px; border-bottom: 1px solid var(--border);">App connectors (Gmail, Canva...)</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border);">&#9989; 17 apps</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #fafafa;">&#9989; 20+ apps</div>
+
+      <div style="padding: 8px 14px; border-bottom: 1px solid var(--border); font-weight: 600;">Access your local files</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #fef2f2;">&#10060; Cloud sandbox only</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #f0fdf4; font-weight: 600;">&#9989; Reads your real files</div>
+
+      <div style="padding: 8px 14px; border-bottom: 1px solid var(--border); font-weight: 600;">Build apps on your computer</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #fef2f2;">&#10060; No</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #f0fdf4; font-weight: 600;">&#9989; Code builds real tools</div>
+
+      <div style="padding: 8px 14px; border-bottom: 1px solid var(--border); font-weight: 600;">Interactive visuals (any topic)</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #fef2f2;">&#128300; Math/science only</div>
+      <div style="padding: 8px 14px; text-align: center; border-bottom: 1px solid var(--border); background: #f0fdf4; font-weight: 600;">&#9989; Show works for anything</div>
+
+      <div style="padding: 8px 14px;">Business plugins</div>
+      <div style="padding: 8px 14px; text-align: center;">&#128736; Custom GPTs (community)</div>
+      <div style="padding: 8px 14px; text-align: center; background: #fafafa; font-weight: 600;">&#9989; 11 official by Anthropic</div>
+    </div>
+  </div>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Both are good. Claude's edge: it works <strong>on your computer</strong>, not just in the cloud.</p>
+  <div class="speaker-note">Be honest. "ChatGPT is great too. I'm not here to bash it. But Claude can touch your actual files and build real tools on your machine. That's the key difference for business owners."</div>
+</div>
+
+<!-- 20. 3 TABS -->
+<div class="slide" id="s20" style="padding: 20px 40px;">
+  <p class="label">Inside Claude Desktop</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(28px, 4vw, 48px);">3 Tabs. 3 Levels of Power.</p>
+  <div style="position: relative; max-width: 750px; width: 100%;">
+    <img src="claude-3tabs.png" alt="Claude Desktop with Chat, Cowork, Code tabs" style="width: 100%; max-height: 55vh; object-fit: contain; border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+    <!-- Highlight the 3 tabs -->
+    <div style="position: absolute; top: 0.5%; left: 38%; width: 24%; height: 4.5%; border: 3px solid var(--purple); border-radius: 8px; box-shadow: 0 0 12px rgba(123, 47, 242, 0.5);"></div>
+  </div>
+  <div class="card-row" style="margin-top: 12px;">
+    <div class="card" style="padding: 10px 18px;">
+      <div class="step-num" style="width: 24px; height: 24px; font-size: 12px;">1</div>
+      <h3 style="font-size: 15px;">Chat</h3>
+      <p style="font-size: 12px;">Ask questions. Get answers.</p>
+    </div>
+    <div class="card" style="padding: 10px 18px;">
+      <div class="step-num" style="width: 24px; height: 24px; font-size: 12px;">2</div>
+      <h3 style="font-size: 15px;">Cowork</h3>
+      <p style="font-size: 12px;">Give it a task. Get back a file.</p>
+    </div>
+    <div class="card" style="padding: 10px 18px;">
+      <div class="step-num" style="width: 24px; height: 24px; font-size: 12px;">3</div>
+      <h3 style="font-size: 15px;">Code</h3>
+      <p style="font-size: 12px;">Build tools that LAST.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 21. CHAT = SHOW -->
+<div class="slide" id="s21" style="padding: 30px 40px;">
+  <p class="label">New Feature</p>
+  <p class="big-text" style="margin-bottom: 16px;">Chat now has <span class="purple">"Show"</span></p>
+  <p class="medium-text" style="margin-bottom: 20px; max-width: 700px;">Just say "Show me how X works" and Claude builds you an interactive visual. Try it right now.</p>
+  <img src="claude-show-feature.png" alt="Claude Show feature - interactive compound interest calculator" style="width: 100%; max-width: 850px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+  <p class="small-text" style="margin-top: 12px;">"Show me how compound interest works" ... "Show me how my business expenses break down"</p>
+  <div class="speaker-note">Live demo moment. Open Claude, type "Show me how compound interest works", let them see it build in real time. Then say "You can do this with ANYTHING. Try it."</div>
+</div>
+
+<!-- 22. TRY IT NOW -->
+<div class="slide" id="s22">
+  <p class="label">Your turn</p>
+  <p class="big-text" style="margin-bottom: 28px;">Open Claude. Type <span class="purple">"Show me..."</span></p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 800px; text-align: left;">
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#128200; "Show me how compound interest works"</p>
+    </div>
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#128176; "Show me how to calculate profit margin"</p>
+    </div>
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#128197; "Show me a monthly budget planner"</p>
+    </div>
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#127891; "Show me how the Thai tax brackets work"</p>
+    </div>
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#128640; "Show me a customer journey funnel"</p>
+    </div>
+    <div class="prompt-box" style="padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;">
+      <p style="font-size: 15px;">&#127916; "Show me how a film production timeline works"</p>
+    </div>
+  </div>
+  <p class="small-text" style="margin-top: 20px;">Pick one. Or make up your own. You have 3 minutes.</p>
+  <div class="speaker-note">Give them 3 minutes. Walk around, help anyone stuck. This is the "wow" moment where they see AI build something visual instantly.</div>
+</div>
+
+<!-- BREAK: SHOW -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Take a Few Minutes</p>
+  <p class="medium-text">Keep playing with <strong>Show</strong>. Try different prompts.</p>
+  <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted);">Ask Claude to show you something about YOUR business.</p>
+  <div class="speaker-note">Walk around, help people, point out cool results. ~3 min.</div>
+</div>
+
+<!-- 23. WHAT YOU NEED -->
+<div class="slide" id="s23">
+  <p class="big-text" style="margin-bottom: 24px;">What You Need</p>
+  <div style="text-align: left; max-width: 500px;">
+    <div class="list-item"><span class="list-icon">&#9989;</span> Claude Desktop app installed (free)</div>
+    <div class="list-item"><span class="list-icon">&#9989;</span> Pro plan ($20/mo) for Cowork &amp; Code</div>
+    <div class="list-item"><span class="list-icon">&#128101;</span> No Pro yet? Pair up with someone who does</div>
+  </div>
+</div>
+
+<!-- 24. BLOCK 1 TITLE -->
+<div class="slide" id="s24">
+  <p class="label">Block 1</p>
+  <p class="big-text">Cowork</p>
+  <p class="medium-text" style="margin-top: 12px;">Your 24/7 AI assistant that actually does the work.</p>
+</div>
+
+<!-- 25. WHAT IS COWORK -->
+<div class="slide" id="s25">
+  <p class="big-text" style="margin-bottom: 28px;">What is Cowork?</p>
+  <div class="card-row" style="max-width: 800px;">
+    <div class="card">
+      <div class="card-icon">&#128196;</div>
+      <h3>Real Files</h3>
+      <p>Excel, PowerPoint, PDF, images.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128737;</div>
+      <h3>Safe Sandbox</h3>
+      <p>Nothing can break. Nothing touches your files.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#9889;</div>
+      <h3>30-Second Freelancer</h3>
+      <p>Describe it. Come back to finished work.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECTORS - WHAT -->
+<div class="slide" style="padding: 30px 60px;">
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(24px, 3.5vw, 40px);">Connect Claude to your <span class="purple">real tools</span></p>
+  <p class="medium-text" style="margin-bottom: 16px;">Connectors let Cowork read, write, and act inside the apps you already use.</p>
+  <img src="cowork-connectors-list.png" alt="Cowork Connectors" style="max-width: 65%; max-height: 45vh; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; max-width: 800px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Gmail</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Google Calendar</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Notion</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Canva</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Slack</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">HubSpot</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Google Drive</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Asana</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Figma</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">+ more</div>
+  </div>
+</div>
+
+<!-- CONNECTORS - HOW IT WORKS -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(22px, 3vw, 36px);">How Connectors Work</p>
+  <p class="medium-text" style="margin-bottom: 16px;">Add a connector once. Claude can use it in any task automatically.</p>
+  <div style="display: flex; gap: 24px; align-items: flex-start; max-width: 1100px; width: 100%;">
+    <div style="flex: 1; text-align: center;">
+      <p style="font-size: 14px; font-weight: 600; color: var(--purple); margin-bottom: 8px;">1. Set up connectors in Customize</p>
+      <img src="cowork-connectors-panel.png" alt="Connectors panel" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.1);" />
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <p style="font-size: 14px; font-weight: 600; color: var(--purple); margin-bottom: 8px;">2. Claude uses them in your tasks</p>
+      <img src="cowork-connectors-task.png" alt="Connectors in action" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.1);" />
+    </div>
+  </div>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Example: "Make an Excalidraw diagram" ... Claude connects to Excalidraw, searches the web for reference, and draws it for you.</p>
+</div>
+
+<!-- CONNECTOR EXAMPLE: EXCALIDRAW -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(22px, 3vw, 36px);">Example: Excalidraw Connector</p>
+  <p class="medium-text" style="margin-bottom: 16px;">One prompt. Claude researches, designs, and draws a full diagram for you.</p>
+  <div style="display: flex; gap: 24px; align-items: flex-start; max-width: 1100px; width: 100%;">
+    <div style="flex: 1; text-align: center;">
+      <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">The prompt + Claude's work</p>
+      <img src="excalidraw-cowork.png" alt="Excalidraw prompt in Cowork" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.1);" />
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <p style="font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">The result (interactive diagram)</p>
+      <img src="excalidraw-result.png" alt="Excalidraw result" style="width: 100%; border-radius: 10px; box-shadow: 0 3px 16px rgba(0,0,0,0.1);" />
+    </div>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt used:</strong> "Make an excalidraw that explains the new 'show' update from Claude, make it friendly with characters etc"
+  </div>
+</div>
+
+<!-- 31. HANDS-ON: EXCALIDRAW -->
+<div class="slide" id="s31" style="padding: 40px 60px;">
+  <p class="label">Let's Try Together</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(28px, 4vw, 44px);">&#9998; Try Excalidraw Connector</p>
+  <div style="max-width: 800px; width: 100%;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--green);">Step 1: Add the connector</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Cowork &#8594; Customize (sidebar) &#8594; Connectors &#8594; Find <strong>Excalidraw</strong> &#8594; Click <strong>+</strong></p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--green);">Step 2: Start a new task</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Click <strong>New task</strong> in the sidebar. Make sure Excalidraw shows in your connectors.</p>
+    </div>
+    <div class="prompt-box" style="text-align: left;">
+      <strong style="color: var(--purple);">Step 3: Paste this prompt</strong><br><br>
+      Create an Excalidraw diagram of my business workflow. My business is [describe in 1 sentence]. Show the main steps from customer discovery to delivery. Use friendly icons and colors.
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center;">Takes about 1-2 minutes. You'll get an interactive diagram you can edit and share.</p>
+  </div>
+</div>
+
+<!-- 32. HANDS-ON: CANVA -->
+<div class="slide" id="s32" style="padding: 40px 60px;">
+  <p class="label">Let's Try Together</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(28px, 4vw, 44px);">&#127912; Try Canva Connector</p>
+  <div style="max-width: 800px; width: 100%;">
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--purple);">Step 1: Add the connector</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Cowork &#8594; Customize &#8594; Connectors &#8594; Find <strong>Canva</strong> &#8594; Click <strong>+</strong> &#8594; Log in to your Canva account</p>
+    </div>
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--purple);">Step 2: Start a new task</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">New task. Make sure Canva shows in your connectors.</p>
+    </div>
+    <div class="prompt-box" style="text-align: left;">
+      <strong style="color: var(--purple);">Step 3: Paste this prompt</strong><br><br>
+      Create a professional Instagram post for my business [your business name]. Use Canva to design it. The post should announce [a promotion, event, or new product]. Use modern, clean design with bold text.
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center;">Claude designs it directly in Canva. You can edit it further in your Canva account.</p>
+  </div>
+</div>
+
+<!-- BREAK: CONNECTORS -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Take a Few Minutes</p>
+  <p class="medium-text">Wait for your Excalidraw or Canva result to finish.</p>
+  <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted);">Show your neighbor what you made. Try another connector if you're done.</p>
+  <div class="speaker-note">Walk around, help people connect. Some may need help logging into Canva. ~3-5 min.</div>
+</div>
+
+<!-- IDEAS TAB -->
+<div class="slide" style="padding: 30px 60px;">
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(24px, 3.5vw, 40px);">Don't know where to start? Use <span class="purple">Ideas</span></p>
+  <p class="medium-text" style="margin-bottom: 16px;">Click "Ideas" in the sidebar. Browse ready-made tasks you can run instantly.</p>
+  <img src="cowork-ideas-tab.png" alt="Cowork Ideas tab" style="max-width: 60%; max-height: 45vh; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 16px;">Categories: Writing, Analysis, Research, Design, Data, and more.</p>
+</div>
+
+<!-- TRY IDEAS -->
+<div class="slide" style="padding: 40px 60px;">
+  <p class="label">Let's Try Together</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(28px, 4vw, 44px);">&#128161; Try an Idea</p>
+  <div style="max-width: 800px; width: 100%;">
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--purple);">Step 1: Open Ideas</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Cowork &#8594; Click <strong>Ideas</strong> in the left sidebar</p>
+    </div>
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--purple);">Step 2: Browse and pick one</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Find something relevant to your business. Click it to start.</p>
+    </div>
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 16px 24px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--purple);">Step 3: Follow the prompts</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Claude will ask you a few questions, then create the deliverable for you.</p>
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center;">Pick whichever Idea interests you. There's no wrong choice.</p>
+  </div>
+</div>
+
+<!-- PLUGINS -->
+<div class="slide" style="padding: 30px 60px;">
+  <p class="big-text" style="margin-bottom: 8px; font-size: clamp(24px, 3.5vw, 40px);">Want superpowers? Add <span class="purple">Plugins</span></p>
+  <p class="medium-text" style="margin-bottom: 16px;">11 official plugins that give Claude extra abilities.</p>
+  <img src="cowork-plugins-tab.png" alt="Cowork Plugins" style="max-width: 60%; max-height: 45vh; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; max-width: 700px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Web Search</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Data Charts</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">CRM</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Newsletter</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Website Builder</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">+ 6 more</div>
+  </div>
+</div>
+
+<!-- TRY PLUGINS -->
+<div class="slide" style="padding: 40px 60px;">
+  <p class="label">Let's Try Together</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(28px, 4vw, 44px);">&#128268; Try a Plugin</p>
+  <div style="max-width: 800px; width: 100%;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--green);">Step 1: Enable a plugin</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Cowork &#8594; Customize &#8594; Plugins &#8594; Toggle on <strong>Web Search</strong> or <strong>Data Charts</strong></p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--green);">Step 2: Start a new task</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">New task with your plugin enabled.</p>
+    </div>
+    <div class="prompt-box" style="text-align: left;">
+      <strong style="color: var(--purple);">Step 3: Try this prompt</strong><br><br>
+      Search the web for the top 3 trends in [your industry] in 2026. Summarize them in a table with what it means for my business.
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center;">Web Search lets Claude find real-time information. Data Charts can visualize your data.</p>
+  </div>
+</div>
+
+<!-- 31. COWORK USE CASES INTRO -->
+<div class="slide" id="s31">
+  <p class="label">Cowork Power Moves</p>
+  <p class="big-text">7 Things You Can Do<br>Right Now in Cowork</p>
+  <p class="medium-text" style="margin-top: 16px;">I'll demo each one. Then you try.</p>
+</div>
+
+<!-- 32. USE CASE 1: DIGITAL JANITOR -->
+<div class="slide" id="s32">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 1</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Digital Janitor</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Claude reads every file in a messy folder, understands what each one is, renames them, and organizes into subfolders.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">Under 1 minute. Everyone has a messy folder.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#128451;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-messy-files.txt" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Messy Files List</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">20 files with ugly names. Upload this to Cowork.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Look at this file list. Read each description to understand what each file actually is. Rename every file with a clear, descriptive name. Then organize them into logical folders (Documents, Images, Spreadsheets, Receipts, etc). Show me the before and after.
+  </div>
+</div>
+
+<!-- 33. USE CASE 2: DATA → CHARTS -->
+<div class="slide" id="s33">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 2</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Data &#8594; Charts</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Upload any spreadsheet or CSV. Claude writes Python, runs it, and gives you professional charts + a full report. No coding needed.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">Works with 50,000+ rows. 3 minutes.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#128202;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-sales-data.csv" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Sample CSV</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">35 rows of Thai business sales data. Upload this to Cowork.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Analyze this sales data CSV. Create bar charts for revenue by month, a line chart for trends, and a pie chart for categories. Write a 1-page executive summary with key insights. Save everything as files I can download.
+  </div>
+</div>
+
+<!-- 34. USE CASE 3: BULK INVOICES -->
+<div class="slide" id="s34">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 3</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Bulk Invoice Processing</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Drop 50+ PDF invoices. Claude reads every one, extracts the data (date, amount, vendor), creates a master spreadsheet, and organizes the files.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">50 invoices in 5 minutes vs. hours by hand.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#128196;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-invoices.html" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Sample Invoices</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">8 realistic Thai business invoices. Upload to Cowork.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Process all the invoices in this file. For each one, extract: invoice number, vendor name, date, due date, and total amount (THB). Create a master CSV spreadsheet with all the data. Add a column for payment status. Sort by date.
+  </div>
+</div>
+
+<!-- TRY: DATA CHARTS -->
+<div class="slide">
+  <div class="try-it-icon">&#128202;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Try It Now</p>
+  <p class="medium-text" style="margin-bottom: 16px;">Download the CSV. Upload it to Cowork. Get instant charts.</p>
+  <div style="text-align: center;">
+    <a href="sample-sales-data.csv" download style="display: inline-block; background: var(--purple); color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">&#11015; Download Sample CSV</a>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 700px;">
+    <strong style="color: var(--purple);">Paste this:</strong> Analyze this sales data. Create charts for revenue by month and by category. Write a short summary with the key insights. Save as downloadable files.
+  </div>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">While that runs, I'll show the next use case.</p>
+  <div class="speaker-note">They download CSV, upload to Cowork, paste prompt. While it processes, move to next slide. ~2 min to start.</div>
+</div>
+
+<!-- 35. USE CASE 4: CRM PIPELINE -->
+<div class="slide" id="s35">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 4</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Customer List &#8594; Visual CRM</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Drop a list of your customers or leads. Claude builds a drag-and-drop pipeline board with stages like New, Contacted, Proposal, Won, Lost. A full CRM from a simple list.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">No Salesforce. No HubSpot. Just your data + Claude.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#127919;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-customers.csv" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Sample Customers</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">15 customers with deal values, stages, and notes. Upload this to Cowork.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Build me a visual CRM pipeline as a single HTML file. Use this customer list: [paste your names]. Create a Kanban board with columns: New Lead, Contacted, Proposal Sent, Negotiating, Won, Lost. Make each card draggable between columns. Show customer name, business, deal value, and last contact date. Add a button to add new leads. Make it look modern and professional.
+  </div>
+</div>
+
+<!-- TRY: CRM PIPELINE -->
+<div class="slide">
+  <div class="try-it-icon">&#127919;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Try It Now</p>
+  <p class="medium-text" style="margin-bottom: 16px;">Download the customer list. Upload it. Get a visual CRM.</p>
+  <div style="text-align: center;">
+    <a href="sample-customers.csv" download style="display: inline-block; background: var(--purple); color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">&#11015; Download Sample Customers</a>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 700px;">
+    <strong style="color: var(--purple);">Paste this:</strong> Build me a visual CRM pipeline from this customer data. Create a Kanban board with columns: New Lead, Contacted, Proposal, Won, Lost. Make each card show name, deal value, and status. Make it drag-and-drop. Save as an HTML file.
+  </div>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">This one takes 1-2 minutes. Check your Data Charts result while you wait.</p>
+  <div class="speaker-note">"Download the file, upload it, paste the prompt. While it builds, check if your charts from earlier are done."</div>
+</div>
+
+<!-- 36. USE CASE 5: NEWSLETTER -->
+<div class="slide" id="s36">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 5</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Newsletter Generator</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Tell Claude about your business and upcoming events. It creates a fully designed HTML newsletter email, ready to copy into your email tool and send.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">A 30-minute task done in 2 minutes.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#128231;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-business-brief.txt" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Business Brief</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Sample cafe business info. Or describe your own business.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Read this business brief. Create a professional HTML newsletter email with: a welcome header, main announcement (new menu), special offer section (15% off catering), CTA button, and footer. Use the brand colors from the brief. Make it ready to paste into Gmail or Mailchimp.
+  </div>
+</div>
+
+<!-- 37. USE CASE 6: BUILD A WEBSITE -->
+<div class="slide" id="s37">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 6</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Build a Website</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Describe your business. Claude builds a complete website with hero section, about, services, contact form. One HTML file you can open instantly.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">From zero to live website in 10 minutes.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#127760;</div>
+  </div>
+  <div style="margin-top: 20px; text-align: center;">
+    <a href="sample-business-brief.txt" download style="display: inline-block; background: var(--purple); color: #fff; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">&#11015; Download Business Brief</a>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Same business brief. Or describe your own business in the prompt.</p>
+  </div>
+  <div class="prompt-box" style="margin-top: 16px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Read this business brief. Build me a complete one-page website with: hero section with headline and tagline, about section, menu/services with prices, 3 customer testimonials, location + contact info, and mobile responsive design. Use the brand colors from the brief. Save as a single HTML file.
+  </div>
+</div>
+
+<!-- 38. USE CASE 7: CHROME EXTENSION -->
+<div class="slide" id="s38">
+  <div style="display: flex; align-items: flex-start; gap: 40px; max-width: 900px; text-align: left;">
+    <div style="flex: 1;">
+      <p class="label" style="text-align: left;">Use Case 7</p>
+      <p class="big-text" style="font-size: clamp(28px, 4vw, 44px); text-align: left;">Chrome Extension</p>
+      <p class="medium-text" style="margin-top: 12px; text-align: left;">Describe a browser tool you wish existed. Claude builds the entire Chrome extension from scratch. Load it in developer mode and use it immediately.</p>
+      <p style="margin-top: 12px; font-size: 14px; color: var(--green); font-weight: 600;">Empty folder to working extension in 5 minutes.</p>
+    </div>
+    <div style="font-size: 80px; line-height: 1;">&#129529;</div>
+  </div>
+  <div class="prompt-box" style="margin-top: 24px; max-width: 900px; text-align: left;">
+    <strong style="color: var(--purple);">Prompt:</strong> Build me a Chrome extension that saves any webpage as a clean PDF with one click. Include an icon, a popup that shows "Saved!" confirmation, and instructions for how to install it in Chrome developer mode.
+  </div>
+</div>
+
+<!-- TRY: WEBSITE OR NEWSLETTER -->
+<div class="slide">
+  <div class="try-it-icon">&#127760;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Try It Now</p>
+  <p class="medium-text" style="margin-bottom: 16px;">Pick one. Customize the prompt for YOUR business.</p>
+  <div style="display: flex; gap: 16px; max-width: 800px; width: 100%;">
+    <div class="prompt-box" style="flex: 1; margin-top: 0;">
+      <strong style="color: var(--purple);">&#128231; Newsletter</strong><br><br>
+      Create a professional HTML newsletter for my [business type]. Include a welcome, 3 highlights about [your topics], and a CTA button. Make it ready to paste into Gmail.
+    </div>
+    <div class="prompt-box" style="flex: 1; margin-top: 0;">
+      <strong style="color: var(--purple);">&#127760; Website</strong><br><br>
+      Build me a one-page website for my [business] called [name]. Include hero, about, 3 services, testimonials, and contact form. Use [your color]. Save as HTML.
+    </div>
+  </div>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">Open a new Cowork task. Paste. Customize. Go.</p>
+  <div class="speaker-note">"Pick one. Fill in the brackets with your business info. Let Claude build it."</div>
+</div>
+
+<!-- BREAK: SHARE RESULTS -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Take a Few Minutes</p>
+  <p class="medium-text">Check all your results. Download the files. Open them.</p>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px;">
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 600;">&#128202; Charts done?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 600;">&#127919; CRM done?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 600;">&#128231; Newsletter done?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 600;">&#127760; Website done?</div>
+  </div>
+  <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted);">Show your neighbor the coolest thing you made. Who wants to share with the room?</p>
+  <div class="speaker-note">This is the big "wow" moment. Walk around, celebrate results. Ask 2-3 people to show their screen. ~5 min.</div>
+</div>
+
+<!-- LUNCH BREAK -->
+<div class="slide">
+  <p style="font-size: 64px; margin-bottom: 16px;">&#127860;</p>
+  <p class="big-text" style="margin-bottom: 12px;">Lunch Break</p>
+  <p class="medium-text">Enjoy your meal. We'll continue at <strong>13:15</strong>.</p>
+  <p style="margin-top: 20px; font-size: 15px; color: var(--text-muted);">Feel free to keep playing with Claude while you eat.</p>
+  <div class="speaker-note">1 hour lunch. 12:15 to 13:15.</div>
+</div>
+
+<!-- Q&A 1 -->
+<div class="slide">
+  <p style="font-size: 64px; margin-bottom: 16px;">&#128587;</p>
+  <p class="big-text" style="margin-bottom: 12px;">Quick Q&A</p>
+  <p class="medium-text">Questions about anything so far?</p>
+  <div style="margin-top: 24px; max-width: 600px; text-align: left;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; font-size: 15px;">&#128172; Chat, Show, Cowork... anything unclear?</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; font-size: 15px;">&#128268; Connectors, Plugins... need help setting up?</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; font-size: 15px;">&#129300; How would YOU use this in your business?</div>
+  </div>
+  <div class="speaker-note">5-10 min Q&A. Encourage specific business questions. "What's one thing you'd want Claude to do for YOUR business?"</div>
+</div>
+
+<!-- CONTENT CREATION SECTION TITLE -->
+<div class="slide">
+  <p class="label">Content Creation</p>
+  <p class="big-text">Create Viral Content<br>with <span class="purple">Proven Frameworks</span></p>
+  <p class="medium-text" style="margin-top: 20px;">Most people ask AI to "write a post" and get generic garbage.<br>We're going to give it a <strong>proven framework</strong> and get gold.</p>
+</div>
+
+<!-- CONTENT CREATION: THE PROBLEM -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 28px;">Why Most AI Content <span class="red">Fails</span></p>
+  <div class="compare-row" style="max-width: 800px;">
+    <div class="compare-col" style="background: #fef2f2;">
+      <h3 style="color: var(--red);">&#10060; What people do</h3>
+      <ul>
+        <li>"Write me a social media post about my cafe"</li>
+        <li>Generic. Boring. Sounds like AI.</li>
+        <li>No hook. No structure. No emotion.</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background: #f0fdf4;">
+      <h3 style="color: var(--green);">&#9989; What we'll do</h3>
+      <ul>
+        <li>Give Claude a <strong>proven viral framework</strong></li>
+        <li>Feed it YOUR business details</li>
+        <li>Get a script that follows the same structure top creators use</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT CREATION: FRAMEWORKS -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="label">Your Secret Weapon</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(26px, 3.5vw, 42px);">12 Viral Script Frameworks</p>
+  <p class="medium-text" style="margin-bottom: 20px;">Download this PDF. Upload it to Claude. Ask it to pick the right framework for your business and write you a script.</p>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 800px; margin-bottom: 20px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#127775; Bandwagon</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128165; Contrarian</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128221; Listicle</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128100; Founder Story</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128161; How-To</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#127916; Organic</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128293; PAS</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128247; Ugly Ads</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128170; Objections</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#9878; Us vs Them</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#127873; Triple G</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;">&#128064; Tease</div>
+  </div>
+  <a href="scripting-frameworks-2026.pdf" download style="display: inline-block; background: var(--purple); color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">&#11015; Download Scripting Frameworks PDF</a>
+  <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Save this. You'll use it every time you create content.</p>
+</div>
+
+<!-- CONTENT CREATION: HANDS-ON -->
+<div class="slide" style="padding: 40px 60px;">
+  <p class="label">Let's Try Together</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(28px, 4vw, 44px);">&#127916; Create Your Viral Script</p>
+  <div style="max-width: 800px; width: 100%;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px 24px; margin-bottom: 16px; text-align: left;">
+      <p style="font-weight: 700; font-size: 16px; color: var(--green);">Step 1: Upload the PDF</p>
+      <p style="font-size: 14px; color: var(--text-light); margin-top: 4px;">Open Cowork. Attach the Scripting Frameworks PDF you just downloaded.</p>
+    </div>
+    <div class="prompt-box" style="text-align: left;">
+      <strong style="color: var(--purple);">Step 2: Paste this prompt</strong><br><br>
+      Read this scripting frameworks document. I run a [describe your business in 1-2 sentences]. Pick the best framework for my business and write me a 30-second video script I can use for social media. Make it feel natural, not salesy. Include the hook, body, and call to action.
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center;">Claude will analyze all 12 frameworks and pick the best one for YOUR business.</p>
+  </div>
+  <div class="speaker-note">Live demo first. Upload the PDF yourself, show them the process. Then they try. ~5 min for them.</div>
+</div>
+
+<!-- BREAK: CONTENT CREATION -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 12px;">Take a Few Minutes</p>
+  <p class="medium-text">Wait for your script. Read it. Ask Claude to tweak the tone or make another version.</p>
+  <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted);">Try: "Make it more casual" or "Write a second version using the PAS framework"</p>
+  <div class="speaker-note">Walk around, help people iterate on their scripts. ~5 min.</div>
+</div>
+
+<!-- Q&A 2 -->
+<div class="slide">
+  <p style="font-size: 64px; margin-bottom: 16px;">&#128587;</p>
+  <p class="big-text" style="margin-bottom: 12px;">Open Q&A</p>
+  <p class="medium-text">Ask me anything about what we covered today.</p>
+  <div style="margin-top: 24px; max-width: 600px; text-align: left;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; font-size: 15px;">&#9889; "How do I use this for [my specific business]?"</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; font-size: 15px;">&#128176; "What's the best use case to start with?"</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 20px; font-size: 15px;">&#129300; "Can Claude do [something specific]?"</div>
+  </div>
+  <div class="speaker-note">10-15 min open Q&A. Let everyone ask. Share specific examples for each person's business.</div>
+</div>
+
+<!-- WHAT YOU LEARNED -->
+<div class="slide">
+  <p class="label">The Big Picture</p>
+  <p class="big-text" style="margin-bottom: 28px;">What You Learned Today</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 700px;">
+    <div class="card">
+      <div class="card-icon">&#128172;</div>
+      <h3>Chat + Show</h3>
+      <p>Interactive visuals from a simple prompt</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128196;</div>
+      <h3>Cowork</h3>
+      <p>Real files, charts, websites, newsletters</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128268;</div>
+      <h3>Connectors + Plugins</h3>
+      <p>Gmail, Canva, Excalidraw, 20+ apps</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#127916;</div>
+      <h3>Content Creation</h3>
+      <p>Viral scripts from proven frameworks</p>
+    </div>
+  </div>
+  <p class="medium-text" style="margin-top: 24px;">All of this for <strong>$20/month</strong>. No developer needed.</p>
+</div>
+
+<!-- BEFORE vs AFTER -->
+<div class="slide">
+  <div class="compare-row">
+    <div class="compare-col" style="background: #fef2f2;">
+      <h3 style="color: var(--red);">Before Today</h3>
+      <ul>
+        <li>&#10060; Used AI to ask questions</li>
+        <li>&#10060; Got text answers</li>
+        <li>&#10060; Had to do all the work yourself</li>
+        <li>&#10060; AI felt like a fancy Google</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background: #f0fdf4;">
+      <h3 style="color: var(--green);">After Today</h3>
+      <ul>
+        <li>&#10004; Created real business files and tools</li>
+        <li>&#10004; Connected AI to your real apps</li>
+        <li>&#10004; Generated viral content with frameworks</li>
+        <li>&#10004; AI feels like a team member</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BUT THERE'S MORE -->
+<div class="slide">
+  <p class="medium-text" style="margin-bottom: 12px;">Today was just the beginning.</p>
+  <p class="big-text">There's a <span class="purple">whole level</span> we didn't even touch.</p>
+  <p class="medium-text" style="margin-top: 20px;">Claude <strong>Code</strong>. Custom AI agents. Automated workflows.<br>Things that run your business while you sleep.</p>
+  <div class="speaker-note">Transition to offer. "Today we covered Chat, Show, Cowork, Connectors, Content. But there's Code, and that's where it gets really powerful. Now let me tell you how you can keep going."</div>
+</div>
+
+<!-- THE PROBLEM -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">Here's the <span class="red">problem</span>.</p>
+  <p class="medium-text" style="max-width: 700px; line-height: 1.7;">You go home. You try Claude alone. You get stuck. No one to ask. No one to show you the next step. You lose momentum. And in 2 weeks... you're back to doing everything the old way.</p>
+  <div class="speaker-note">Pause. Let this sink in. "Be honest... how many online courses have you bought and never finished?"</div>
+</div>
+
+<!-- THE SOLUTION -->
+<div class="slide">
+  <p class="label">The Solution</p>
+  <p class="big-text" style="margin-bottom: 12px;">Claude Master <span class="purple">Thailand</span></p>
+  <p class="medium-text" style="max-width: 700px;">Thailand's first in-person AI community for business owners.<br>Not a course. Not a Zoom call. <strong>Real people, real workshops, real results.</strong></p>
+  <div class="speaker-note">"This is the first in-person AI community in Thailand. Not online. Not a course you forget about. We meet face to face. Just like today. That's the difference."</div>
+</div>
+
+<!-- MEET YOUR MENTORS -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="label">Your Mentors</p>
+  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(26px, 3.5vw, 42px);">Two people who <span class="purple">actually do this</span></p>
+  <div style="display: flex; gap: 32px; max-width: 800px; justify-content: center; flex-wrap: wrap;">
+    <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
+      <p style="font-size: 48px; margin-bottom: 8px;">&#128640;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Jonny West</p>
+      <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">10 years in online business<br>2x ClickFunnels Comma Club (7 figures)<br>Built AI CEO Studio (68 paying users)<br>Consults companies on AI automation</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
+      <p style="font-size: 48px; margin-bottom: 8px;">&#127775;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Kantawee Saengsai</p>
+      <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">$100K Club winner at DIYECOM<br>Thai ecommerce and digital marketing expert<br>Actively uses Claude to scale businesses<br>Based right here in Bangkok</p>
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 16px; color: var(--text); font-weight: 600;">Not teachers. Not influencers. <span class="purple">Practitioners</span> who build with AI every single day.</p>
+  <div class="speaker-note">"These aren't people who read about AI and made a course. We USE this. Every day. To run real businesses. And you get direct access to both of us."</div>
+</div>
+
+<!-- STACK SLIDE -->
+<div class="slide stack-slide" style="padding: 20px 40px;" id="stack-slide">
+  <p class="label">3 Months. Everything You Need.</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(24px, 3.5vw, 38px);">Claude Master Thailand</p>
+  <div style="max-width: 700px; width: 100%;" id="stack-items">
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128187;</span>
+          <div>
+            <p class="stack-title">3 Expert-Level Live Workshops</p>
+            <p class="stack-desc">Not beginner stuff. We go deep: automate your business, create AI employees, get more customers, and monetize. Hands-on, in person, right here in Bangkok.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;15,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128640;</span>
+          <div>
+            <p class="stack-title">Direct Access to Jonny + Kantawee</p>
+            <p class="stack-desc">Live sessions, Q&amp;A calls, direct messaging. Two mentors who've built million-dollar businesses and consult major companies. You get us for 3 months.</p>
+          </div>
+        </div>
+        <p class="stack-value">Priceless</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#127758;</span>
+          <div>
+            <p class="stack-title">Thailand's First In-Person AI Community</p>
+            <p class="stack-desc">Network with business owners who think like you. Thai and international. Real connections, not just a chat group. People you'll do business with.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;6,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#129302;</span>
+          <div>
+            <p class="stack-title">AI Automation + AI Employees</p>
+            <p class="stack-desc">Learn to build AI agents that handle your sales, content, email, and customer support. Stop doing repetitive work. Let AI employees handle it.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;15,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128274;</span>
+          <div>
+            <p class="stack-title">AI Security + Best Practices</p>
+            <p class="stack-desc">How to use AI safely for your business. Protect your data, your clients, and your reputation. Most people skip this. We don't.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;5,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128176;</span>
+          <div>
+            <p class="stack-title">Monetization Strategies</p>
+            <p class="stack-desc">How to turn AI skills into revenue. Get more customers, close more deals, build products that sell. Real playbooks from people who've done it.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;10,000</p>
+      </div>
+    </div>
+  </div>
+  <div id="stack-total" style="display:none; margin-top: 16px; background: var(--card-bg); border-radius: 12px; padding: 14px 24px; max-width: 700px; width: 100%; text-align: right;">
+    <p style="font-size: 14px; color: var(--text-muted);">Total value</p>
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 28px; color: var(--text);"><span style="text-decoration: line-through; color: var(--text-muted);">&#3647;51,000+</span></p>
+  </div>
+  <div class="speaker-note">Click SPACEBAR or RIGHT ARROW to reveal each stack item one by one. Read each one, let the value sink in. After all 6 items, the total appears.</div>
+</div>
+
+<!-- PRICE REVEAL -->
+<div class="slide">
+  <p class="label">Founder Price</p>
+  <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 24px;">You're the first group. The founding members. So you get a price that will never exist again.</p>
+  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 20px; padding: 36px 48px; text-align: center; max-width: 600px; box-shadow: 0 8px 32px rgba(123,47,242,0.3);">
+    <p style="font-size: 16px; opacity: 0.9; margin-bottom: 4px;">3 months. Everything. Founder price.</p>
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: clamp(52px, 7vw, 88px); line-height: 1;">&#3647;10,000</p>
+    <p style="font-size: 18px; opacity: 0.9; margin-top: 8px;">That's <strong>&#3647;3,333/month</strong>. Less than a dinner out.</p>
+  </div>
+  <p style="margin-top: 20px; font-size: 15px; color: var(--text-light); max-width: 550px;">3 workshops. 2 mentors. Live sessions. AI security. Monetization playbooks. In-person community. The whole thing.</p>
+  <div class="speaker-note">"You're the founding members. The first group. This is a founder price that will never come back. Once we open to the public, this goes way up. You showed up today. You invested your Saturday. 10,000 baht for 3 months of everything I just showed you. That's 3,333 a month. Less than a dinner out."</div>
+</div>
+
+<!-- WHY THIS IS DIFFERENT -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(26px, 3.5vw, 42px);">This is <span class="purple">not</span> another online course.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px;">
+    <div style="text-align: left;">
+      <p style="font-weight: 700; color: var(--red); margin-bottom: 12px;">&#10060; Online courses</p>
+      <p style="font-size: 15px; color: var(--text-light); line-height: 1.7;">Watch videos alone<br>Get stuck, no help<br>Lose motivation in 2 weeks<br>Generic advice<br>Never meet anyone<br>No accountability</p>
+    </div>
+    <div style="text-align: left;">
+      <p style="font-weight: 700; color: var(--green); margin-bottom: 12px;">&#10004; Claude Master Thailand</p>
+      <p style="font-size: 15px; color: var(--text-light); line-height: 1.7;">3 expert workshops in person<br>2 mentors who do this daily<br>Real business owner community<br>Consulting on YOUR business<br>Thai + international network<br>Security + best practices covered</p>
+    </div>
+  </div>
+  <div class="speaker-note">"Think about every online course you've bought. How many did you finish? Exactly. This is different because we meet in PERSON. You can't hide. You can't procrastinate. And you have two mentors who actually USE this to make money."</div>
+</div>
+
+<!-- JOIN SLIDE -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">Scan to <span class="purple">Join Now</span></p>
+  <div style="background: var(--card-bg); border-radius: 20px; padding: 32px; max-width: 400px; text-align: center;">
+    <div style="width: 200px; height: 200px; background: #fff; border: 2px solid var(--border); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+      <p style="font-size: 14px; color: var(--text-muted);">&#128247; QR Code<br><br><span style="font-size: 12px;">skool.com/ai-influencer-academy2026</span></p>
+    </div>
+    <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 20px; color: var(--purple);">Claude Master Thailand</p>
+    <p style="font-size: 14px; color: var(--text-light); margin-top: 8px;">skool.com/ai-influencer-academy2026</p>
+  </div>
+  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 12px; padding: 14px 28px; margin-top: 16px; max-width: 400px; text-align: center;">
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 24px;">&#3647;10,000 / 3 months</p>
+    <p style="font-size: 14px; opacity: 0.9;">Founder price. Today only.</p>
+  </div>
+  <div class="speaker-note">"Take out your phone. Scan this. Join right now. If you have questions, raise your hand. I'll come to you." Give them 3-5 min.</div>
+</div>
+
+<!-- THANK YOU -->
+<div class="slide">
+  <p class="big-text" style="font-size: clamp(48px, 6vw, 80px);">Thank you.</p>
+  <p class="medium-text" style="margin-top: 20px;">Now go build something that makes money.</p>
+  <p class="subtitle" style="margin-top: 32px; font-weight: 600;">Jonny West + Kantawee Saengsai</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">skool.com/ai-influencer-academy2026</p>
+</div>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<div class="nav">
+  <button class="nav-btn" onclick="prev()" aria-label="Previous">&larr;</button>
+  <span class="nav-counter" id="counter" onclick="jumpToSlide()" style="cursor: pointer;" title="Click to jump to a slide">1 / 69</span>
+  <button class="nav-btn" onclick="next()" aria-label="Next">&rarr;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function show(i) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, i));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() {
+    if (current === getStackSlideIndex()) {
+      if (revealNextStackItem()) return;
+    }
+    show(current + 1);
+  }
+  function prev() {
+    if (current - 1 === getStackSlideIndex()) resetStack();
+    show(current - 1);
+  }
+  function jumpToSlide() {
+    var num = prompt('Jump to slide (1-' + total + '):', current + 1);
+    if (num !== null && !isNaN(num)) show(parseInt(num) - 1);
+  }
+
+  // Stack slide reveal logic
+  let stackRevealed = 0;
+  function getStackSlideIndex() {
+    var el = document.getElementById('stack-slide');
+    return Array.from(slides).indexOf(el);
+  }
+  function revealNextStackItem() {
+    var items = document.querySelectorAll('#stack-items .stack-item');
+    if (stackRevealed < items.length) {
+      items[stackRevealed].style.display = 'block';
+      stackRevealed++;
+      return true; // consumed the keypress
+    }
+    // All items shown, reveal total
+    var totalEl = document.getElementById('stack-total');
+    if (totalEl && totalEl.style.display === 'none') {
+      totalEl.style.display = 'block';
+      return true;
+    }
+    return false; // nothing left to reveal, advance slide
+  }
+  function resetStack() {
+    stackRevealed = 0;
+    document.querySelectorAll('#stack-items .stack-item').forEach(function(el) {
+      el.style.display = 'none';
+    });
+    var totalEl = document.getElementById('stack-total');
+    if (totalEl) totalEl.style.display = 'none';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const lbOpen = document.getElementById('lightbox').classList.contains('open');
+    if (lbOpen) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') { e.preventDefault(); lbNext(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); lbPrev(); }
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      // If on the stack slide, reveal items first
+      if (current === getStackSlideIndex()) {
+        if (revealNextStackItem()) return;
+      }
+      next();
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      // If going back to stack slide, reset it so user can replay
+      if (current - 1 === getStackSlideIndex()) resetStack();
+      prev();
+    }
+    if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); }
+  });
+
+  // Make ALL slide images clickable for lightbox
+  document.querySelectorAll('.slide img').forEach(function(img) {
+    if (!img.classList.contains('gallery-img')) {
+      img.classList.add('gallery-img');
+    }
+    if (!img.onclick) {
+      img.onclick = function() { openLightbox(this); };
+    }
+    img.style.cursor = 'pointer';
+  });
+
+  // Lightbox
+  let lbImages = [];
+  let lbIndex = 0;
+
+  function openLightbox(img) {
+    // Scope to images in the current active slide first, fallback to all
+    var activeSlide = document.querySelector('.slide.active');
+    var slideImgs = Array.from(activeSlide.querySelectorAll('.gallery-img'));
+    if (slideImgs.length > 0) {
+      lbImages = slideImgs;
+    } else {
+      lbImages = [img];
+    }
+    lbIndex = lbImages.indexOf(img);
+    if (lbIndex === -1) lbIndex = 0;
+    showLbImage();
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function showLbImage() {
+    const img = lbImages[lbIndex];
+    document.getElementById('lb-img').src = img.src;
+    document.getElementById('lb-caption').textContent = img.dataset.caption || '';
+    document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+  }
+  function lbNext() {
+    lbIndex = (lbIndex + 1) % lbImages.length;
+    showLbImage();
+  }
+  function lbPrev() {
+    lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+    showLbImage();
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  // Copy prompt text
+  function copyPrompt(btn) {
+    var box = btn.parentElement;
+    var text = box.innerText.replace(/^Copy\s*/, '').replace(/^Copied!\s*/, '');
+    text = text.replace(/^(Prompt:|Paste this:|Step 3: Paste this prompt)\s*/i, '').trim();
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Copy text on click for small prompt cards (Show me prompts)
+  function copyOnClick(el) {
+    var text = el.innerText.replace(/^Copied!\s*/, '').trim();
+    navigator.clipboard.writeText(text).then(function() {
+      var orig = el.style.borderColor;
+      el.style.borderColor = 'var(--green)';
+      var origText = el.querySelector('p').textContent;
+      el.querySelector('p').textContent = '✓ Copied!';
+      setTimeout(function() {
+        el.style.borderColor = orig || '';
+        el.querySelector('p').textContent = origText;
+      }, 1500);
+    });
+  }
+
+  // Auto-inject copy buttons into prompt boxes with real prompt content (skip small cards)
+  document.querySelectorAll('.prompt-box').forEach(function(box) {
+    if (box.querySelector('.copy-btn')) return;
+    var text = box.innerText.trim();
+    // Skip small 1-liner prompt cards (under 80 chars, like "Show me..." cards)
+    if (text.length < 80) {
+      box.style.cursor = 'pointer';
+      box.onclick = function(e) { e.stopPropagation(); copyOnClick(this); };
+      return;
+    }
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function(e) { e.stopPropagation(); copyPrompt(this); };
+    box.appendChild(btn);
+  });
+</script>
+
+<!-- Lightbox overlay -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <button onclick="event.stopPropagation(); lbPrev();" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:32px; width:50px; height:50px; border-radius:50%; cursor:pointer;">&larr;</button>
+  <div onclick="event.stopPropagation();" style="display:flex; flex-direction:column; align-items:center;">
+    <img id="lb-img" src="" alt="" />
+    <p class="lightbox-caption" id="lb-caption"></p>
+    <p style="color:rgba(255,255,255,0.5); font-size:14px; margin-top:4px;" id="lb-counter"></p>
+  </div>
+  <button onclick="event.stopPropagation(); lbNext();" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:32px; width:50px; height:50px; border-radius:50%; cursor:pointer;">&rarr;</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+Date,Customer,Product,Category,Amount,Payment Method,Status
+2026-01-03,Somchai T.,Website Design,Services,35000,Bank Transfer,Paid
+2026-01-05,Nisa P.,Logo Package,Design,8500,Credit Card,Paid
+2026-01-07,Priya M.,Social Media Management,Services,12000,Bank Transfer,Paid
+2026-01-10,Kanya W.,Business Cards (500),Print,3200,Cash,Paid
+2026-01-12,Aroon S.,SEO Package,Marketing,15000,Bank Transfer,Paid
+2026-01-15,Ploy K.,Product Photography,Creative,7500,PromptPay,Paid
+2026-01-18,Tanapat R.,Facebook Ads Management,Marketing,18000,Bank Transfer,Paid
+2026-01-20,Siriporn L.,Brochure Design,Design,5500,Credit Card,Paid
+2026-01-22,Krit B.,Email Campaign,Marketing,9000,Bank Transfer,Paid
+2026-01-25,Nattaya S.,Website Maintenance,Services,4500,PromptPay,Paid
+2026-01-28,Wichai D.,Video Editing,Creative,11000,Bank Transfer,Paid
+2026-02-01,Somchai T.,Monthly Retainer,Services,25000,Bank Transfer,Paid
+2026-02-03,Rattana K.,Instagram Strategy,Marketing,8000,Credit Card,Paid
+2026-02-05,Pim C.,Menu Design,Design,6500,Cash,Paid
+2026-02-08,Nisa P.,Brand Guidelines,Design,12000,Bank Transfer,Paid
+2026-02-10,Chalerm W.,Google Ads Setup,Marketing,14000,Bank Transfer,Paid
+2026-02-12,Supaporn M.,Packaging Design,Design,9500,PromptPay,Paid
+2026-02-15,Tanapat R.,Facebook Ads Management,Marketing,18000,Bank Transfer,Paid
+2026-02-17,Aroon S.,Blog Content (10 posts),Creative,15000,Bank Transfer,Paid
+2026-02-20,Kanya W.,Flyers (1000),Print,4800,Cash,Paid
+2026-02-22,Priya M.,Social Media Management,Services,12000,Bank Transfer,Paid
+2026-02-25,Siriporn L.,Presentation Design,Design,7000,Credit Card,Paid
+2026-02-27,Nattaya S.,Website Update,Services,3500,PromptPay,Paid
+2026-03-01,Somchai T.,Monthly Retainer,Services,25000,Bank Transfer,Paid
+2026-03-02,Wichai D.,YouTube Thumbnails (20),Creative,6000,Bank Transfer,Paid
+2026-03-04,Ploy K.,Product Photography,Creative,7500,PromptPay,Paid
+2026-03-05,Rattana K.,TikTok Strategy,Marketing,10000,Credit Card,Paid
+2026-03-06,Krit B.,Newsletter Template,Design,5000,Bank Transfer,Paid
+2026-03-07,Pim C.,Social Media Posts (30),Creative,9000,Cash,Paid
+2026-03-08,Chalerm W.,Google Ads Monthly,Marketing,14000,Bank Transfer,Pending
+2026-03-09,Nisa P.,Website Redesign,Services,42000,Bank Transfer,Pending
+2026-03-10,Tanapat R.,Facebook Ads Management,Marketing,18000,Bank Transfer,Pending
+2026-03-11,Supaporn M.,Label Design,Design,8000,PromptPay,Pending
+2026-03-12,Aroon S.,SEO Monthly,Marketing,15000,Bank Transfer,Pending
+2026-03-13,Priya M.,Social Media Management,Services,12000,Bank Transfer,Pending

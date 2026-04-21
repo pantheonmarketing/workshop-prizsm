@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop Resources - Claude Cowork for Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --purple: #7B2FF2;
+    --purple-light: #C084FC;
+    --green: #22c55e;
+    --text: #1a1a2a;
+    --text-light: #555;
+    --text-muted: #888;
+    --bg: #ffffff;
+    --card-bg: #f5f5f7;
+    --border: #e5e5ea;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .hero {
+    text-align: center;
+    padding: 48px 24px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .hero h1 span { color: var(--purple); }
+  .hero p {
+    font-size: 18px;
+    color: var(--text-light);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .hero .date {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--purple);
+    margin-top: 16px;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--purple);
+    margin-bottom: 8px;
+    margin-top: 40px;
+  }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card-number {
+    background: var(--purple);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .prompt-box {
+    background: #fff;
+    border-left: 4px solid var(--purple);
+    border-radius: 10px;
+    padding: 14px 16px;
+    padding-right: 70px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .prompt-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--purple);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { background: #6622cc; }
+  .copy-btn.copied { background: var(--green); }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--purple);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: transform 0.1s, box-shadow 0.2s;
+  }
+  .download-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.3);
+  }
+  .download-btn svg { width: 16px; height: 16px; }
+  .file-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0 0;
+  }
+  .footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  .footer a { color: var(--purple); text-decoration: none; }
+  @media (max-width: 600px) {
+    .card { padding: 18px; }
+    .prompt-box { font-size: 13px; padding: 12px; padding-right: 65px; }
+    .hero { padding: 32px 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Workshop <span>Resources</span></h1>
+  <p>Download files and copy prompts for each hands-on exercise.</p>
+  <div class="date">March 14, 2026 &bull; Prismz Cafe, Bangkok</div>
+  <a href="https://skillboss-yed6nw3h-preview.heyboss.live" target="_blank" style="display: inline-block; margin-top: 16px; background: var(--purple); color: #fff; padding: 12px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px;">&#127464;&#127481; Slides ภาษาไทย</a>
+</div>
+
+<div class="container">
+
+  <p class="section-label">Getting Started</p>
+  <p class="section-title">Chat + Show</p>
+
+  <!-- SHOW ME PROMPTS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number" style="background: var(--green);">&#10003;</div>
+      <div class="card-title">Try "Show me..." in Claude Chat</div>
+    </div>
+    <div class="card-desc">Open claude.ai or the Claude app. Type any of these prompts. Claude builds an interactive visual instantly.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 1</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me how compound interest works</div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 2</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me how to calculate profit margin</div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 3</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me a monthly budget planner</div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 4</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me how the Thai tax brackets work</div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 5</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me a customer journey funnel</div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-label">Option 6</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Show me how a film production timeline works</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-label">Cowork: Connectors</p>
+  <p class="section-title">Excalidraw, Canva &amp; Plugins</p>
+
+  <!-- EXCALIDRAW -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number" style="background: var(--green);">&#9998;</div>
+      <div class="card-title">Try Excalidraw Connector</div>
+    </div>
+    <div class="card-desc">Cowork &rarr; Customize &rarr; Connectors &rarr; Add <strong>Excalidraw</strong> &rarr; Start a new task.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Create an Excalidraw diagram of my business workflow. My business is [describe in 1 sentence]. Show the main steps from customer discovery to delivery. Use friendly icons and colors.</div>
+    </div>
+  </div>
+
+  <!-- CANVA -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number" style="background: #9333ea;">&#127912;</div>
+      <div class="card-title">Try Canva Connector</div>
+    </div>
+    <div class="card-desc">Cowork &rarr; Customize &rarr; Connectors &rarr; Add <strong>Canva</strong> &rarr; Log in &rarr; New task.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Create a professional Instagram post for my business [your business name]. Use Canva to design it. The post should announce [a promotion, event, or new product]. Use modern, clean design with bold text.</div>
+    </div>
+  </div>
+
+  <!-- PLUGINS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number" style="background: #3b82f6;">&#128268;</div>
+      <div class="card-title">Try a Plugin (Web Search)</div>
+    </div>
+    <div class="card-desc">Cowork &rarr; Customize &rarr; Plugins &rarr; Toggle on <strong>Web Search</strong> &rarr; New task.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Search the web for the top 3 trends in [your industry] in 2026. Summarize them in a table with what it means for my business.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-label">Block 1: Cowork</p>
+  <p class="section-title">7 Use Cases</p>
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">1</div>
+      <div class="card-title">Digital Janitor</div>
+    </div>
+    <div class="card-desc">Upload this messy file list to Cowork. Claude reads each description, renames everything, and organizes into folders.</div>
+    <a href="sample-messy-files.txt" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Messy Files List
+    </a>
+    <p class="file-info">TXT &bull; 20 files with ugly names + descriptions</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Look at this file list. Read each file description to understand what it actually is. Create a plan to:
+1. Rename every file with a clear, descriptive name
+2. Organize them into logical folders (Documents, Images, Spreadsheets, Receipts, Media, etc.)
+3. Show me a before/after comparison table
+
+Make it a clean, professional folder structure.</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">2</div>
+      <div class="card-title">Data to Charts</div>
+    </div>
+    <div class="card-desc">Upload this CSV of Thai business sales data. Claude creates professional charts and a summary report.</div>
+    <a href="sample-sales-data.csv" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Sales Data CSV
+    </a>
+    <p class="file-info">CSV &bull; 35 rows of Thai business sales data</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Analyze this sales data CSV. Create:
+1. A bar chart showing revenue by month
+2. A line chart showing the trend over time
+3. A pie chart breaking down revenue by category
+4. A 1-page executive summary with the top 3 insights
+
+Save all charts and the summary as downloadable files.</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">3</div>
+      <div class="card-title">Bulk Invoice Processing</div>
+    </div>
+    <div class="card-desc">Upload these sample invoices. Claude reads each one, extracts key data, and creates a master spreadsheet.</div>
+    <a href="sample-invoices.html" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Sample Invoices
+    </a>
+    <p class="file-info">HTML &bull; 8 realistic Thai business invoices (print to PDF or upload directly)</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Process all the invoices in this file. For each invoice, extract:
+- Invoice number
+- Vendor name
+- Date and due date
+- Total amount (THB)
+- Line items
+
+Create a master CSV spreadsheet with all extracted data. Add a column for payment status. Sort by date.</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">4</div>
+      <div class="card-title">Customer List to Visual CRM</div>
+    </div>
+    <div class="card-desc">Upload this customer list. Claude builds a drag-and-drop Kanban pipeline board.</div>
+    <a href="sample-customers.csv" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Customer List CSV
+    </a>
+    <p class="file-info">CSV &bull; 15 Thai customers with deal values and stages</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Build me a visual CRM pipeline from this customer data. Create a Kanban board with columns: New Lead, Contacted, Proposal, Won, Lost. Each card should show customer name, business, deal value, and last contact date. Make the cards draggable between columns. Save as an HTML file I can open in my browser.</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">5</div>
+      <div class="card-title">Newsletter Generator</div>
+    </div>
+    <div class="card-desc">Upload this business brief. Claude creates a fully designed HTML newsletter email.</div>
+    <a href="sample-business-brief.txt" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Business Brief
+    </a>
+    <p class="file-info">TXT &bull; Sample cafe business info (or use your own details)</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Read this business brief. Create a professional HTML newsletter email that includes:
+1. A welcome header with the business logo area
+2. The main announcement (new menu launch)
+3. A special offer section (15% off catering)
+4. A call-to-action button
+5. Footer with social links
+
+Use the brand colors from the brief. Make it ready to paste into Gmail or Mailchimp.</div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">6</div>
+      <div class="card-title">Build a Website</div>
+    </div>
+    <div class="card-desc">Upload the same business brief. Claude builds a complete one-page website.</div>
+    <a href="sample-business-brief.txt" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Business Brief
+    </a>
+    <p class="file-info">Same file as above, or describe your own business</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Read this business brief. Build me a complete one-page website with:
+- Hero section with headline and tagline
+- About section
+- Menu / Services section with prices
+- Customer testimonials (make 3 realistic ones)
+- Location map placeholder + contact info
+- Mobile responsive design
+
+Use the brand colors from the brief. Save as a single HTML file.</div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">7</div>
+      <div class="card-title">Chrome Extension</div>
+    </div>
+    <div class="card-desc">No file needed. Just paste the prompt. Claude builds a working Chrome extension you can install in 2 minutes.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">Build me a Chrome extension that does the following:
+- Adds a button to save any webpage as a clean, readable summary
+- When clicked, it extracts the page title, URL, and main text content
+- Saves it to a list I can view in the extension popup
+- Shows a "Saved!" notification
+- Include clear instructions for how to install it in Chrome developer mode
+
+Create all the files: manifest.json, popup.html, popup.js, content.js, and an icon.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-label">Block 2: Content Creation</p>
+  <p class="section-title">Viral Script Frameworks</p>
+
+  <!-- 8 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">8</div>
+      <div class="card-title">12 Proven Script Frameworks</div>
+    </div>
+    <div class="card-desc">Download the PDF with 12 viral content frameworks. Pick one and use the prompt below to create a script for your business.</div>
+    <a href="scripting-frameworks-2026.pdf" download class="download-btn">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      Download Script Frameworks PDF
+    </a>
+    <p class="file-info">PDF &bull; 12 frameworks with examples and psychology breakdown</p>
+    <div class="prompt-box">
+      <div class="prompt-label">Copy-paste prompt</div>
+      <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      <div class="prompt-text">I uploaded a PDF with 12 viral content frameworks. Read all of them carefully.
+
+Now write me a 60-second video script for [YOUR BUSINESS TYPE] using the [FRAMEWORK NAME] framework.
+
+My business: [describe in 1-2 sentences]
+My target audience: [who are they]
+The main message: [what do I want them to know/do]
+
+Make it sound natural and conversational. Include hook, body, and CTA.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Claude Cowork &amp; Code for Business Workshop</p>
+  <p style="margin-top: 4px;">Hosted by <a href="#">Jonny West</a> &bull; Prismz Cafe, Bangkok</p>
+</div>
+
+<script>
+function copyPrompt(btn) {
+  const text = btn.parentElement.querySelector('.prompt-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

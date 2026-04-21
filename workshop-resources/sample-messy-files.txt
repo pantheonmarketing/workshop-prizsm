@@ -1,0 +1,63 @@
+MESSY DOWNLOADS FOLDER - 20 Files
+Upload this to Claude Cowork and ask it to organize everything.
+====================================================================
+
+FILE: IMG_20260112_142356.jpg
+DESCRIPTION: Photo of receipt from Central World shopping mall, total 4,350 THB for office supplies
+
+FILE: final_final_v3_REAL.docx
+DESCRIPTION: Business proposal for catering partnership with Siam Paragon food court
+
+FILE: budget thing.xlsx
+DESCRIPTION: Q1 2026 marketing budget spreadsheet with Facebook ads, LINE ads, and event costs
+
+FILE: asdfsdf.pdf
+DESCRIPTION: Tax registration certificate from Revenue Department (Por.Por.20)
+
+FILE: meeting notes jan maybe.txt
+DESCRIPTION: Notes from January 15 team meeting about Songkran promotion campaign
+
+FILE: receipt_7eleven_2.jpg
+DESCRIPTION: 7-Eleven receipt for printer paper and coffee, 287 THB
+
+FILE: screenshot 2026-01-15 at 3.45.12 PM.png
+DESCRIPTION: Screenshot of Instagram analytics showing 12,000 reach on mango sticky rice post
+
+FILE: Copy of Copy of proposal.pptx
+DESCRIPTION: Pitch deck for investors, 15 slides about cafe expansion to Chiang Mai
+
+FILE: untitled23.csv
+DESCRIPTION: Customer email list export from LINE Official Account, 340 subscribers
+
+FILE: tax stuff DO NOT DELETE.pdf
+DESCRIPTION: Annual withholding tax summary (PND 3) for 2025
+
+FILE: WhatsApp Image 2026-01-20.jpeg
+DESCRIPTION: Photo of new matcha mango cake prototype from the kitchen
+
+FILE: New Document (4).docx
+DESCRIPTION: Draft employment contract for new barista position
+
+FILE: random_export_1706234234.xlsx
+DESCRIPTION: Monthly sales report from POS system, December 2025
+
+FILE: old backup dont touch.zip
+DESCRIPTION: Backup of entire website files from before the redesign in November 2025
+
+FILE: client_meeting_recording_final_FINAL.mp4
+DESCRIPTION: Recording of Zoom meeting with corporate catering client, Siam Cement Group
+
+FILE: IMG_20260203_091122.jpg
+DESCRIPTION: Photo of health inspection certificate posted in the kitchen
+
+FILE: scan001.pdf
+DESCRIPTION: Scanned copy of lease agreement for Sukhumvit Soi 22 cafe location
+
+FILE: pls fix.docx
+DESCRIPTION: Social media content calendar for February with caption drafts
+
+FILE: chart (1).png
+DESCRIPTION: Bar chart of monthly revenue comparison, October to January
+
+FILE: idk what this is.xlsx
+DESCRIPTION: Inventory tracking spreadsheet for ingredients and supplies with reorder alerts

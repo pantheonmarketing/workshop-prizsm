@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Code สำหรับเจ้าของธุรกิจ — Workshop Slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --purple: #7B2FF2;
+      --purple-light: #C084FC;
+      --green: #22c55e;
+      --red: #ef4444;
+      --orange: #f59e0b;
+      --blue: #3b82f6;
+      --text: #1a1a2a;
+      --text-light: #555;
+      --text-muted: #888;
+      --bg: #ffffff;
+      --card-bg: #f5f5f7;
+      --border: #e5e5ea;
+    }
+    body {
+      font-family: 'Noto Sans Thai', 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      -webkit-font-smoothing: antialiased;
+    }
+    .slide {
+      display: none;
+      position: absolute;
+      inset: 0;
+      padding: 60px 80px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+      overflow-y: auto;
+    }
+    .slide.active { display: flex; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .nav-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { border-color: var(--purple); color: var(--purple); }
+    .nav-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+    .title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      font-size: clamp(16px, 2.5vw, 24px);
+      font-weight: 300;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .big-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .medium-text {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    .small-text {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .purple { color: var(--purple); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .bold { font-weight: 700; color: var(--text); }
+    .label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+    .card-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      width: 100%;
+      max-width: 900px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      flex: 1;
+      min-width: 140px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .card-icon { font-size: 32px; margin-bottom: 8px; }
+    .card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .card p { font-size: 13px; color: var(--text-muted); }
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: clamp(16px, 2vw, 22px);
+      padding: 10px 0;
+      text-align: left;
+    }
+    .list-icon { font-size: 22px; flex-shrink: 0; }
+    .prompt-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 16px 60px 16px 20px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      text-align: left;
+      max-width: 700px;
+      margin-top: 16px;
+      border-left: 4px solid var(--purple);
+      position: relative;
+      width: 100%;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .copy-btn:hover { background: #6622cc; }
+    .copy-btn.copied { background: var(--green); }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .try-it-icon {
+      width: 70px; height: 70px;
+      background: var(--purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 16px;
+      animation: tryPulse 2s ease-in-out infinite;
+    }
+    @keyframes tryPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123,47,242,0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(123,47,242,0); }
+    }
+    .compare-row {
+      display: flex;
+      gap: 24px;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .compare-col {
+      flex: 1;
+      min-width: 250px;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: left;
+    }
+    .compare-col h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .compare-col li {
+      font-size: 14px;
+      line-height: 2;
+      list-style: none;
+    }
+    .dl-btn {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px) {
+      .slide { padding: 30px 20px 80px; }
+      .card-row { flex-direction: column; }
+      .compare-row { flex-direction: column; }
+      .prompt-box { font-size: 13px; padding: 12px 50px 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1. TITLE -->
+<div class="slide active">
+  <p class="label">Workshop &middot; 14 มีนาคม 2026</p>
+  <h1 class="title">Claude Code สำหรับ<br><span class="purple">เจ้าของธุรกิจ</span></h1>
+  <p class="subtitle">Prismz Cafe, ทองหล่อ &middot; Jonny West</p>
+  <p style="margin-top: 20px; font-size: 14px; color: var(--text-muted);">ใช้ลูกศร &#8592; &#8594; หรือ Spacebar เพื่อเปลี่ยนหน้า</p>
+</div>
+
+<!-- 2. RESOURCES -->
+<div class="slide">
+  <p class="label">ก่อนเริ่ม</p>
+  <p class="big-text" style="margin-bottom: 16px;">ดาวน์โหลด<span class="purple">ไฟล์ Workshop</span></p>
+  <p class="medium-text" style="margin-bottom: 20px; max-width: 600px;">ไฟล์ตัวอย่างและ Prompt ทั้งหมดสำหรับวันนี้ เปิดลิงก์นี้บนมือถือหรือ Laptop</p>
+  <div style="background: var(--card-bg); border-radius: 16px; padding: 24px 32px; text-align: center; max-width: 600px;">
+    <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple); word-break: break-all;">skillboss-e18pobf9-preview.heyboss.live</p>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">บุ๊กมาร์กหน้านี้ไว้ จะใช้ตลอด Workshop</p>
+  </div>
+</div>
+
+<!-- 3. AI TAKEOFF -->
+<div class="slide">
+  <p class="medium-text" style="margin-bottom: 20px;">คุณอยู่ตรงนี้ ตรงจุดเริ่มต้น</p>
+  <p style="font-size: 120px;">&#128640;</p>
+  <p class="big-text" style="margin-top: 20px;">AI กำลัง<span class="purple">ขึ้นจรวด</span></p>
+  <p class="medium-text" style="margin-top: 12px;">คนในห้องนี้... มาก่อนคนอื่น</p>
+</div>
+
+<!-- 4. HOOK -->
+<div class="slide">
+  <p class="big-text">ทุกคนพูดถึง AI<br>Claude. Cowork.</p>
+  <p class="medium-text" style="margin-top: 20px;">แต่เกือบไม่มีใครใช้มัน<br><span class="purple">เต็มศักยภาพ</span></p>
+</div>
+
+<!-- 5. WHAT YOU'LL LEARN -->
+<div class="slide">
+  <p class="big-text">วันนี้คุณจะได้เรียนรู้สิ่งที่<br><span class="purple">น้อยกว่า 1%</span> ของผู้ใช้ AI รู้</p>
+  <p class="medium-text" style="margin-top: 16px;">คุณจะทำให้ AI <strong>สร้างสิ่งต่างๆ</strong> ที่จะมีผลกระทบมหาศาลต่อธุรกิจของคุณ</p>
+  <div class="card-row" style="margin-top: 20px;">
+    <div class="card"><div class="card-icon">&#9201;</div><h3>ประหยัดเวลา</h3></div>
+    <div class="card"><div class="card-icon">&#128176;</div><h3>ประหยัดค่าใช้จ่าย</h3></div>
+    <div class="card"><div class="card-icon">&#9889;</div><h3>ทำงานได้มากขึ้น</h3></div>
+    <div class="card"><div class="card-icon">&#128200;</div><h3>สร้างรายได้</h3></div>
+  </div>
+</div>
+
+<!-- 6. ADVANTAGE -->
+<div class="slide">
+  <p class="big-text">เมื่อคุณเดินออกจากที่นี่วันนี้<br>คุณจะมีทักษะที่คู่แข่งของคุณ<br><span class="purple">ยังไม่มี</span></p>
+</div>
+
+<!-- 7. WORKSHOP ROADMAP -->
+<div class="slide" style="padding: 30px 40px;">
+  <p class="label">ตารางวันนี้</p>
+  <p class="big-text" style="margin-bottom: 20px; font-size: clamp(24px, 3.5vw, 40px);">สิ่งที่เราจะทำ</p>
+  <div style="display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; max-width: 750px; width: 100%; text-align: left; align-items: center; font-size: 15px;">
+    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">10:00</div>
+    <div><strong>The Big Shift</strong> <span style="color: var(--text-muted); font-size: 13px;">... ทำไม AI ไม่ใช่แชทบอท แต่เป็นทีมงาน</span></div>
+    <div style="background: var(--blue); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">10:45</div>
+    <div><strong>Chat + Show</strong> <span style="color: var(--text-muted); font-size: 13px;">... ฟีเจอร์ภาพใหม่ของ Claude ลองเลย</span></div>
+    <div style="background: var(--purple); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">11:15</div>
+    <div><strong>Cowork</strong> <span style="color: var(--text-muted); font-size: 13px;">... Ideas, Plugins, Connectors, ลงมือทำ</span></div>
+    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">12:15</div>
+    <div><strong>&#127860; พักกลางวัน</strong></div>
+    <div style="background: var(--orange); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">13:15</div>
+    <div><strong>7 Use Cases</strong> <span style="color: var(--text-muted); font-size: 13px;">... กราฟ, CRM, ใบแจ้งหนี้, เว็บไซต์ + อื่นๆ</span></div>
+    <div style="background: var(--green); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">15:00</div>
+    <div><strong>Content Creation</strong> <span style="color: var(--text-muted); font-size: 13px;">... สคริปต์ไวรัลจาก Framework ที่พิสูจน์แล้ว</span></div>
+    <div style="background: var(--red); color: #fff; border-radius: 8px; padding: 6px 14px; font-weight: 700; text-align: center;">15:30</div>
+    <div><strong>Q&A + อะไรต่อไป</strong></div>
+  </div>
+</div>
+
+<!-- 8. SETUP CHECK -->
+<div class="slide" style="padding: 40px 40px;">
+  <p class="label">ก่อนเริ่ม</p>
+  <p class="big-text" style="margin-bottom: 16px;">เช็คความพร้อม</p>
+  <div style="max-width: 550px; width: 100%; text-align: left;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 22px;">&#9989;</span>
+      <div><strong>บัญชี Claude</strong><br><span style="font-size: 13px; color: var(--text-muted);">ไปที่ claude.ai แล้วสมัคร (ฟรีสำหรับ Chat)</span></div>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 22px;">&#9989;</span>
+      <div><strong>แพลน Pro ($20/เดือน) สำหรับ Cowork</strong><br><span style="font-size: 13px; color: var(--text-muted);">อัพเกรดที่ claude.ai/settings</span></div>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 22px;">&#128101;</span>
+      <div><strong>ยังไม่มี Pro?</strong><br><span style="font-size: 13px; color: var(--text-muted);">จับคู่กับคนที่มี คุณจะเรียนรู้ได้ทุกอย่าง</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 9. BIG SHIFT -->
+<div class="slide">
+  <p class="label">The Big Shift</p>
+  <p class="big-text">สิ่งที่คนส่วนใหญ่<span class="red">คิดว่า</span> AI เป็น<br>vs สิ่งที่มัน<span class="purple">เป็นจริงๆ</span></p>
+</div>
+
+<!-- 10. WHAT MOST PEOPLE DO -->
+<div class="slide">
+  <p class="label" style="color: var(--red);">สิ่งที่คนส่วนใหญ่ทำกับ AI</p>
+  <div style="margin-top: 16px;">
+    <div class="list-item"><span class="list-icon">&#10060;</span> ถามคำถาม ได้คำตอบเป็นข้อความ</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> Copy-paste ไปใส่เอกสาร</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> ยังต้องทำงานจริงทั้งหมดเอง</div>
+    <div class="list-item"><span class="list-icon">&#10060;</span> ใช้เหมือน Google ที่ฉลาดขึ้น</div>
+  </div>
+</div>
+
+<!-- 11. WHAT AI CAN DO -->
+<div class="slide">
+  <p class="label">สิ่งที่ AI ทำได้จริงๆ</p>
+  <p class="big-text">ตัวอย่างจริง<br>สิ่งที่คุณจะเรียนวันนี้</p>
+</div>
+
+<!-- 12. CAPABILITIES -->
+<div class="slide" style="padding: 30px 40px;">
+  <p class="big-text" style="margin-bottom: 20px; font-size: clamp(22px, 3vw, 36px);">AI ทำอะไรได้บ้าง?</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 750px; width: 100%; text-align: left;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#128187;</span><span style="font-size: 14px;">สร้างเครื่องมือธุรกิจจากศูนย์</span>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#128196;</span><span style="font-size: 14px;">สั่งงาน ได้ไฟล์สำเร็จรูป</span>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#9889;</span><span style="font-size: 14px;">สร้าง Automation อัตโนมัติ</span>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#128200;</span><span style="font-size: 14px;">หาคอนเทนต์ไวรัล</span>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#128172;</span><span style="font-size: 14px;">ตอบลูกค้าจากข้อมูลธุรกิจ</span>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 14px 16px; display: flex; gap: 10px; align-items: center;">
+      <span style="font-size: 24px;">&#127912;</span><span style="font-size: 14px;">เชื่อมต่อกับแอปที่ใช้อยู่</span>
+    </div>
+  </div>
+</div>
+
+<!-- 13. REFRAME -->
+<div class="slide">
+  <p class="big-text">แต่ละอันคือ<br><span class="purple">พนักงาน</span> 1 คน</p>
+  <p class="medium-text" style="margin-top: 16px;">ไม่ใช่ Feature. ไม่ใช่ Tool.<br>คนที่คุณไม่ต้องจ้าง</p>
+</div>
+
+<!-- 14. AI WON'T REPLACE YOU -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 24px;">"AI จะมา<span class="red">แทนที่</span>เราไหม?"</p>
+  <div style="background: var(--card-bg); border-radius: 16px; padding: 24px; max-width: 700px; text-align: left; margin-bottom: 16px;">
+    <p style="font-size: 18px; font-weight: 600; line-height: 1.6;">"คุณจะไม่เสียงานให้ AI คุณจะเสียงานให้<span class="purple">คนที่ใช้ AI</span>"</p>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Jensen Huang, CEO ของ NVIDIA</p>
+  </div>
+  <p class="medium-text" style="font-weight: 600;">คนในห้องนี้? คุณอยู่<span class="purple">ฝั่งที่ถูก</span>แล้ว</p>
+</div>
+
+<!-- 15. BENEFITS -->
+<div class="slide" style="padding: 30px 40px;">
+  <p class="big-text" style="margin-bottom: 20px; font-size: clamp(22px, 3vw, 36px);">ข้อดีของทีม AI</p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 750px;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px; text-align: center;">
+      <p style="font-size: 28px; margin-bottom: 6px;">&#128176;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 16px;">&#3647;700/เดือน</p>
+      <p style="font-size: 12px; color: var(--text-light);">แทนเงินเดือน &#3647;250,000+</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px; text-align: center;">
+      <p style="font-size: 28px; margin-bottom: 6px;">&#9201;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 16px;">ทำงาน 24/7</p>
+      <p style="font-size: 12px; color: var(--text-light);">เสาร์ อาทิตย์ ตี 3</p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 16px; text-align: center;">
+      <p style="font-size: 28px; margin-bottom: 6px;">&#9889;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 16px;">เรียนรู้ใน 5 วิ</p>
+      <p style="font-size: 12px; color: var(--text-light);">ไม่ต้องเทรนเป็นสัปดาห์</p>
+    </div>
+  </div>
+</div>
+
+<!-- 16. #1 SKILL -->
+<div class="slide">
+  <p class="subtitle" style="margin-bottom: 12px;">ทักษะ #1 ในปี 2026?</p>
+  <p class="big-text">เรียนรู้วิธี<span class="purple">สื่อสาร</span><br>กับทีม AI ของคุณ</p>
+</div>
+
+<!-- 17. 3 TABS -->
+<div class="slide" style="padding: 30px 40px;">
+  <p class="label">ภายใน Claude Desktop</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(24px, 3.5vw, 40px);">3 แท็บ. 3 ระดับพลัง</p>
+  <div class="card-row">
+    <div class="card">
+      <div class="step-num">1</div>
+      <h3>Chat</h3>
+      <p>ถามคำถาม ได้คำตอบ</p>
+    </div>
+    <div class="card">
+      <div class="step-num">2</div>
+      <h3>Cowork</h3>
+      <p>สั่งงาน ได้ไฟล์สำเร็จ</p>
+    </div>
+    <div class="card">
+      <div class="step-num">3</div>
+      <h3>Code</h3>
+      <p>สร้างเครื่องมือถาวร</p>
+    </div>
+  </div>
+</div>
+
+<!-- 18. CHAT = SHOW -->
+<div class="slide">
+  <p class="label">ฟีเจอร์ใหม่</p>
+  <p class="big-text" style="margin-bottom: 16px;">Chat มี <span class="purple">"Show"</span> แล้ว</p>
+  <p class="medium-text" style="max-width: 600px;">แค่พิมพ์ "Show me how X works" แล้ว Claude จะสร้าง Visual แบบ Interactive ให้</p>
+</div>
+
+<!-- 19. TRY SHOW -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองเลย</p>
+  <p class="big-text" style="margin-bottom: 16px;">เปิด Claude พิมพ์ <span class="purple">"Show me..."</span></p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 700px; text-align: left;">
+    <div class="prompt-box" style="padding: 12px 16px; margin-top: 0; cursor: pointer;" onclick="copyOnClick(this)">
+      <p style="font-size: 14px;">&#128200; "Show me how compound interest works"</p>
+    </div>
+    <div class="prompt-box" style="padding: 12px 16px; margin-top: 0; cursor: pointer;" onclick="copyOnClick(this)">
+      <p style="font-size: 14px;">&#128176; "Show me how to calculate profit margin"</p>
+    </div>
+    <div class="prompt-box" style="padding: 12px 16px; margin-top: 0; cursor: pointer;" onclick="copyOnClick(this)">
+      <p style="font-size: 14px;">&#128197; "Show me a monthly budget planner"</p>
+    </div>
+    <div class="prompt-box" style="padding: 12px 16px; margin-top: 0; cursor: pointer;" onclick="copyOnClick(this)">
+      <p style="font-size: 14px;">&#127891; "Show me how the Thai tax brackets work"</p>
+    </div>
+  </div>
+  <p class="small-text" style="margin-top: 12px;">เลือก 1 อัน หรือคิดเอง คุณมี 3 นาที</p>
+</div>
+
+<!-- 20. BREAK: SHOW -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ใช้เวลาสักครู่</p>
+  <p class="medium-text">เล่นกับ <strong>Show</strong> ต่อ ลอง Prompt ต่างๆ</p>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">ถาม Claude ให้แสดงอะไรบางอย่างเกี่ยวกับธุรกิจของคุณ</p>
+</div>
+
+<!-- 21. BLOCK 1: COWORK -->
+<div class="slide">
+  <p class="label">Block 1</p>
+  <p class="big-text">Cowork</p>
+  <p class="medium-text" style="margin-top: 12px;">ผู้ช่วย AI 24/7 ที่ทำงานจริงให้คุณ</p>
+</div>
+
+<!-- 22. WHAT IS COWORK -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">Cowork คืออะไร?</p>
+  <div class="card-row" style="max-width: 700px;">
+    <div class="card">
+      <div class="card-icon">&#128196;</div>
+      <h3>ไฟล์จริง</h3>
+      <p>Excel, PowerPoint, PDF, รูปภาพ</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128737;</div>
+      <h3>Sandbox ปลอดภัย</h3>
+      <p>ไม่มีอะไรพัง ไม่แตะไฟล์ของคุณ</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#9889;</div>
+      <h3>ฟรีแลนซ์ 30 วินาที</h3>
+      <p>บอก กลับมาเจองานเสร็จ</p>
+    </div>
+  </div>
+</div>
+
+<!-- 23. CONNECTORS -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">เชื่อมต่อ Claude กับ<span class="purple">เครื่องมือจริง</span></p>
+  <p class="medium-text" style="margin-bottom: 16px;">Connectors ให้ Cowork อ่าน เขียน และทำงานในแอปที่คุณใช้อยู่</p>
+  <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 700px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Gmail</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Google Calendar</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Notion</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Canva</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Slack</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Excalidraw</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Google Drive</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">+ อีกมาก</div>
+  </div>
+</div>
+
+<!-- 24. TRY EXCALIDRAW -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองด้วยกัน</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#9998; ลอง Excalidraw Connector</p>
+  <div style="max-width: 700px; width: 100%;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px; text-align: left;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--green);">ขั้นตอน 1: เพิ่ม Connector</p>
+      <p style="font-size: 13px; color: var(--text-light);">Cowork &#8594; Customize &#8594; Connectors &#8594; หา <strong>Excalidraw</strong> &#8594; กด <strong>+</strong></p>
+    </div>
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px; text-align: left;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--green);">ขั้นตอน 2: เริ่ม Task ใหม่</p>
+      <p style="font-size: 13px; color: var(--text-light);">กด <strong>New task</strong></p>
+    </div>
+    <div class="prompt-box">
+      <strong style="color: var(--purple);">ขั้นตอน 3: วาง Prompt นี้</strong><br><br>
+      Create an Excalidraw diagram of my business workflow. My business is [อธิบายธุรกิจ 1 ประโยค]. Show the main steps from customer discovery to delivery. Use friendly icons and colors.
+    </div>
+  </div>
+</div>
+
+<!-- 25. TRY CANVA -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองด้วยกัน</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#127912; ลอง Canva Connector</p>
+  <div style="max-width: 700px; width: 100%;">
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px; text-align: left;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--purple);">ขั้นตอน 1: เพิ่ม Connector</p>
+      <p style="font-size: 13px; color: var(--text-light);">Cowork &#8594; Customize &#8594; Connectors &#8594; หา <strong>Canva</strong> &#8594; กด <strong>+</strong> &#8594; ล็อกอิน Canva</p>
+    </div>
+    <div class="prompt-box">
+      <strong style="color: var(--purple);">วาง Prompt นี้</strong><br><br>
+      Create a professional Instagram post for my business [ชื่อธุรกิจ]. Use Canva to design it. The post should announce [โปรโมชัน/อีเวนต์/สินค้าใหม่]. Use modern, clean design with bold text.
+    </div>
+  </div>
+</div>
+
+<!-- 26. BREAK: CONNECTORS -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ใช้เวลาสักครู่</p>
+  <p class="medium-text">รอผลลัพธ์ Excalidraw หรือ Canva ของคุณ</p>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">โชว์เพื่อนข้างๆ ว่าคุณสร้างอะไร</p>
+</div>
+
+<!-- 27. IDEAS -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">ไม่รู้จะเริ่มยังไง? ใช้ <span class="purple">Ideas</span></p>
+  <p class="medium-text" style="margin-bottom: 12px;">กด "Ideas" ใน Sidebar ดู Task สำเร็จรูปที่รันได้ทันที</p>
+  <p style="font-size: 14px; color: var(--text-muted);">หมวดหมู่: Writing, Analysis, Research, Design, Data และอื่นๆ</p>
+</div>
+
+<!-- 28. TRY IDEAS -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองด้วยกัน</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128161; ลอง Idea</p>
+  <div style="max-width: 700px; width: 100%; text-align: left;">
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--purple);">ขั้นตอน 1: เปิด Ideas</p>
+      <p style="font-size: 13px; color: var(--text-light);">Cowork &#8594; กด <strong>Ideas</strong> ใน Sidebar ซ้าย</p>
+    </div>
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--purple);">ขั้นตอน 2: เลือก 1 อัน</p>
+      <p style="font-size: 13px; color: var(--text-light);">หาอันที่เกี่ยวกับธุรกิจของคุณ กดเพื่อเริ่ม</p>
+    </div>
+    <div style="background: #f5f0ff; border-radius: 12px; padding: 12px 20px;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--purple);">ขั้นตอน 3: ทำตาม Prompt</p>
+      <p style="font-size: 13px; color: var(--text-light);">Claude จะถามคำถาม แล้วสร้างงานให้คุณ</p>
+    </div>
+  </div>
+</div>
+
+<!-- 29. PLUGINS -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">ต้องการพลังพิเศษ? เพิ่ม <span class="purple">Plugins</span></p>
+  <p class="medium-text" style="margin-bottom: 12px;">11 Plugins อย่างเป็นทางการที่ให้ Claude มีความสามารถเพิ่ม</p>
+  <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 600px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Web Search</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Data Charts</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">CRM</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Newsletter</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">Website Builder</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600;">+ อีก 6</div>
+  </div>
+</div>
+
+<!-- 30. TRY PLUGINS -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองด้วยกัน</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128268; ลอง Plugin</p>
+  <div style="max-width: 700px; width: 100%; text-align: left;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--green);">ขั้นตอน 1: เปิด Plugin</p>
+      <p style="font-size: 13px; color: var(--text-light);">Cowork &#8594; Customize &#8594; Plugins &#8594; เปิด <strong>Web Search</strong> หรือ <strong>Data Charts</strong></p>
+    </div>
+    <div class="prompt-box">
+      <strong style="color: var(--purple);">ลอง Prompt นี้</strong><br><br>
+      Search the web for the top 3 trends in [อุตสาหกรรมของคุณ] in 2026. Summarize them in a table with what it means for my business.
+    </div>
+  </div>
+</div>
+
+<!-- 31. 7 USE CASES -->
+<div class="slide">
+  <p class="label">Cowork Power Moves</p>
+  <p class="big-text">7 สิ่งที่คุณทำได้<br>ใน Cowork ตอนนี้เลย</p>
+  <p class="medium-text" style="margin-top: 12px;">จะสาธิตทีละอัน แล้วคุณลอง</p>
+</div>
+
+<!-- 32. USE CASE 1: DIGITAL JANITOR -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 1</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128451; Digital Janitor (คนทำความสะอาดไฟล์)</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">Claude อ่านทุกไฟล์ในโฟลเดอร์รก เข้าใจว่าแต่ละไฟล์คืออะไร เปลี่ยนชื่อ และจัดเข้าโฟลเดอร์</p>
+  <a href="sample-messy-files.txt" download class="dl-btn">&#11015; ดาวน์โหลดไฟล์ตัวอย่าง</a>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Look at this file list. Read each description to understand what each file actually is. Rename every file with a clear, descriptive name. Then organize them into logical folders. Show me the before and after.
+  </div>
+</div>
+
+<!-- 33. USE CASE 2: DATA CHARTS -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 2</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128202; Data &#8594; Charts (ข้อมูลเป็นกราฟ)</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">อัพโหลด Spreadsheet หรือ CSV Claude เขียน Python รันให้ ได้กราฟสวยๆ + รายงานเต็มรูปแบบ</p>
+  <a href="sample-sales-data.csv" download class="dl-btn">&#11015; ดาวน์โหลด Sample CSV</a>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Analyze this sales data CSV. Create bar charts for revenue by month, a line chart for trends, and a pie chart for categories. Write a 1-page executive summary with key insights. Save everything as files I can download.
+  </div>
+</div>
+
+<!-- 34. USE CASE 3: INVOICES -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 3</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128196; Bulk Invoice Processing (ใบแจ้งหนี้)</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">โยน PDF ใบแจ้งหนี้ 50+ ใบ Claude อ่านทุกใบ ดึงข้อมูล สร้างตาราง Master</p>
+  <a href="sample-invoices.html" download class="dl-btn">&#11015; ดาวน์โหลดใบแจ้งหนี้ตัวอย่าง</a>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Process all the invoices in this file. For each one, extract: invoice number, vendor name, date, due date, and total amount (THB). Create a master CSV spreadsheet. Sort by date.
+  </div>
+</div>
+
+<!-- 35. TRY DATA -->
+<div class="slide">
+  <div class="try-it-icon">&#128202;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ลองเลย</p>
+  <p class="medium-text" style="margin-bottom: 12px;">ดาวน์โหลด CSV อัพโหลดเข้า Cowork ได้กราฟทันที</p>
+  <a href="https://skillboss-e18pobf9-preview.heyboss.live" target="_blank" class="dl-btn">&#11015; ไปหน้าดาวน์โหลด</a>
+  <div class="prompt-box">
+    <strong style="color: var(--purple);">วาง Prompt นี้:</strong> Analyze this sales data. Create charts for revenue by month and by category. Write a short summary with the key insights. Save as downloadable files.
+  </div>
+</div>
+
+<!-- 36. USE CASE 4: CRM -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 4</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#127919; Customer List &#8594; Visual CRM</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">โยนรายชื่อลูกค้า Claude สร้าง Kanban board ลากวางได้ มีสถานะ: New, Contacted, Proposal, Won, Lost</p>
+  <a href="sample-customers.csv" download class="dl-btn">&#11015; ดาวน์โหลดรายชื่อลูกค้า</a>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Build me a visual CRM pipeline as a single HTML file. Use this customer list. Create a Kanban board with columns: New Lead, Contacted, Proposal Sent, Won, Lost. Make each card draggable. Show customer name, deal value, and status.
+  </div>
+</div>
+
+<!-- 37. TRY CRM -->
+<div class="slide">
+  <div class="try-it-icon">&#127919;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ลองเลย</p>
+  <p class="medium-text" style="margin-bottom: 12px;">ดาวน์โหลดรายชื่อลูกค้า อัพโหลด ได้ CRM ทันที</p>
+  <a href="https://skillboss-e18pobf9-preview.heyboss.live" target="_blank" class="dl-btn">&#11015; ไปหน้าดาวน์โหลด</a>
+  <div class="prompt-box">
+    <strong style="color: var(--purple);">วาง Prompt นี้:</strong> Build me a visual CRM pipeline from this customer data. Create a Kanban board with columns: New Lead, Contacted, Proposal, Won, Lost. Make it drag-and-drop. Save as an HTML file.
+  </div>
+</div>
+
+<!-- 38. USE CASE 5: NEWSLETTER -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 5</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#128231; Newsletter Generator</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">บอก Claude เกี่ยวกับธุรกิจ ได้ Newsletter HTML สวยๆ พร้อม Copy ไปใส่ Gmail หรือ Mailchimp</p>
+  <a href="sample-business-brief.txt" download class="dl-btn">&#11015; ดาวน์โหลด Business Brief</a>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Read this business brief. Create a professional HTML newsletter email with: a welcome header, main announcement, special offer section, CTA button, and footer. Use brand colors from the brief.
+  </div>
+</div>
+
+<!-- 39. USE CASE 6: WEBSITE -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 6</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#127760; Build a Website (สร้างเว็บไซต์)</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">อธิบายธุรกิจ Claude สร้างเว็บไซต์ครบ: Hero, About, Services, Contact Form ในไฟล์ HTML เดียว</p>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Build me a complete one-page website for my [ธุรกิจ] called [ชื่อ]. Include hero, about, 3 services, testimonials, and contact form. Use [สีที่ต้องการ]. Save as HTML.
+  </div>
+</div>
+
+<!-- 40. USE CASE 7: CHROME EXTENSION -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">Use Case 7</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#129529; Chrome Extension</p>
+  <p class="medium-text" style="margin-bottom: 12px; max-width: 600px;">อธิบายเครื่องมือ Browser ที่อยากมี Claude สร้าง Chrome Extension ทั้งตัว โหลดใน Developer Mode ใช้ได้ทันที</p>
+  <div class="prompt-box" style="max-width: 700px;">
+    <strong style="color: var(--purple);">Prompt:</strong> Build me a Chrome extension that saves any webpage as a clean PDF with one click. Include an icon, a popup that shows "Saved!" confirmation, and instructions for how to install it.
+  </div>
+</div>
+
+<!-- 41. TRY WEBSITE/NEWSLETTER -->
+<div class="slide">
+  <div class="try-it-icon">&#127760;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ลองเลย</p>
+  <p class="medium-text" style="margin-bottom: 12px;">เลือก 1 อัน เปลี่ยน Prompt ให้เป็นธุรกิจของคุณ</p>
+  <div style="display: flex; gap: 12px; max-width: 700px; width: 100%; flex-wrap: wrap;">
+    <div class="prompt-box" style="flex: 1; min-width: 280px; margin-top: 0;">
+      <strong style="color: var(--purple);">&#128231; Newsletter</strong><br><br>
+      Create a professional HTML newsletter for my [ประเภทธุรกิจ]. Include a welcome, 3 highlights, and a CTA button.
+    </div>
+    <div class="prompt-box" style="flex: 1; min-width: 280px; margin-top: 0;">
+      <strong style="color: var(--purple);">&#127760; Website</strong><br><br>
+      Build me a one-page website for my [ธุรกิจ] called [ชื่อ]. Include hero, about, services, and contact.
+    </div>
+  </div>
+</div>
+
+<!-- 42. BREAK -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ใช้เวลาสักครู่</p>
+  <p class="medium-text">เช็คผลลัพธ์ทั้งหมด ดาวน์โหลดไฟล์ เปิดดู</p>
+  <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px;">
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 600;">&#128202; กราฟเสร็จ?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 600;">&#127919; CRM เสร็จ?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 600;">&#128231; Newsletter เสร็จ?</div>
+    <div style="background: var(--card-bg); border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 600;">&#127760; เว็บไซต์เสร็จ?</div>
+  </div>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">โชว์เพื่อนข้างๆ ใครอยากแชร์กับทั้งห้อง?</p>
+</div>
+
+<!-- 43. LUNCH -->
+<div class="slide">
+  <p style="font-size: 64px; margin-bottom: 12px;">&#127860;</p>
+  <p class="big-text" style="margin-bottom: 8px;">พักกลางวัน</p>
+  <p class="medium-text">ทานอาหารกันเลย เราจะกลับมา <strong>13:15</strong></p>
+  <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">เล่น Claude ไปด้วยได้นะ</p>
+</div>
+
+<!-- 44. Q&A -->
+<div class="slide">
+  <p style="font-size: 56px; margin-bottom: 12px;">&#128587;</p>
+  <p class="big-text" style="margin-bottom: 8px;">Q&A ด่วน</p>
+  <p class="medium-text">มีคำถามอะไรไหม?</p>
+  <div style="margin-top: 16px; max-width: 500px; text-align: left;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; margin-bottom: 8px; font-size: 14px;">&#128172; Chat, Show, Cowork... มีอะไรไม่เข้าใจ?</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; margin-bottom: 8px; font-size: 14px;">&#128268; Connectors, Plugins... ต้องการช่วยเซ็ตอัพ?</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; font-size: 14px;">&#129300; คุณจะใช้สิ่งนี้กับธุรกิจของคุณอย่างไร?</div>
+  </div>
+</div>
+
+<!-- 45. CONTENT CREATION TITLE -->
+<div class="slide">
+  <p class="label">Content Creation</p>
+  <p class="big-text">สร้างคอนเทนต์ไวรัล<br>ด้วย <span class="purple">Framework ที่พิสูจน์แล้ว</span></p>
+  <p class="medium-text" style="margin-top: 16px;">คนส่วนใหญ่ขอ AI "เขียนโพสต์" แล้วได้ขยะ<br>เราจะให้ <strong>Framework ที่พิสูจน์แล้ว</strong> และได้ทองคำ</p>
+</div>
+
+<!-- 46. WHY AI CONTENT FAILS -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">ทำไมคอนเทนต์ AI ส่วนใหญ่<span class="red">ล้มเหลว</span></p>
+  <div class="compare-row" style="max-width: 700px;">
+    <div class="compare-col" style="background: #fef2f2;">
+      <h3 style="color: var(--red);">&#10060; สิ่งที่คนทำ</h3>
+      <ul>
+        <li>"เขียนโพสต์เกี่ยวกับร้านกาแฟของฉัน"</li>
+        <li>ทั่วไป. น่าเบื่อ. ฟังเหมือน AI.</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background: #f0fdf4;">
+      <h3 style="color: var(--green);">&#9989; สิ่งที่เราจะทำ</h3>
+      <ul>
+        <li>ให้ Claude <strong>Framework ไวรัลที่พิสูจน์แล้ว</strong></li>
+        <li>ใส่ข้อมูลธุรกิจของคุณ</li>
+        <li>ได้สคริปต์ตามโครงสร้างของ Top Creator</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 47. 12 FRAMEWORKS -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">อาวุธลับของคุณ</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">12 Viral Script Frameworks</p>
+  <p class="medium-text" style="margin-bottom: 16px;">ดาวน์โหลด PDF นี้ อัพโหลดเข้า Claude ให้มันเลือก Framework ที่ดีที่สุดสำหรับธุรกิจคุณ</p>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 700px; margin-bottom: 16px;">
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#127775; Bandwagon</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128165; Contrarian</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128221; Listicle</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128100; Founder</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128161; How-To</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#127916; Organic</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128293; PAS</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128247; Ugly Ads</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128170; Objections</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#9878; Us vs Them</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#127873; Triple G</div>
+    <div style="background: var(--card-bg); border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; font-weight: 600;">&#128064; Tease</div>
+  </div>
+  <a href="scripting-frameworks-2026.pdf" download class="dl-btn">&#11015; ดาวน์โหลด Scripting Frameworks PDF</a>
+</div>
+
+<!-- 48. TRY CONTENT -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ลองด้วยกัน</p>
+  <p class="big-text" style="margin-bottom: 12px; font-size: clamp(22px, 3vw, 36px);">&#127916; สร้างสคริปต์ไวรัลของคุณ</p>
+  <div style="max-width: 700px; width: 100%;">
+    <div style="background: #f0fdf4; border-radius: 12px; padding: 12px 20px; margin-bottom: 10px; text-align: left;">
+      <p style="font-weight: 700; font-size: 14px; color: var(--green);">ขั้นตอน 1: อัพโหลด PDF</p>
+      <p style="font-size: 13px; color: var(--text-light);">เปิด Cowork แนบ Scripting Frameworks PDF ที่ดาวน์โหลดมา</p>
+    </div>
+    <div class="prompt-box">
+      <strong style="color: var(--purple);">ขั้นตอน 2: วาง Prompt นี้</strong><br><br>
+      Read this scripting frameworks document. I run a [อธิบายธุรกิจ 1-2 ประโยค]. Pick the best framework for my business and write me a 30-second video script I can use for social media. Make it feel natural, not salesy. Include the hook, body, and call to action.
+    </div>
+  </div>
+</div>
+
+<!-- 49. BREAK -->
+<div class="slide">
+  <div class="try-it-icon">&#9997;</div>
+  <p class="big-text" style="margin-bottom: 8px;">ใช้เวลาสักครู่</p>
+  <p class="medium-text">รอสคริปต์ อ่านดู ขอให้ Claude ปรับ Tone หรือเขียนอีกเวอร์ชัน</p>
+  <p style="margin-top: 12px; font-size: 14px; color: var(--text-muted);">ลอง: "Make it more casual" หรือ "Write a second version using the PAS framework"</p>
+</div>
+
+<!-- 50. Q&A 2 -->
+<div class="slide">
+  <p style="font-size: 56px; margin-bottom: 12px;">&#128587;</p>
+  <p class="big-text" style="margin-bottom: 8px;">Open Q&A</p>
+  <p class="medium-text">ถามได้ทุกอย่างเกี่ยวกับสิ่งที่เราเรียนวันนี้</p>
+  <div style="margin-top: 16px; max-width: 500px; text-align: left;">
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; margin-bottom: 8px; font-size: 14px;">&#9889; "ใช้กับ [ธุรกิจของฉัน] อย่างไร?"</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; margin-bottom: 8px; font-size: 14px;">&#128176; "Use case ไหนดีที่สุดที่ควรเริ่มก่อน?"</div>
+    <div style="background: var(--card-bg); border-radius: 12px; padding: 12px 16px; font-size: 14px;">&#129300; "Claude ทำ [อะไรบางอย่าง] ได้ไหม?"</div>
+  </div>
+</div>
+
+<!-- 51. WHAT YOU LEARNED -->
+<div class="slide" style="padding: 30px 30px;">
+  <p class="label">ภาพรวม</p>
+  <p class="big-text" style="margin-bottom: 20px;">สิ่งที่คุณเรียนรู้วันนี้</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 600px;">
+    <div class="card">
+      <div class="card-icon">&#128172;</div>
+      <h3>Chat + Show</h3>
+      <p>Interactive visual จาก Prompt ง่ายๆ</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128196;</div>
+      <h3>Cowork</h3>
+      <p>ไฟล์จริง กราฟ เว็บ Newsletter</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#128268;</div>
+      <h3>Connectors + Plugins</h3>
+      <p>Gmail, Canva, Excalidraw, 20+ แอป</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#127916;</div>
+      <h3>Content Creation</h3>
+      <p>สคริปต์ไวรัลจาก Framework ที่พิสูจน์แล้ว</p>
+    </div>
+  </div>
+  <p class="medium-text" style="margin-top: 16px;">ทั้งหมดนี้ <strong>$20/เดือน</strong> ไม่ต้องจ้าง Developer</p>
+</div>
+
+<!-- 52. BEFORE vs AFTER -->
+<div class="slide">
+  <div class="compare-row">
+    <div class="compare-col" style="background: #fef2f2;">
+      <h3 style="color: var(--red);">ก่อนวันนี้</h3>
+      <ul>
+        <li>&#10060; ใช้ AI ถามคำถาม</li>
+        <li>&#10060; ได้คำตอบเป็นข้อความ</li>
+        <li>&#10060; ต้องทำงานเองทั้งหมด</li>
+        <li>&#10060; AI เหมือน Google ที่ฉลาดขึ้น</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background: #f0fdf4;">
+      <h3 style="color: var(--green);">หลังวันนี้</h3>
+      <ul>
+        <li>&#10004; สร้างไฟล์และเครื่องมือธุรกิจจริง</li>
+        <li>&#10004; เชื่อมต่อ AI กับแอปจริง</li>
+        <li>&#10004; สร้างคอนเทนต์ไวรัลด้วย Framework</li>
+        <li>&#10004; AI เหมือนทีมงานคนจริง</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 53. THANK YOU -->
+<div class="slide">
+  <p class="big-text" style="font-size: clamp(40px, 6vw, 72px);">ขอบคุณครับ</p>
+  <p class="medium-text" style="margin-top: 16px;">ไปสร้างสิ่งที่ทำเงินกันเถอะ</p>
+  <p class="subtitle" style="margin-top: 28px; font-weight: 600;">Jonny West</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">&#128279; หน้าทรัพยากร: skillboss-e18pobf9-preview.heyboss.live</p>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" onclick="prev()" aria-label="Previous">&larr;</button>
+  <span class="nav-counter" id="counter" style="cursor: pointer;" title="Click to jump" onclick="jumpToSlide()">1 / 53</span>
+  <button class="nav-btn" onclick="next()" aria-label="Next">&rarr;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function show(i) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, i));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  }
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+  function jumpToSlide() {
+    var num = prompt('Jump to slide (1-' + total + '):', current + 1);
+    if (num !== null && !isNaN(num)) show(parseInt(num) - 1);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // Touch swipe for mobile
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (diff < -50) next();
+    if (diff > 50) prev();
+  });
+
+  // Copy prompt on click
+  function copyOnClick(el) {
+    var text = el.innerText.trim();
+    navigator.clipboard.writeText(text).then(function() {
+      var orig = el.style.borderColor;
+      el.style.borderColor = 'var(--green)';
+      setTimeout(function() { el.style.borderColor = orig; }, 1500);
+    });
+  }
+
+  // Auto-add copy buttons to prompt boxes
+  document.querySelectorAll('.prompt-box').forEach(function(box) {
+    if (box.querySelector('.copy-btn')) return;
+    if (box.innerText.length < 60) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      var text = box.innerText.replace(/^Copy\s*/, '').replace(/^Copied!\s*/, '');
+      text = text.replace(/^(Prompt:|วาง Prompt นี้:|ขั้นตอน \d+: วาง Prompt นี้|ลอง Prompt นี้)\s*/i, '').trim();
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    };
+    box.appendChild(btn);
+  });
+
+  show(0);
+</script>
+</body>
+</html>

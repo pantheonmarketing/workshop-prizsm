@@ -1,0 +1,86 @@
+BUSINESS BRIEF
+==============
+
+BUSINESS NAME: Sweet Mango Cafe
+TYPE: Cafe & Bakery
+LOCATION: Sukhumvit Soi 22, Bangkok, Thailand
+OWNER: Nida Pongsakorn
+
+WHAT WE DO:
+- Artisan coffee and homemade Thai desserts
+- Mango sticky rice is our signature (voted #1 on TripAdvisor Sukhumvit)
+- Also serve lunch sets (Thai + Western fusion)
+- Cater for small events and corporate orders
+- Open daily 7am to 9pm
+
+OUR CUSTOMERS:
+- Local office workers (lunch crowd, weekday regulars)
+- Tourists exploring Sukhumvit (especially couples and foodies)
+- Instagram foodies (our desserts photograph really well)
+- Corporate clients for catering (offices, co-working spaces nearby)
+
+UPCOMING NEWS:
+- New matcha mango menu launching March 20
+- 15% off catering orders for Songkran season (April)
+- Just hit 5,000 Instagram followers
+- New evening dessert tasting menu starting April 1
+
+BRAND IDENTITY:
+- Colors: Warm yellow (#F5A623), deep green (#2D5F2D), cream white
+- Tone: Warm, friendly, a bit playful. Not corporate.
+- Tagline: "Where Thai sweetness meets your morning coffee"
+
+WEBSITE NEEDS:
+- Menu (with photos and prices)
+- About us (our story, the team)
+- Catering info (packages, pricing, how to order)
+- Contact and location (map, phone, Line ID)
+- Instagram feed link (@sweetmangocafe)
+
+NEWSLETTER INFO:
+- ~800 email subscribers (customers who signed up in-store)
+- Send 2x per month
+- Mix of new menu items, promotions, and behind-the-scenes stories
+
+SOCIAL MEDIA:
+- Instagram: @sweetmangocafe (5,000 followers)
+- Facebook: Sweet Mango Cafe Bangkok
+- Line Official Account for promotions and loyalty
+
+---
+
+HOW TO USE THIS BRIEF WITH CLAUDE COWORK
+=========================================
+
+Copy and paste this entire brief into Claude, then try prompts like these:
+
+
+FOR NEWSLETTERS:
+"Using the business brief above, write a short email newsletter announcing the new matcha mango menu launching March 20. Keep it warm and friendly, under 200 words."
+
+"Write a Songkran promotion email offering 15% off catering. Include a clear call to action to reply or call to book."
+
+"Create a monthly newsletter template I can reuse. Include sections for: new menu spotlight, upcoming events, a customer photo feature, and a special offer."
+
+
+FOR A WEBSITE:
+"Using this business brief, write all the text for a one-page website. Include sections for hero/intro, about us, menu highlights, catering services, and contact info."
+
+"Write an About Us page that tells our story in a warm, personal way. Mention that Nida started the cafe after leaving her corporate job to follow her passion for Thai desserts."
+
+"Create a catering page with 3 package tiers (Small, Medium, Large) based on the brief. Make up reasonable pricing for Bangkok."
+
+
+FOR A CHROME EXTENSION (CLAUDE COWORK):
+"I'm looking at a competitor cafe's Instagram page. Based on my business brief, suggest 5 post ideas that would help Sweet Mango Cafe stand out."
+
+"I'm reading an article about food trends in Bangkok. Based on my business brief, what trends should I pay attention to and how could I use them?"
+
+"I'm browsing a website builder template. Based on my brief, tell me what sections I need and what text to put in each one."
+
+
+TIPS:
+- Always paste your full business brief first, then ask your question
+- The more detail in your brief, the better the output
+- Update this brief whenever something changes (new menu, new location, new milestone)
+- Save your best outputs and reuse them as templates

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Master Thailand — Pitch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --purple: #7B2FF2;
+      --purple-light: #C084FC;
+      --green: #22c55e;
+      --red: #ef4444;
+      --text: #1a1a2a;
+      --text-light: #555;
+      --text-muted: #888;
+      --bg: #ffffff;
+      --card-bg: #f5f5f7;
+      --border: #e5e5ea;
+    }
+    body {
+      font-family: 'Noto Sans Thai', 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      -webkit-font-smoothing: antialiased;
+    }
+    .slide {
+      display: none;
+      position: absolute;
+      inset: 0;
+      padding: 60px 80px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .slide.active { display: flex; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .nav-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { border-color: var(--purple); color: var(--purple); }
+    .nav-counter {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+    .big-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .medium-text {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    .label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+    .purple { color: var(--purple); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .compare-col {
+      flex: 1;
+      min-width: 250px;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: left;
+    }
+    .compare-col h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .compare-col li {
+      font-size: 14px;
+      line-height: 2;
+      list-style: none;
+    }
+    .speaker-note {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fffbe6;
+      border: 1px solid #f0d860;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: #8a6d00;
+      max-width: 600px;
+      text-align: center;
+      display: none;
+      z-index: 99;
+    }
+    body.show-notes .speaker-note { display: block; }
+
+    /* Stack */
+    .stack-item {
+      animation: stackReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      margin-bottom: 8px;
+    }
+    @keyframes stackReveal {
+      from { opacity: 0; transform: translateX(-30px) scale(0.95); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    .stack-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+      gap: 16px;
+    }
+    .stack-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+    }
+    .stack-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 44px;
+      text-align: center;
+    }
+    .stack-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .stack-desc {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.4;
+    }
+    .stack-value {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--purple);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 30px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1. TRANSITION -->
+<div class="slide active">
+  <p class="medium-text" style="margin-bottom: 12px;">วันนี้เป็นแค่จุดเริ่มต้น</p>
+  <p class="big-text">ยังมี<span class="purple">อีกระดับ</span>ที่เรายังไม่ได้แตะ</p>
+  <p class="medium-text" style="margin-top: 20px;">Claude <strong>Code</strong>. AI Agents อัตโนมัติ. ระบบที่ทำงานให้คุณ.<br>สิ่งที่ทำให้ธุรกิจวิ่งได้ตอนคุณหลับ.</p>
+  <div class="speaker-note">"วันนี้เราครอบคลุม Chat, Show, Cowork, Connectors, Content แต่ยังมี Code ซึ่งทรงพลังมาก ผมจะบอกว่าคุณจะเรียนรู้ต่อได้ยังไง"</div>
+</div>
+
+<!-- 2. THE PROBLEM -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">นี่คือ<span class="red">ปัญหา</span></p>
+  <p class="medium-text" style="max-width: 700px; line-height: 1.7;">คุณกลับบ้าน. ลองใช้ Claude คนเดียว. ติดปัญหา. ไม่มีใครถาม. ไม่มีใครสอนขั้นตอนต่อไป. หมดแรง. แล้วใน 2 สัปดาห์... คุณกลับไปทำทุกอย่างแบบเดิม.</p>
+  <div class="speaker-note">"พูดตรงๆ... คอร์สออนไลน์ที่ซื้อมา เรียนจบกี่อัน?" หยุด. ปล่อยให้มันซึมเข้าไป.</div>
+</div>
+
+<!-- 3. THE SOLUTION -->
+<div class="slide">
+  <p class="label">ทางออก</p>
+  <p class="big-text" style="margin-bottom: 12px;">Claude Master <span class="purple">Thailand</span></p>
+  <p class="medium-text" style="max-width: 700px;">ชุมชน AI แบบพบหน้ากันจริงแห่งแรกของไทย.<br>ไม่ใช่คอร์ส. ไม่ใช่ Zoom. <strong>คนจริง, Workshop จริง, ผลลัพธ์จริง.</strong></p>
+  <div class="speaker-note">"นี่คือชุมชน AI แบบเจอตัวจริงแห่งแรกของไทย ไม่ใช่ออนไลน์ ไม่ใช่คอร์สที่จะลืม เราเจอหน้ากัน เหมือนวันนี้ นั่นคือความต่าง"</div>
+</div>
+
+<!-- 4. MENTORS -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="label">Mentor ของคุณ</p>
+  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(26px, 3.5vw, 42px);">สองคนที่<span class="purple">ทำจริง</span></p>
+  <div style="display: flex; gap: 32px; max-width: 800px; justify-content: center; flex-wrap: wrap;">
+    <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
+      <p style="font-size: 48px; margin-bottom: 8px;">&#128640;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Jonny West</p>
+      <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">10 ปีในธุรกิจออนไลน์<br>2x ClickFunnels Comma Club (7 หลัก)<br>สร้าง AI CEO Studio (68 คนใช้จ่ายเงิน)<br>ที่ปรึกษาบริษัทด้าน AI Automation</p>
+    </div>
+    <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
+      <p style="font-size: 48px; margin-bottom: 8px;">&#127775;</p>
+      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Kantawee Saengsai</p>
+      <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">$100K Club winner ที่ DIYECOM<br>ผู้เชี่ยวชาญ E-commerce และ Digital Marketing ไทย<br>ใช้ Claude จริงทุกวันเพื่อขยายธุรกิจ<br>อยู่กรุงเทพ ตรงนี้เลย</p>
+    </div>
+  </div>
+  <p style="margin-top: 20px; font-size: 16px; color: var(--text); font-weight: 600;">ไม่ใช่อาจารย์. ไม่ใช่ Influencer. <span class="purple">คนที่ทำจริง</span> สร้างด้วย AI ทุกวัน.</p>
+  <div class="speaker-note">"พวกเราไม่ใช่คนอ่านเรื่อง AI แล้วมาสอน เราใช้มันทุกวัน เพื่อทำธุรกิจจริง และคุณจะเข้าถึงเราสองคนได้โดยตรง"</div>
+</div>
+
+<!-- 5. STACK -->
+<div class="slide" style="padding: 20px 40px;" id="stack-slide">
+  <p class="label">3 เดือน. ทุกอย่างที่คุณต้องการ.</p>
+  <p class="big-text" style="margin-bottom: 16px; font-size: clamp(24px, 3.5vw, 38px);">Claude Master Thailand</p>
+  <div style="max-width: 700px; width: 100%;" id="stack-items">
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128187;</span>
+          <div>
+            <p class="stack-title">3 Expert-Level Live Workshops</p>
+            <p class="stack-desc">ไม่ใช่ระดับเริ่มต้น. ลงลึก: Automate ธุรกิจ, สร้าง AI Employee, หาลูกค้าเพิ่ม, และ Monetize. ลงมือทำ, เจอหน้า, กรุงเทพ.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;15,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128640;</span>
+          <div>
+            <p class="stack-title">เข้าถึง Jonny + Kantawee โดยตรง</p>
+            <p class="stack-desc">Live sessions, Q&amp;A calls, ส่งข้อความได้ตรง. Mentor 2 คนที่สร้างธุรกิจล้านดอลลาร์และที่ปรึกษาบริษัทใหญ่. คุณได้เรา 3 เดือน.</p>
+          </div>
+        </div>
+        <p class="stack-value">Priceless</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#127758;</span>
+          <div>
+            <p class="stack-title">ชุมชน AI แบบพบหน้าแห่งแรกของไทย</p>
+            <p class="stack-desc">Networking กับเจ้าของธุรกิจที่คิดเหมือนคุณ. ทั้งคนไทยและต่างชาติ. Connection จริง ไม่ใช่แค่กลุ่มแชท. คนที่คุณจะทำธุรกิจด้วยกัน.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;6,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#129302;</span>
+          <div>
+            <p class="stack-title">AI Automation + AI Employees</p>
+            <p class="stack-desc">เรียนสร้าง AI Agent ที่จัดการ Sales, Content, Email, Customer Support ให้. หยุดทำงานซ้ำๆ ให้ AI Employee ทำแทน.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;15,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128274;</span>
+          <div>
+            <p class="stack-title">AI Security + Best Practices</p>
+            <p class="stack-desc">ใช้ AI อย่างปลอดภัยสำหรับธุรกิจ. ปกป้องข้อมูล ลูกค้า และชื่อเสียงของคุณ. คนส่วนใหญ่ข้ามเรื่องนี้. เราไม่ข้าม.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;5,000</p>
+      </div>
+    </div>
+    <div class="stack-item" style="display:none;">
+      <div class="stack-row">
+        <div class="stack-left">
+          <span class="stack-icon">&#128176;</span>
+          <div>
+            <p class="stack-title">กลยุทธ์สร้างรายได้ (Monetization)</p>
+            <p class="stack-desc">เปลี่ยนทักษะ AI เป็นเงิน. หาลูกค้าเพิ่ม, ปิดดีลมากขึ้น, สร้างสินค้าที่ขายได้. Playbook จริงจากคนที่ทำสำเร็จแล้ว.</p>
+          </div>
+        </div>
+        <p class="stack-value">&#3647;10,000</p>
+      </div>
+    </div>
+  </div>
+  <div id="stack-total" style="display:none; margin-top: 16px; background: var(--card-bg); border-radius: 12px; padding: 14px 24px; max-width: 700px; width: 100%; text-align: right;">
+    <p style="font-size: 14px; color: var(--text-muted);">มูลค่ารวม</p>
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 28px; color: var(--text);"><span style="text-decoration: line-through; color: var(--text-muted);">&#3647;51,000+</span></p>
+  </div>
+  <div class="speaker-note">กด SPACEBAR หรือลูกศรขวา เพื่อเปิดทีละอัน อ่านแต่ละอัน ปล่อยให้มูลค่าซึมเข้าไป หลัง 6 อัน ยอดรวมจะโผล่</div>
+</div>
+
+<!-- 6. PRICE REVEAL -->
+<div class="slide">
+  <p class="label">ราคา Founder</p>
+  <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 24px;">คุณคือกลุ่มแรก. สมาชิกผู้ก่อตั้ง. ราคานี้จะไม่มีอีกแล้ว.</p>
+  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 20px; padding: 36px 48px; text-align: center; max-width: 600px; box-shadow: 0 8px 32px rgba(123,47,242,0.3);">
+    <p style="font-size: 16px; opacity: 0.9; margin-bottom: 4px;">3 เดือน. ทุกอย่าง. ราคา Founder.</p>
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: clamp(52px, 7vw, 88px); line-height: 1;">&#3647;10,000</p>
+    <p style="font-size: 18px; opacity: 0.9; margin-top: 8px;">แค่ <strong>&#3647;3,333/เดือน</strong> ถูกกว่าไปกินข้าวนอกบ้าน</p>
+  </div>
+  <p style="margin-top: 20px; font-size: 15px; color: var(--text-light); max-width: 550px;">3 Workshops. 2 Mentors. Live Sessions. AI Security. กลยุทธ์สร้างรายได้. ชุมชนแบบเจอหน้า. ทุกอย่าง.</p>
+  <div class="speaker-note">"คุณคือสมาชิกผู้ก่อตั้ง กลุ่มแรก ราคานี้จะไม่กลับมาอีก พอเปิดให้คนทั่วไป ราคาจะสูงกว่านี้มาก คุณมาวันนี้ ลงทุนวันเสาร์ 10,000 บาท 3 เดือน ทุกอย่างที่โชว์ให้ดู แค่ 3,333 ต่อเดือน ถูกกว่าไปกินข้าวนอกบ้าน"</div>
+</div>
+
+<!-- 7. WHY DIFFERENT -->
+<div class="slide" style="padding: 30px 50px;">
+  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(26px, 3.5vw, 42px);">นี่<span class="purple">ไม่ใช่</span>คอร์สออนไลน์</p>
+  <div style="display: flex; gap: 24px; max-width: 800px; flex-wrap: wrap;">
+    <div class="compare-col" style="background: #fef2f2;">
+      <h3 style="color: var(--red);">&#10060; คอร์สออนไลน์</h3>
+      <ul>
+        <li>ดูวิดีโอคนเดียว</li>
+        <li>ติดปัญหา ไม่มีคนช่วย</li>
+        <li>หมดแรงใน 2 สัปดาห์</li>
+        <li>คำแนะนำทั่วไป</li>
+        <li>ไม่ได้เจอใครเลย</li>
+        <li>ไม่มีใครตามงาน</li>
+      </ul>
+    </div>
+    <div class="compare-col" style="background: #f0fdf4;">
+      <h3 style="color: var(--green);">&#10004; Claude Master Thailand</h3>
+      <ul>
+        <li>3 Expert Workshops เจอหน้า</li>
+        <li>2 Mentors ที่ทำจริงทุกวัน</li>
+        <li>ชุมชนเจ้าของธุรกิจตัวจริง</li>
+        <li>ที่ปรึกษาเฉพาะธุรกิจคุณ</li>
+        <li>เครือข่ายไทย + ต่างชาติ</li>
+        <li>ครอบคลุม Security + Best Practices</li>
+      </ul>
+    </div>
+  </div>
+  <div class="speaker-note">"ลองนึกถึงคอร์สออนไลน์ที่ซื้อมา เรียนจบกี่อัน? นั่นแหละ. นี่ต่างกันเพราะเราเจอหน้ากัน ทุกเดือน หนีไม่ได้ ผัดวันไม่ได้ และมี Mentor 2 คนที่ใช้ AI ทำเงินจริง"</div>
+</div>
+
+<!-- 8. JOIN -->
+<div class="slide">
+  <p class="big-text" style="margin-bottom: 20px;">สแกนเพื่อ<span class="purple">สมัครเลย</span></p>
+  <div style="background: var(--card-bg); border-radius: 20px; padding: 32px; max-width: 400px; text-align: center;">
+    <div style="width: 200px; height: 200px; background: #fff; border: 2px solid var(--border); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+      <p style="font-size: 14px; color: var(--text-muted);">&#128247; QR Code<br><br><span style="font-size: 12px;">skool.com/ai-influencer-academy2026</span></p>
+    </div>
+    <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 20px; color: var(--purple);">Claude Master Thailand</p>
+    <p style="font-size: 14px; color: var(--text-light); margin-top: 8px;">skool.com/ai-influencer-academy2026</p>
+  </div>
+  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 12px; padding: 14px 28px; margin-top: 16px; max-width: 400px; text-align: center;">
+    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 24px;">&#3647;10,000 / 3 เดือน</p>
+    <p style="font-size: 14px; opacity: 0.9;">ราคา Founder. วันนี้เท่านั้น.</p>
+  </div>
+  <div class="speaker-note">"หยิบมือถือขึ้นมา สแกน สมัครเลย ถ้ามีคำถาม ยกมือเลย ผมจะไปหา" ให้เวลา 3-5 นาที</div>
+</div>
+
+<!-- 9. THANK YOU -->
+<div class="slide">
+  <p class="big-text" style="font-size: clamp(48px, 6vw, 80px);">ขอบคุณครับ</p>
+  <p class="medium-text" style="margin-top: 20px;">ไปสร้างสิ่งที่ทำเงินกันเถอะ</p>
+  <p style="font-family: 'Montserrat'; font-weight: 600; margin-top: 32px; font-size: 18px;">Jonny West + Kantawee Saengsai</p>
+  <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">skool.com/ai-influencer-academy2026</p>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" onclick="prev()" aria-label="Previous">&larr;</button>
+  <span class="nav-counter" id="counter" style="cursor: pointer;" onclick="jumpToSlide()">1 / 9</span>
+  <button class="nav-btn" onclick="next()" aria-label="Next">&rarr;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function show(i) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, i));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  }
+
+  // Stack logic
+  let stackRevealed = 0;
+  function getStackSlideIndex() {
+    var el = document.getElementById('stack-slide');
+    return Array.from(slides).indexOf(el);
+  }
+  function revealNextStackItem() {
+    var items = document.querySelectorAll('#stack-items .stack-item');
+    if (stackRevealed < items.length) {
+      items[stackRevealed].style.display = 'block';
+      stackRevealed++;
+      return true;
+    }
+    var totalEl = document.getElementById('stack-total');
+    if (totalEl && totalEl.style.display === 'none') {
+      totalEl.style.display = 'block';
+      return true;
+    }
+    return false;
+  }
+  function resetStack() {
+    stackRevealed = 0;
+    document.querySelectorAll('#stack-items .stack-item').forEach(function(el) {
+      el.style.display = 'none';
+    });
+    var totalEl = document.getElementById('stack-total');
+    if (totalEl) totalEl.style.display = 'none';
+  }
+
+  function next() {
+    if (current === getStackSlideIndex()) {
+      if (revealNextStackItem()) return;
+    }
+    show(current + 1);
+  }
+  function prev() {
+    if (current - 1 === getStackSlideIndex()) resetStack();
+    show(current - 1);
+  }
+  function jumpToSlide() {
+    var num = prompt('Jump to slide (1-' + total + '):', current + 1);
+    if (num !== null && !isNaN(num)) show(parseInt(num) - 1);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (current === getStackSlideIndex()) {
+        if (revealNextStackItem()) return;
+      }
+      next();
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (current - 1 === getStackSlideIndex()) resetStack();
+      prev();
+    }
+    if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); }
+  });
+
+  // Touch swipe for mobile
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (diff < -50) next();
+    if (diff > 50) prev();
+  });
+
+  show(0);
+</script>
+</body>
+</html>

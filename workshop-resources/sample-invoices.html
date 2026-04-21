@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thai Business Invoices - January/February 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1a1a2e; background: #f0f0f0; }
+
+  .invoice {
+    width: 210mm;
+    min-height: 280mm;
+    margin: 20px auto;
+    padding: 40px 50px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #2c3e8f;
+  }
+
+  .company-info h1 {
+    font-size: 22px;
+    color: #2c3e8f;
+    margin-bottom: 4px;
+  }
+  .company-info .subtitle {
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 8px;
+  }
+  .company-info p {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .invoice-title {
+    text-align: right;
+  }
+  .invoice-title h2 {
+    font-size: 32px;
+    color: #2c3e8f;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+  .invoice-title .inv-number {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  .invoice-title .inv-date {
+    font-size: 12px;
+    color: #777;
+  }
+
+  .billing-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  .billing-section .bill-to,
+  .billing-section .invoice-details {
+    width: 48%;
+  }
+  .billing-section h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2c3e8f;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  .billing-section p {
+    font-size: 12px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #444;
+    margin-bottom: 4px;
+  }
+  .detail-row .label { color: #777; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+  }
+  thead th {
+    background: #2c3e8f;
+    color: #fff;
+    padding: 10px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: left;
+  }
+  thead th:nth-child(3),
+  thead th:nth-child(4),
+  thead th:nth-child(5) {
+    text-align: right;
+  }
+  tbody td {
+    padding: 10px 12px;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+  }
+  tbody td:nth-child(3),
+  tbody td:nth-child(4),
+  tbody td:nth-child(5) {
+    text-align: right;
+  }
+  tbody tr:nth-child(even) { background: #f9f9fc; }
+
+  .totals {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+  }
+  .totals-table {
+    width: 260px;
+  }
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 12px;
+    color: #444;
+  }
+  .totals-row.total {
+    border-top: 2px solid #2c3e8f;
+    margin-top: 4px;
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c3e8f;
+  }
+
+  .invoice-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 50px;
+    right: 50px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #999;
+  }
+  .invoice-footer .payment-info p { margin-bottom: 2px; }
+  .invoice-footer .thank-you {
+    text-align: right;
+    font-style: italic;
+    color: #2c3e8f;
+    font-size: 12px;
+    align-self: center;
+  }
+
+  .stamp {
+    position: absolute;
+    bottom: 100px;
+    right: 70px;
+    border: 3px solid #27ae60;
+    color: #27ae60;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transform: rotate(-12deg);
+    opacity: 0.7;
+    border-radius: 4px;
+  }
+  .stamp.unpaid {
+    border-color: #e74c3c;
+    color: #e74c3c;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .invoice {
+      box-shadow: none;
+      margin: 0;
+      page-break-after: always;
+      padding: 30px 40px;
+      min-height: auto;
+    }
+    .invoice:last-child { page-break-after: avoid; }
+    .invoice-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Invoice 1 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Siam Fresh Co., Ltd.</h1>
+      <div class="subtitle">Fresh Produce Wholesale &amp; Distribution</div>
+      <p>88/12 Sukhumvit Soi 24, Klongton<br>Klongtoey, Bangkok 10110, Thailand<br>Tax ID: 0105562018923<br>Tel: +66 2-391-4455 | info@siamfresh.co.th</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-001</div>
+      <div class="inv-date">Date: January 5, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Central Food Hall Co., Ltd.</strong><br>1027 Ploenchit Road, Lumpini<br>Pathumwan, Bangkok 10330<br>Tax ID: 0105537048398</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>February 4, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 30</span></div>
+      <div class="detail-row"><span class="label">PO Number:</span><span>PO-CF-20260102</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Organic Mixed Vegetables - Premium Grade (10kg box)</td><td>45</td><td>&#3647;320.00</td><td>&#3647;14,400.00</td></tr>
+      <tr><td>2</td><td>Thai Hom Mali Rice - Grade A (25kg sack)</td><td>30</td><td>&#3647;890.00</td><td>&#3647;26,700.00</td></tr>
+      <tr><td>3</td><td>Fresh Coconut Milk - Chilled 1L cartons (case of 12)</td><td>20</td><td>&#3647;480.00</td><td>&#3647;9,600.00</td></tr>
+      <tr><td>4</td><td>Cold chain delivery surcharge (refrigerated truck)</td><td>2</td><td>&#3647;3,500.00</td><td>&#3647;7,000.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;57,700.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;4,039.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;61,739.00</span></div>
+    </div>
+  </div>
+  <div class="stamp">PAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Bangkok Bank | Acc: 235-0-48821-9 | Siam Fresh Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105562018923</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 2 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>BangkokBites Ltd.</h1>
+      <div class="subtitle">Restaurant Equipment &amp; Supplies</div>
+      <p>42/7 Charoen Krung Road, Bangrak<br>Bangkok 10500, Thailand<br>Tax ID: 0105564032187<br>Tel: +66 2-234-8811 | sales@bangkokbites.com</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-002</div>
+      <div class="inv-date">Date: January 12, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Baan Somtum Restaurant Group</strong><br>19/3 Sathorn Soi 10<br>Sathorn, Bangkok 10120<br>Tax ID: 0105558091234</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>January 27, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 15</span></div>
+      <div class="detail-row"><span class="label">PO Number:</span><span>PO-BS-0112</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Commercial Wok Burner - High BTU (imported)</td><td>2</td><td>&#3647;8,500.00</td><td>&#3647;17,000.00</td></tr>
+      <tr><td>2</td><td>Stainless Steel Prep Table 180cm x 60cm</td><td>3</td><td>&#3647;4,200.00</td><td>&#3647;12,600.00</td></tr>
+      <tr><td>3</td><td>Installation &amp; delivery service</td><td>1</td><td>&#3647;3,500.00</td><td>&#3647;3,500.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;33,100.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;2,317.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;35,417.00</span></div>
+    </div>
+  </div>
+  <div class="stamp">PAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Kasikorn Bank | Acc: 048-2-91553-7 | BangkokBites Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105564032187</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 3 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Lotus Digital Agency</h1>
+      <div class="subtitle">Digital Marketing &amp; Web Development</div>
+      <p>1599/8 Phaholyothin Road, Chatuchak<br>Bangkok 10900, Thailand<br>Tax ID: 0105565044291<br>Tel: +66 2-930-2200 | hello@lotusdigital.co.th</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-003</div>
+      <div class="inv-date">Date: January 18, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Anantara Hotels &amp; Resorts (Thailand)</strong><br>155 Rajadamri Road, Lumpini<br>Pathumwan, Bangkok 10330<br>Tax ID: 0105540012876</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>February 17, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 30</span></div>
+      <div class="detail-row"><span class="label">Project:</span><span>Q1 2026 Campaign</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Social Media Management - January 2026 (FB, IG, LINE)</td><td>1</td><td>&#3647;35,000.00</td><td>&#3647;35,000.00</td></tr>
+      <tr><td>2</td><td>Google Ads Campaign Management (Search + Display)</td><td>1</td><td>&#3647;18,000.00</td><td>&#3647;18,000.00</td></tr>
+      <tr><td>3</td><td>Landing Page Design &amp; Development (3 pages)</td><td>3</td><td>&#3647;8,500.00</td><td>&#3647;25,500.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;78,500.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;5,495.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;83,995.00</span></div>
+    </div>
+  </div>
+  <div class="stamp unpaid">UNPAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> SCB | Acc: 114-2-30089-5 | Lotus Digital Agency Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105565044291</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 4 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>ChiangMai Coffee Roasters</h1>
+      <div class="subtitle">Specialty Coffee Beans &amp; Equipment</div>
+      <p>77 Nimmanhaemin Road, Suthep<br>Muang, Chiang Mai 50200, Thailand<br>Tax ID: 0505563028415<br>Tel: +66 53-215-678 | orders@cmcoffee.co.th</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-004</div>
+      <div class="inv-date">Date: January 22, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Rocket Coffeebar (Sathorn)</strong><br>43 Sathorn Soi 12<br>Bangrak, Bangkok 10500<br>Tax ID: 0105561078432</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>February 5, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 14</span></div>
+      <div class="detail-row"><span class="label">PO Number:</span><span>RC-JAN-044</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Single Origin Doi Chaang - Medium Roast (1kg bags)</td><td>15</td><td>&#3647;650.00</td><td>&#3647;9,750.00</td></tr>
+      <tr><td>2</td><td>Espresso Blend "Northern Star" (1kg bags)</td><td>10</td><td>&#3647;580.00</td><td>&#3647;5,800.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;15,550.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;1,088.50</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;16,638.50</span></div>
+    </div>
+  </div>
+  <div class="stamp">PAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Krungthai Bank | Acc: 981-0-15234-8 | ChiangMai Coffee Roasters Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0505563028415</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 5 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Phuket Marine Services</h1>
+      <div class="subtitle">Boat Maintenance, Parts &amp; Marine Supplies</div>
+      <p>23/5 Rassada Road, Muang<br>Phuket 83000, Thailand<br>Tax ID: 0835561019283<br>Tel: +66 76-222-190 | service@phuketmarine.co.th</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-005</div>
+      <div class="inv-date">Date: January 28, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Simba Sea Trips Co., Ltd.</strong><br>60/1 Chalong Bay<br>Muang, Phuket 83130<br>Tax ID: 0835559045671</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>February 27, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 30</span></div>
+      <div class="detail-row"><span class="label">Vessel:</span><span>MV Simba Explorer</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Engine service - twin Yamaha 300HP (full inspection + oil)</td><td>1</td><td>&#3647;28,000.00</td><td>&#3647;28,000.00</td></tr>
+      <tr><td>2</td><td>Marine-grade gelcoat repair (hull, 3 areas)</td><td>1</td><td>&#3647;15,500.00</td><td>&#3647;15,500.00</td></tr>
+      <tr><td>3</td><td>Navigation light replacement set (LED, waterproof)</td><td>1</td><td>&#3647;4,800.00</td><td>&#3647;4,800.00</td></tr>
+      <tr><td>4</td><td>Antifouling paint - International (5L x 4 cans)</td><td>4</td><td>&#3647;3,200.00</td><td>&#3647;12,800.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;61,100.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;4,277.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;65,377.00</span></div>
+    </div>
+  </div>
+  <div class="stamp unpaid">UNPAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Bangkok Bank | Acc: 872-0-33201-6 | Phuket Marine Services Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0835561019283</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 6 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Thai Silk House</h1>
+      <div class="subtitle">Premium Thai Silk &amp; Textile Wholesale</div>
+      <p>312 Surawong Road, Si Phraya<br>Bangrak, Bangkok 10500, Thailand<br>Tax ID: 0105548055392<br>Tel: +66 2-236-7744 | wholesale@thaisilkhouse.com</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-006</div>
+      <div class="inv-date">Date: February 3, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Mandarin Oriental Bangkok</strong><br>48 Oriental Avenue, Bangrak<br>Bangkok 10500<br>Tax ID: 0105510004821</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>March 5, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 30</span></div>
+      <div class="detail-row"><span class="label">PO Number:</span><span>MO-PROC-2026-019</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Mudmee Silk Fabric - Royal Blue (per meter)</td><td>80</td><td>&#3647;450.00</td><td>&#3647;36,000.00</td></tr>
+      <tr><td>2</td><td>Jim Thompson Style Cushion Covers (set of 4)</td><td>25</td><td>&#3647;1,200.00</td><td>&#3647;30,000.00</td></tr>
+      <tr><td>3</td><td>Custom embroidery service (hotel logo, per piece)</td><td>100</td><td>&#3647;120.00</td><td>&#3647;12,000.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;78,000.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;5,460.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;83,460.00</span></div>
+    </div>
+  </div>
+  <div class="stamp">PAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> SCB | Acc: 203-2-88741-0 | Thai Silk House Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105548055392</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 7 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Nana Tech Solutions</h1>
+      <div class="subtitle">IT Infrastructure &amp; Cloud Services</div>
+      <p>9/F, Interchange 21 Tower<br>399 Sukhumvit Road, Klongtoey Nua<br>Wattana, Bangkok 10110, Thailand<br>Tax ID: 0105566071845<br>Tel: +66 2-611-3300 | support@nanatech.co.th</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-007</div>
+      <div class="inv-date">Date: February 8, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Rabbit LINE Pay Co., Ltd.</strong><br>1 Empire Tower, 47/F<br>South Sathorn Road, Bangkok 10120<br>Tax ID: 0105559088234</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>March 10, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 30</span></div>
+      <div class="detail-row"><span class="label">Contract:</span><span>SLA-2026-Q1</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Managed Cloud Hosting - Feb 2026 (8 vCPU, 32GB RAM)</td><td>1</td><td>&#3647;22,000.00</td><td>&#3647;22,000.00</td></tr>
+      <tr><td>2</td><td>SSL Certificate Renewal - Wildcard (1 year)</td><td>2</td><td>&#3647;4,500.00</td><td>&#3647;9,000.00</td></tr>
+      <tr><td>3</td><td>Security audit &amp; penetration testing</td><td>1</td><td>&#3647;35,000.00</td><td>&#3647;35,000.00</td></tr>
+      <tr><td>4</td><td>24/7 DevOps support retainer - February</td><td>1</td><td>&#3647;12,000.00</td><td>&#3647;12,000.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;78,000.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;5,460.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;83,460.00</span></div>
+    </div>
+  </div>
+  <div class="stamp unpaid">UNPAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Kasikorn Bank | Acc: 712-2-09431-5 | Nana Tech Solutions Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105566071845</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+<!-- Invoice 8 -->
+<div class="invoice">
+  <div class="invoice-header">
+    <div class="company-info">
+      <h1>Green Garden Bangkok</h1>
+      <div class="subtitle">Landscape Design &amp; Maintenance</div>
+      <p>55/2 Ratchadaphisek Road, Din Daeng<br>Bangkok 10400, Thailand<br>Tax ID: 0105563039847<br>Tel: +66 2-275-9100 | projects@greengardenbkk.com</p>
+    </div>
+    <div class="invoice-title">
+      <h2>INVOICE</h2>
+      <div class="inv-number">INV-2026-008</div>
+      <div class="inv-date">Date: February 14, 2026</div>
+    </div>
+  </div>
+  <div class="billing-section">
+    <div class="bill-to">
+      <h3>Bill To</h3>
+      <p><strong>Sansiri Public Company Limited</strong><br>59 Soi Rim Khlong Phra Khanong<br>Phra Khanong Nuea, Watthana, Bangkok 10110<br>Tax ID: 0107537000220</p>
+    </div>
+    <div class="invoice-details">
+      <h3>Invoice Details</h3>
+      <div class="detail-row"><span class="label">Due Date:</span><span>March 1, 2026</span></div>
+      <div class="detail-row"><span class="label">Payment Terms:</span><span>Net 15</span></div>
+      <div class="detail-row"><span class="label">Project:</span><span>THE BASE Saphanmai Phase 2</span></div>
+      <div class="detail-row"><span class="label">Currency:</span><span>THB (Thai Baht)</span></div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Landscape design consultation &amp; 3D rendering</td><td>1</td><td>&#3647;15,000.00</td><td>&#3647;15,000.00</td></tr>
+      <tr><td>2</td><td>Tropical plant installation (palms, ferns, heliconias)</td><td>1</td><td>&#3647;42,000.00</td><td>&#3647;42,000.00</td></tr>
+      <tr><td>3</td><td>Automatic irrigation system (lobby garden, 200 sqm)</td><td>1</td><td>&#3647;18,500.00</td><td>&#3647;18,500.00</td></tr>
+      <tr><td>4</td><td>Monthly maintenance contract (3 months prepaid)</td><td>3</td><td>&#3647;3,500.00</td><td>&#3647;10,500.00</td></tr>
+    </tbody>
+  </table>
+  <div class="totals">
+    <div class="totals-table">
+      <div class="totals-row"><span>Subtotal</span><span>&#3647;86,000.00</span></div>
+      <div class="totals-row"><span>VAT (7%)</span><span>&#3647;6,020.00</span></div>
+      <div class="totals-row total"><span>Total</span><span>&#3647;92,020.00</span></div>
+    </div>
+  </div>
+  <div class="stamp">PAID</div>
+  <div class="invoice-footer">
+    <div class="payment-info">
+      <p><strong>Bank:</strong> Krungthai Bank | Acc: 019-0-54782-3 | Green Garden Bangkok Co., Ltd.</p>
+      <p><strong>PromptPay:</strong> 0105563039847</p>
+    </div>
+    <div class="thank-you">Thank you for your business!</div>
+  </div>
+</div>
+
+</body>
+</html>
