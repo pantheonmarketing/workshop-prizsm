@@ -6,27 +6,30 @@
   <title>Claude Code for Business Owners — Workshop Slides</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --purple: #7B2FF2;
-      --purple-light: #C084FC;
+      --purple: #D35C37;
+      --purple-light: #B84A2A;
+      --coral: #D35C37;
+      --coral-dark: #B84A2A;
+      --coral-soft: #FFF3E8;
       --green: #22c55e;
       --red: #ef4444;
       --orange: #f59e0b;
       --blue: #3b82f6;
-      --text: #1a1a2a;
-      --text-light: #555;
-      --text-muted: #888;
-      --bg: #ffffff;
-      --card-bg: #f5f5f7;
-      --border: #e5e5ea;
+      --text: #1A1A1A;
+      --text-light: #525252;
+      --text-muted: #737373;
+      --bg: #FAF9F5;
+      --card-bg: #F0EDE4;
+      --border: #E5E3DC;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow: hidden;
@@ -40,7 +43,7 @@
       display: none;
       position: absolute;
       inset: 0;
-      padding: 60px 80px;
+      padding: 48px 64px;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -65,7 +68,7 @@
       align-items: center;
       gap: 20px;
       z-index: 100;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Newsreader', Georgia, serif;
     }
     .nav-btn {
       width: 44px; height: 44px;
@@ -91,32 +94,37 @@
 
     /* ===== TYPOGRAPHY ===== */
     .title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(56px, 7.5vw, 104px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
     }
     .subtitle {
-      font-size: clamp(18px, 2.5vw, 28px);
-      font-weight: 300;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 400;
       color: var(--text-light);
-      line-height: 1.5;
+      line-height: 1.45;
     }
     .big-text {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(28px, 4vw, 52px);
-      font-weight: 800;
-      line-height: 1.2;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(44px, 6vw, 84px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
     }
     .medium-text {
-      font-size: clamp(20px, 2.5vw, 32px);
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(28px, 3.2vw, 44px);
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.45;
       color: var(--text-light);
     }
     .small-text {
-      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(18px, 1.8vw, 22px);
       color: var(--text-muted);
       line-height: 1.6;
     }
@@ -125,12 +133,13 @@
     .red { color: var(--red); }
     .bold { font-weight: 700; color: var(--text); }
     .label {
-      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(14px, 1.3vw, 17px);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 3px;
       color: var(--purple);
-      margin-bottom: 12px;
+      margin-bottom: 18px;
     }
 
     /* ===== COMPONENTS ===== */
@@ -148,24 +157,27 @@
       padding: 28px 24px;
       text-align: center;
     }
-    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-icon { font-size: clamp(44px, 4vw, 56px); margin-bottom: 16px; }
     .card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 6px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(24px, 2.4vw, 32px);
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-    .card p { font-size: 14px; color: var(--text-muted); }
+    .card p { font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.5vw, 20px); color: var(--text-muted); line-height: 1.5; }
 
     .list-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      font-size: clamp(18px, 2vw, 24px);
-      padding: 12px 0;
+      gap: 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(24px, 2.6vw, 36px);
+      font-weight: 500;
+      padding: 14px 0;
       text-align: left;
+      line-height: 1.35;
     }
-    .list-icon { font-size: 24px; flex-shrink: 0; }
+    .list-icon { font-size: clamp(28px, 2.8vw, 38px); flex-shrink: 0; }
 
     .compare-row {
       display: flex;
@@ -181,14 +193,15 @@
       text-align: left;
     }
     .compare-col h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 12px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(22px, 2.2vw, 30px);
+      font-weight: 700;
+      margin-bottom: 14px;
     }
     .compare-col li {
-      font-size: 15px;
-      line-height: 2;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(18px, 1.8vw, 24px);
+      line-height: 1.8;
       list-style: none;
     }
 
@@ -196,27 +209,28 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 48px; height: 48px;
+      width: 64px; height: 64px;
       border-radius: 50%;
       background: var(--purple);
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 16px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
     }
 
     .prompt-box {
       background: var(--card-bg);
       border-radius: 12px;
-      padding: 20px 80px 20px 24px;
-      font-size: 16px;
+      padding: 24px 90px 24px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(18px, 1.7vw, 22px);
       line-height: 1.6;
       color: var(--text);
       text-align: left;
-      max-width: 700px;
-      margin-top: 20px;
-      border-left: 4px solid var(--purple);
+      max-width: 820px;
+      margin-top: 24px;
+      border-left: 5px solid var(--purple);
       position: relative;
     }
     .copy-btn {
@@ -231,7 +245,7 @@
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       transition: all 0.2s;
       z-index: 10;
     }
@@ -255,11 +269,11 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Newsreader', Georgia, serif;
       font-size: 22px;
       font-weight: 900;
       letter-spacing: 2px;
-      box-shadow: 0 4px 20px rgba(123, 47, 242, 0.3);
+      box-shadow: 0 4px 20px rgba(211, 92, 55, 0.3);
     }
     .team-row {
       display: flex;
@@ -333,7 +347,7 @@
     }
     .lightbox-caption {
       color: #fff;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-size: 18px;
       margin-top: 16px;
       text-align: center;
@@ -370,8 +384,8 @@
       animation: tryPulse 2s ease-in-out infinite;
     }
     @keyframes tryPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123,47,242,0.3); }
-      50% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(123,47,242,0); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(211,92,55,0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 0 16px rgba(211,92,55,0); }
     }
 
     /* ===== STACK OFFER SLIDE ===== */
@@ -406,7 +420,7 @@
       text-align: center;
     }
     .stack-title {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Newsreader', Georgia, serif;
       font-weight: 700;
       font-size: 15px;
       color: var(--text);
@@ -418,12 +432,227 @@
       line-height: 1.4;
     }
     .stack-value {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Newsreader', Georgia, serif;
       font-weight: 800;
       font-size: 16px;
       color: var(--purple);
       white-space: nowrap;
       flex-shrink: 0;
+    }
+
+    /* ===== AGENDA (Slide 9) ===== */
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      max-width: 1200px;
+      width: 100%;
+      text-align: left;
+    }
+    .agenda-row {
+      display: grid;
+      grid-template-columns: clamp(130px, 13vw, 170px) 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .agenda-time {
+      background: #1A1A1A;
+      color: #FFF3E8;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: clamp(12px, 1.1vw, 15px);
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 6px 10px;
+      white-space: nowrap;
+    }
+    .agenda-body {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 16px;
+    }
+    .agenda-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(16px, 1.55vw, 20px);
+      color: var(--text);
+      line-height: 1.15;
+    }
+    .agenda-subtitle {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      color: var(--coral);
+      font-size: clamp(12px, 1.1vw, 14px);
+      margin-top: 1px;
+      line-height: 1.15;
+    }
+    .agenda-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(11px, 1vw, 13px);
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-top: 3px;
+    }
+
+    /* ===== BLACKOUT (press B or . on presenter remote) ===== */
+    body.blackout::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+    }
+
+    /* ===== HERO SLIDE (Slide 1) — Claude palette ===== */
+    .hero-slide {
+      background: #FAF9F5;
+      overflow: hidden;
+      padding: 0 !important;
+    }
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 1000px 700px at 22% 28%, rgba(211, 92, 55, 0.14), transparent 65%),
+        radial-gradient(ellipse 800px 600px at 80% 75%, rgba(255, 243, 232, 0.9), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: heroFloat 16s ease-in-out infinite;
+    }
+    .hero-orb-1 {
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, #D35C37 0%, transparent 65%);
+      top: -160px; left: -140px;
+      opacity: 0.32;
+    }
+    .hero-orb-2 {
+      width: 460px; height: 460px;
+      background: radial-gradient(circle, #FFF3E8 0%, transparent 65%);
+      bottom: -140px; right: -100px;
+      animation-delay: -8s;
+      opacity: 0.95;
+    }
+    .hero-orb-3 {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, #B84A2A 0%, transparent 65%);
+      top: 45%; right: 14%;
+      animation-delay: -4s;
+      opacity: 0.14;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, -40px) scale(1.1); }
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(184, 74, 42, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184, 74, 42, 0.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 70%);
+      mask-image: radial-gradient(ellipse at center, black 25%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 80px;
+      max-width: 1200px;
+      animation: heroFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-caveat {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(26px, 2.6vw, 36px);
+      font-weight: 700;
+      color: #D35C37;
+      transform: rotate(-4deg);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(211, 92, 55, 0.28);
+      border-radius: 100px;
+      padding: 11px 22px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #B84A2A;
+      margin-bottom: 40px;
+      box-shadow: 0 6px 30px rgba(211, 92, 55, 0.1), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #D35C37;
+      box-shadow: 0 0 10px #D35C37, 0 0 20px rgba(211, 92, 55, 0.4);
+      animation: heroPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes heroPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.85); }
+    }
+
+    .hero-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(58px, 8.2vw, 116px);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: #1A1A1A;
+      margin-bottom: 28px;
+    }
+    .hero-title-accent {
+      display: block;
+      margin-top: 6px;
+      font-style: italic;
+      font-weight: 500;
+      color: #D35C37;
+    }
+
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(17px, 1.7vw, 21px);
+      font-weight: 500;
+      color: #525252;
+      letter-spacing: 0.2px;
+      margin-top: 8px;
+    }
+    .hero-subtitle .hero-dot {
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #D35C37;
+      margin: 0 14px;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -434,72 +663,48 @@
      ============================================================ -->
 
 <!-- 1. TITLE -->
-<div class="slide active" id="s1">
-  <p class="label">Hands-On Workshop &middot; March 14, 2026</p>
-  <h1 class="title">Claude Code for<br><span class="purple">Business Owners</span></h1>
-  <p class="subtitle">Prismz Cafe, Thonglor &middot; Jonny West</p>
+<div class="slide active hero-slide" id="s1">
+  <div class="hero-bg">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-caveat">hands-on ~</p>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      AICO's Workshop &middot; April 25, 2026
+    </div>
+    <h1 class="hero-title">
+      Master Claude Code
+      <span class="hero-title-accent">for Business Owners</span>
+    </h1>
+    <p class="hero-subtitle">Prismz Cafe, Thonglor<span class="hero-dot"></span>Jonny West</p>
+  </div>
 </div>
 
 <!-- 2. RESOURCES LINK -->
-<div class="slide">
-  <p class="label">Before We Start</p>
-  <p class="big-text" style="margin-bottom: 20px;">Download Workshop <span class="purple">Resources</span></p>
-  <p class="medium-text" style="margin-bottom: 24px; max-width: 600px;">All files, prompts, and examples for today's exercises. Open this link on your phone or laptop.</p>
-  <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 40px; text-align: center; max-width: 600px;">
-    <p style="font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--purple); word-break: break-all; letter-spacing: -0.5px;">skillboss-e18pobf9-preview.heyboss.live</p>
-    <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">Bookmark this page. You'll use it throughout the workshop.</p>
-  </div>
-  <div class="speaker-note">Give them 30 seconds to open this on their phone. Walk around and make sure everyone has it. "This page has all the files and prompts we'll use today. Whenever I say 'download example 3', this is where you get it."</div>
+<div class="slide" style="padding: 0;">
+  <img src="workshop-photo-2.png" alt="Scan the QR code to get workshop resources" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+  <div class="speaker-note">Give them 30 seconds to scan this QR code. Walk around and make sure everyone has it open.</div>
 </div>
 
 <!-- 3. AI TAKEOFF -->
-<div class="slide" id="s2">
-  <p class="medium-text" style="margin-bottom: 24px;">You are here. Right at the beginning.</p>
-  <img src="ai-takeoff.jpg" alt="AI Takeoff curve showing You Are Here" style="width: 80%; max-width: 900px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);" />
+<div class="slide" id="s2" style="padding: 0;">
+  <img src="ai-takeoff-new.png" alt="You are here. Right at the beginning. AI Takeoff curve." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
   <div class="speaker-note">Let this sink in. "Look at where we are on this curve. This is not the middle. This is not the end. We are RIGHT at the takeoff point. The people in this room right now... you're early."</div>
 </div>
 
 <!-- 3. WHO AM I -->
-<div class="slide" id="s3" style="padding: 30px 40px;">
-  <p class="label" style="margin-bottom: 4px;">Your speaker</p>
-  <p style="font-family: 'Montserrat'; font-size: 36px; font-weight: 900; margin-bottom: 20px;">Jonny West</p>
-
-  <!-- Photo gallery -->
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 1000px; margin-bottom: 24px;">
-    <img class="gallery-img" src="story-award-shirts.jpg" data-caption="Students wearing $10K, $50K, and $100K Club award shirts" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-diyecom.jpg" data-caption="With Kantawee Saengsai, $100K Club winner at DIYECOM Bangkok" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-41k-day.png" data-caption="$41.7K gross volume in a single day, 17 payments" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-kids-genius.jpg" data-caption="Kids Genius Zone. AI learning platform for children, built in Thailand" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-50k-student2.jpg" data-caption="$50K Club student celebration" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-50k-student1.jpg" data-caption="Another $50K Club student hitting their milestone" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="story-team.jpg" data-caption="Team meetup with $50K and $10K Club members" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-    <img class="gallery-img" src="smpf.jpg" data-caption="Jonny West. 10 years in online business, based in Bangkok" onclick="openLightbox(this)" style="width: 100%; height: 160px; object-fit: cover; border-radius: 12px;" />
-  </div>
-
-  <!-- Achievements -->
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 1000px;">
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
-      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">2x Comma Club</p>
-      <p style="font-size: 13px; color: var(--text-light);">ClickFunnels 7-Figure Award</p>
-    </div>
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
-      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">$100K in 30 Days</p>
-      <p style="font-size: 13px; color: var(--text-light);">Multiple product launches</p>
-    </div>
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: center;">
-      <p style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: var(--purple);">6 &amp; 7 Figure Students</p>
-      <p style="font-size: 13px; color: var(--text-light);">Helped others reach big results</p>
-    </div>
-  </div>
-  <p style="font-size: 14px; color: var(--text-light); margin-top: 14px;">In Thailand: Built <strong>Kids Genius Zone</strong>, the first AI learning platform for children.</p>
-
+<div class="slide" id="s3" style="padding: 0;">
+  <img src="jonny-west-speaker.png" alt="Your speaker — Jonny West: marketer, founder, and AI educator" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
   <div class="speaker-note">Quick intro. "I've been doing this for 10 years. I've made and lost money. The reason I'm here is because AI changed everything for me, and I want to show you what I found."</div>
 </div>
 
 <!-- 3. HOOK 1 -->
-<div class="slide" id="s3">
-  <p class="big-text">Everyone is talking about AI.<br>Claude. Cowork.</p>
-  <p class="medium-text" style="margin-top: 24px;">It's everywhere right now.</p>
+<div class="slide" id="s3" style="padding: 0;">
+  <img src="slide-5.png" alt="Everyone is talking about AI. Claude. Cowork. It's everywhere right now." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
 </div>
 
 <!-- 3. HOOK 2 -->
@@ -509,76 +714,23 @@
 </div>
 
 <!-- 4. HOOK 3 -->
-<div class="slide" id="s4">
-  <p class="big-text">Today you'll learn something<br><span class="purple">less than 1%</span> of AI users know.</p>
-  <p class="medium-text" style="margin-top: 20px; margin-bottom: 32px;">You're going to make AI <strong>build things for you</strong> that will have massive impact on your business.</p>
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 900px;">
-    <div style="text-align: center;">
-      <img src="badge-save-time.png" alt="Save Time" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
-      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Save Time</p>
-    </div>
-    <div style="text-align: center;">
-      <img src="badge-save-cost.png" alt="Save Cost" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
-      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Save Cost</p>
-    </div>
-    <div style="text-align: center;">
-      <img src="badge-get-more-done.png" alt="Get More Done" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
-      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Get More Done</p>
-    </div>
-    <div style="text-align: center;">
-      <img src="badge-make-money.png" alt="Make More Money" style="width: 100px; height: 100px; border-radius: 20px; margin-bottom: 10px;" />
-      <p style="font-family: 'Montserrat'; font-size: 16px; font-weight: 800;">Make More Money</p>
-    </div>
-  </div>
+<div class="slide" id="s4" style="padding: 0;">
+  <img src="slide-7.png" alt="Today you'll learn something less than 1% of AI users know" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
 </div>
 
 <!-- 5. HOOK 4 -->
-<div class="slide" id="s5">
-  <p class="big-text">When you walk out today,<br>you will have skills your competitors<br><span class="purple">do not have yet.</span></p>
-  <p class="medium-text" style="margin-top: 24px;">That gap is your advantage.</p>
+<div class="slide" id="s5" style="padding: 0;">
+  <img src="slide-8.png" alt="When you walk out today, you will have skills your competitors do not have yet" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
 </div>
 
-<!-- 6. WORKSHOP ROADMAP -->
-<div class="slide" id="s6" style="padding: 30px 60px;">
-  <p class="label">Today's Workshop</p>
-  <p class="big-text" style="margin-bottom: 24px; font-size: clamp(30px, 4vw, 48px);">Here's What We're Doing</p>
-  <div style="display: grid; grid-template-columns: auto 1fr; gap: 14px 24px; max-width: 850px; width: 100%; text-align: left; align-items: center;">
-    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">10:00</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">The Big Shift</span> <span style="color: var(--text-muted); font-size: 15px;">... why AI is not a chatbot, it's a team member</span></div>
-    <div style="background: var(--blue); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">10:45</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">Chat + Show</span> <span style="color: var(--text-muted); font-size: 15px;">... Claude's new visual feature, you try it live</span></div>
-    <div style="background: var(--purple); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">11:15</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">Cowork</span> <span style="color: var(--text-muted); font-size: 15px;">... Ideas, Plugins, Connectors, hands-on tasks</span></div>
-    <div style="background: var(--text-muted); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">12:15</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">&#127860; Lunch Break</span></div>
-    <div style="background: var(--orange); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">13:15</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">7 Use Cases</span> <span style="color: var(--text-muted); font-size: 15px;">... data charts, CRM, invoices, content, websites + more</span></div>
-    <div style="background: var(--green); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">15:00</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">Content Creation</span> <span style="color: var(--text-muted); font-size: 15px;">... viral scripts using proven frameworks</span></div>
-    <div style="background: var(--red); color: #fff; border-radius: 8px; padding: 8px 18px; font-size: 16px; font-weight: 700; text-align: center;">15:30</div>
-    <div style="font-size: 18px;"><span style="font-weight: 700;">Q&A + What's Next</span> <span style="color: var(--text-muted); font-size: 15px;">... community, resources, keep building</span></div>
-  </div>
+<!-- 6. WORKSHOP AGENDA (image) -->
+<div class="slide" id="s6" style="padding: 0;">
+  <img src="slide-9.png" alt="Today's workshop agenda" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
 </div>
 
 <!-- SETUP CHECK -->
-<div class="slide" style="padding: 40px 60px;">
-  <p class="label">Before We Start</p>
-  <p class="big-text" style="margin-bottom: 20px;">Quick Setup Check</p>
-  <div style="max-width: 600px; width: 100%; text-align: left;">
-    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-      <span style="font-size: 24px;">&#9989;</span>
-      <div><strong>Claude account</strong><br><span style="font-size: 13px; color: var(--text-muted);">Go to claude.ai and sign up (free works for Chat)</span></div>
-    </div>
-    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-      <span style="font-size: 24px;">&#9989;</span>
-      <div><strong>Pro plan ($20/mo) for Cowork</strong><br><span style="font-size: 13px; color: var(--text-muted);">Upgrade at claude.ai/settings if you haven't yet</span></div>
-    </div>
-    <div style="background: #f0fdf4; border-radius: 12px; padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-      <span style="font-size: 24px;">&#128101;</span>
-      <div><strong>No Pro yet? No problem.</strong><br><span style="font-size: 13px; color: var(--text-muted);">Pair up with someone who has it. You'll still learn everything.</span></div>
-    </div>
-  </div>
-  <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px;">Set this up now while we talk. You'll need it in ~30 minutes.</p>
+<div class="slide" style="padding: 0;">
+  <img src="slide-10.png" alt="Quick setup check — Claude account and Pro plan" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
   <div class="speaker-note">Give them 2 min to check. Anyone without Pro? Pair them up.</div>
 </div>
 
@@ -720,7 +872,7 @@
 <div class="slide" id="s15">
   <div class="org-chart">
     <div class="ceo-circle">YOU</div>
-    <p style="margin-top: 14px; font-family: 'Montserrat'; font-weight: 800; font-size: 28px;">The AI CEO</p>
+    <p style="margin-top: 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 28px;">The AI CEO</p>
     <p style="font-size: 18px; color: var(--text-muted);">You command. They execute.</p>
     <div class="connector"></div>
     <div class="connector-h"></div>
@@ -835,32 +987,32 @@
   <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px;">
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">💰</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">&#3647;700/month</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">&#3647;700/month</p>
       <p style="font-size: 14px; color: var(--text-light);">Instead of &#3647;250,000+ in salaries</p>
     </div>
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">⏰</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Works 24/7</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">Works 24/7</p>
       <p style="font-size: 14px; color: var(--text-light);">Weekends, holidays, 3am</p>
     </div>
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">⚡</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Learns in seconds</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">Learns in seconds</p>
       <p style="font-size: 14px; color: var(--text-light);">No weeks of training needed</p>
     </div>
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">🔄</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Never quits</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">Never quits</p>
       <p style="font-size: 14px; color: var(--text-light);">No sick days, no complaints</p>
     </div>
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">📈</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Scales instantly</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">Scales instantly</p>
       <p style="font-size: 14px; color: var(--text-light);">5 tasks or 500, same cost</p>
     </div>
     <div style="background: #f0fdf4; border-radius: 16px; padding: 20px; text-align: center;">
       <p style="font-size: 32px; margin-bottom: 8px;">🎯</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 18px;">Does exactly what you say</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 18px;">Does exactly what you say</p>
       <p style="font-size: 14px; color: var(--text-light);">No miscommunication</p>
     </div>
   </div>
@@ -933,7 +1085,7 @@
   <div style="position: relative; max-width: 750px; width: 100%;">
     <img src="claude-3tabs.png" alt="Claude Desktop with Chat, Cowork, Code tabs" style="width: 100%; max-height: 55vh; object-fit: contain; border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.12);" />
     <!-- Highlight the 3 tabs -->
-    <div style="position: absolute; top: 0.5%; left: 38%; width: 24%; height: 4.5%; border: 3px solid var(--purple); border-radius: 8px; box-shadow: 0 0 12px rgba(123, 47, 242, 0.5);"></div>
+    <div style="position: absolute; top: 0.5%; left: 38%; width: 24%; height: 4.5%; border: 3px solid var(--purple); border-radius: 8px; box-shadow: 0 0 12px rgba(211, 92, 55, 0.5);"></div>
   </div>
   <div class="card-row" style="margin-top: 12px;">
     <div class="card" style="padding: 10px 18px;">
@@ -1616,12 +1768,12 @@
   <div style="display: flex; gap: 32px; max-width: 800px; justify-content: center; flex-wrap: wrap;">
     <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
       <p style="font-size: 48px; margin-bottom: 8px;">&#128640;</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Jonny West</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 22px;">Jonny West</p>
       <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">10 years in online business<br>2x ClickFunnels Comma Club (7 figures)<br>Built AI CEO Studio (68 paying users)<br>Consults companies on AI automation</p>
     </div>
     <div style="background: var(--card-bg); border-radius: 16px; padding: 28px 24px; text-align: center; flex: 1; min-width: 280px;">
       <p style="font-size: 48px; margin-bottom: 8px;">&#127775;</p>
-      <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 22px;">Kantawee Saengsai</p>
+      <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 22px;">Kantawee Saengsai</p>
       <p style="font-size: 14px; color: var(--text-light); line-height: 1.7; margin-top: 8px;">$100K Club winner at DIYECOM<br>Thai ecommerce and digital marketing expert<br>Actively uses Claude to scale businesses<br>Based right here in Bangkok</p>
     </div>
   </div>
@@ -1709,7 +1861,7 @@
   </div>
   <div id="stack-total" style="display:none; margin-top: 16px; background: var(--card-bg); border-radius: 12px; padding: 14px 24px; max-width: 700px; width: 100%; text-align: right;">
     <p style="font-size: 14px; color: var(--text-muted);">Total value</p>
-    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 28px; color: var(--text);"><span style="text-decoration: line-through; color: var(--text-muted);">&#3647;51,000+</span></p>
+    <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 900; font-size: 28px; color: var(--text);"><span style="text-decoration: line-through; color: var(--text-muted);">&#3647;51,000+</span></p>
   </div>
   <div class="speaker-note">Click SPACEBAR or RIGHT ARROW to reveal each stack item one by one. Read each one, let the value sink in. After all 6 items, the total appears.</div>
 </div>
@@ -1718,9 +1870,9 @@
 <div class="slide">
   <p class="label">Founder Price</p>
   <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 24px;">You're the first group. The founding members. So you get a price that will never exist again.</p>
-  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 20px; padding: 36px 48px; text-align: center; max-width: 600px; box-shadow: 0 8px 32px rgba(123,47,242,0.3);">
+  <div style="background: linear-gradient(135deg, #D35C37, #B84A2A); color: #fff; border-radius: 20px; padding: 36px 48px; text-align: center; max-width: 600px; box-shadow: 0 8px 32px rgba(211,92,55,0.3);">
     <p style="font-size: 16px; opacity: 0.9; margin-bottom: 4px;">3 months. Everything. Founder price.</p>
-    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: clamp(52px, 7vw, 88px); line-height: 1;">&#3647;10,000</p>
+    <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 900; font-size: clamp(52px, 7vw, 88px); line-height: 1;">&#3647;10,000</p>
     <p style="font-size: 18px; opacity: 0.9; margin-top: 8px;">That's <strong>&#3647;3,333/month</strong>. Less than a dinner out.</p>
   </div>
   <p style="margin-top: 20px; font-size: 15px; color: var(--text-light); max-width: 550px;">3 workshops. 2 mentors. Live sessions. AI security. Monetization playbooks. In-person community. The whole thing.</p>
@@ -1750,11 +1902,11 @@
     <div style="width: 200px; height: 200px; background: #fff; border: 2px solid var(--border); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
       <p style="font-size: 14px; color: var(--text-muted);">&#128247; QR Code<br><br><span style="font-size: 12px;">skool.com/ai-influencer-academy2026</span></p>
     </div>
-    <p style="font-family: 'Montserrat'; font-weight: 800; font-size: 20px; color: var(--purple);">Claude Master Thailand</p>
+    <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 800; font-size: 20px; color: var(--purple);">Claude Master Thailand</p>
     <p style="font-size: 14px; color: var(--text-light); margin-top: 8px;">skool.com/ai-influencer-academy2026</p>
   </div>
-  <div style="background: linear-gradient(135deg, #7B2FF2, #9333ea); color: #fff; border-radius: 12px; padding: 14px 28px; margin-top: 16px; max-width: 400px; text-align: center;">
-    <p style="font-family: 'Montserrat'; font-weight: 900; font-size: 24px;">&#3647;10,000 / 3 months</p>
+  <div style="background: linear-gradient(135deg, #D35C37, #B84A2A); color: #fff; border-radius: 12px; padding: 14px 28px; margin-top: 16px; max-width: 400px; text-align: center;">
+    <p style="font-family: 'Newsreader', Georgia, serif; font-weight: 900; font-size: 24px;">&#3647;10,000 / 3 months</p>
     <p style="font-size: 14px; opacity: 0.9;">Founder price. Today only.</p>
   </div>
   <div class="speaker-note">"Take out your phone. Scan this. Join right now. If you have questions, raise your hand. I'll come to you." Give them 3-5 min.</div>
@@ -1842,20 +1994,36 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); lbPrev(); }
       return;
     }
-    if (e.key === 'ArrowRight' || e.key === ' ') {
+    // Presenter remote support: Logitech R400/R500/R800/Spotlight map
+    // Next → PageDown / ArrowRight / Space / ArrowDown / Enter
+    // Prev → PageUp / ArrowLeft / ArrowUp / Backspace
+    // Blackout → B or .
+    // First → Home   Last → End
+    const nextKeys = ['ArrowRight', ' ', 'PageDown', 'ArrowDown', 'Enter'];
+    const prevKeys = ['ArrowLeft', 'PageUp', 'ArrowUp', 'Backspace'];
+
+    if (nextKeys.includes(e.key)) {
       e.preventDefault();
-      // If on the stack slide, reveal items first
       if (current === getStackSlideIndex()) {
         if (revealNextStackItem()) return;
       }
       next();
+      return;
     }
-    if (e.key === 'ArrowLeft') {
+    if (prevKeys.includes(e.key)) {
       e.preventDefault();
-      // If going back to stack slide, reset it so user can replay
       if (current - 1 === getStackSlideIndex()) resetStack();
       prev();
+      return;
     }
+    if (e.key === 'Home') { e.preventDefault(); show(0); return; }
+    if (e.key === 'End')  { e.preventDefault(); show(total - 1); return; }
+    if (e.key === 'b' || e.key === 'B' || e.key === '.') {
+      e.preventDefault();
+      document.body.classList.toggle('blackout');
+      return;
+    }
+    if (e.key === 'Escape') { document.body.classList.remove('blackout'); return; }
     if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); }
   });
 
