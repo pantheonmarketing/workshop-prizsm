@@ -1,0 +1,18 @@
+# Large video files (workshop source videos)
+*.mp4
+
+# Audio transcription artifacts
+transcripts_audio/
+transcripts/
+trans/
+
+# Transcription script
+transcribe.py
+
+# Local backup files
+*.local.bak
+*.bak
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
