@@ -440,6 +440,228 @@
       flex-shrink: 0;
     }
 
+    /* ===== PROOF MODAL (click a claim to see the real thing) ===== */
+    .proof-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      animation: proofFadeIn 0.2s ease;
+    }
+    .proof-modal.open { display: flex; }
+    @keyframes proofFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .proof-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .proof-card {
+      position: relative;
+      background: var(--bg);
+      border-radius: 20px;
+      max-width: 920px;
+      width: 100%;
+      max-height: 88vh;
+      overflow: auto;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+      animation: proofPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes proofPop { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .proof-intro {
+      padding: 32px 36px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .proof-intro h3 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(28px, 2.8vw, 38px);
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      line-height: 1.2;
+    }
+    .proof-intro p {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-light);
+      font-size: clamp(15px, 1.4vw, 17px);
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+    .proof-item + .proof-item { border-top: 1px solid var(--border); }
+    .proof-item .proof-preview {
+      border-radius: 0;
+    }
+    .proof-preview {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+      background: var(--card-bg);
+    }
+    .proof-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .proof-body { padding: 28px 36px 32px; text-align: left; }
+    .proof-label {
+      color: var(--coral);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+    .proof-body h3 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: clamp(26px, 2.6vw, 36px);
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 8px;
+      line-height: 1.2;
+    }
+    .proof-body p {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-light);
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+    .proof-visit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 22px;
+      background: var(--coral);
+      color: #fff;
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .proof-visit:hover {
+      background: var(--coral-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(211, 92, 55, 0.3);
+    }
+    .proof-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 22px;
+      font-weight: 300;
+      cursor: pointer;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: all 0.15s;
+    }
+    .proof-close:hover { background: #fff; transform: scale(1.05); }
+
+    /* ===== BUSINESS CARDS (slide 23) ===== */
+    .biz-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .biz-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 22px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .biz-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(211, 92, 55, 0.08);
+      border-color: rgba(211, 92, 55, 0.3);
+    }
+    .biz-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(11px, 0.9vw, 13px);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 6px;
+    }
+    .biz-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(22px, 2.1vw, 30px);
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .biz-tagline {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      color: var(--text-light);
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .biz-list { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+    .claim {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.3;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .claim:hover {
+      background: var(--coral-soft);
+      transform: translateX(2px);
+    }
+    .claim:hover .claim-text { color: var(--coral-dark); }
+    .claim-check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border: 2px solid var(--coral);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coral);
+      font-weight: 700;
+      font-size: 13px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .claim:hover .claim-check { background: var(--coral); color: #fff; }
+    .claim strong { font-weight: 700; color: var(--text); }
+    .claim:hover strong { color: var(--coral-dark); }
+
     /* ===== AGENDA (Slide 9) ===== */
     .agenda-grid {
       display: grid;
@@ -750,6 +972,12 @@
   <img src="slide-12.png" alt="What most people do with AI" style="max-width: 95%; max-height: 90vh; object-fit: contain;" />
 </div>
 
+<!-- 8. PIVOT: BUT HERE'S WHAT CLAUDE CAN DO -->
+<div class="slide" id="s8">
+  <p class="label" style="color: var(--coral);">The Shift</p>
+  <p class="big-text" style="max-width: 1150px;">But here's what <span class="purple" style="font-style: italic;">Claude</span> can actually do for you.</p>
+</div>
+
 <!-- 9. CAPABILITY 1 -->
 <div class="slide" id="s9" style="padding: 0;">
   <img src="slide-15-capability-1.png" alt="Capability 1 — Build a custom business tool from scratch. A real dashboard, built by AI in 5 minutes, no coding." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
@@ -780,22 +1008,196 @@
   <img src="slide-20-capability-6.png" alt="Capability 6 — Connect AI to the tools you already use. Gmail, Google Calendar, Canva, Notion, Slack, Excalidraw, HubSpot, Google Drive. 20+ connectors available." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
 </div>
 
-<!-- 15. REFRAME -->
-<div class="slide" id="s15">
-  <p class="label">The Reframe</p>
-  <p class="big-text">Each one of these<br>is an <span class="purple">employee</span>.</p>
-  <p class="medium-text" style="margin-top: 20px; max-width: 600px;">Not a feature. Not a tool.<br>A person you don't have to hire.</p>
+<!-- 14b. CAPABILITY 7 — COMPUTER USE -->
+<div class="slide" id="s14b" style="padding: 0;">
+  <img src="slide-21-computer-use.png" alt="Capability 7 — The Secret Weapon: Claude can use your computer. No connectors, no APIs, no code." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+</div>
+
+<!-- 14c. CAPABILITY 8 — REPLACE PAID TOOLS / BUILD YOUR OWN -->
+<div class="slide" id="s14c" style="padding: 0;">
+  <img src="slide-22-build-your-own.png" alt="Capability 8 — The Mindshift: Replace any paid tool with your own. Build the tool that fits your brand 100%." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+</div>
+
+<!-- WHAT I DO WITH CLAUDE (3 businesses — clickable) -->
+<div class="slide" id="s-my-business" style="padding: 40px 60px;">
+  <p class="label" style="color: var(--coral); margin-bottom: 10px;">Real example &middot; My Last 30 Days</p>
+  <p class="big-text" style="font-size: clamp(40px, 5vw, 72px); margin-bottom: 30px;">Claude runs <span class="purple" style="font-style: italic;">3 businesses</span> for me</p>
+
+  <div class="biz-grid">
+    <div class="biz-card">
+      <p class="biz-label">Business 1</p>
+      <p class="biz-title">My Coaching Business</p>
+      <p class="biz-tagline">Growing my email list &amp; making money on autopilot.</p>
+      <div class="biz-list">
+        <a class="claim" href="#" data-proof="sales-funnels">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>5 sales funnels</strong> running 24/7</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="biz-card">
+      <p class="biz-label">Business 2</p>
+      <p class="biz-title">Engbrain Kids Academy</p>
+      <p class="biz-tagline">Thailand's first AI learning platform for kids.</p>
+      <div class="biz-list">
+        <a class="claim" href="#" data-proof="engbrain-ai">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Engbrain AI</strong> &middot; Kids Genius Zone</span>
+        </a>
+        <a class="claim" href="#" data-proof="storyspark">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Storyspark</strong> &middot; AI storybook creator</span>
+        </a>
+        <a class="claim" href="#" data-proof="smartmoms">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Smartmoms</strong> &middot; parent community</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="biz-card">
+      <p class="biz-label">Business 3</p>
+      <p class="biz-title">AI CEOs</p>
+      <p class="biz-tagline">An automated growth engine built end to end.</p>
+      <div class="biz-list">
+        <a class="claim" href="#" data-proof="fb-ads">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Facebook ads</strong> generation</span>
+        </a>
+        <a class="claim" href="#" data-proof="landing-pages">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Landing page</strong> generation</span>
+        </a>
+        <a class="claim" href="#" data-proof="follow-ups">
+          <span class="claim-check">&#10003;</span>
+          <span class="claim-text"><strong>Follow-ups</strong> with leads &amp; sales</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width: 1000px; margin-top: 28px; text-align: center;">
+    <p style="font-family: 'Newsreader', Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(20px, 1.9vw, 26px); color: var(--text); line-height: 1.35;">This would normally need a team of 8&ndash;10 people across 3 companies.</p>
+    <p style="font-family: 'Inter', sans-serif; font-size: clamp(14px, 1.3vw, 17px); color: var(--text-muted); margin-top: 6px;">For me, it's just Claude. No developers. No designers. No marketing team.</p>
+  </div>
+
+  <div class="speaker-note">Walk through the three cards. Click into each to show proof. "Three real businesses. One operator. One tool. Everything you see is live."</div>
+</div>
+
+<!-- PROOF MODALS -->
+<div class="proof-modal" id="proof-sales-funnels" aria-hidden="true">
+  <div class="proof-backdrop" onclick="this.parentElement.classList.remove('open')"></div>
+  <div class="proof-card">
+    <button class="proof-close" onclick="this.closest('.proof-modal').classList.remove('open')" aria-label="Close">&times;</button>
+
+    <div class="proof-intro">
+      <p class="proof-label">Real Example</p>
+      <h3>5 Sales Funnels Running 24/7</h3>
+      <p>Each one built, wired up, and maintained with Claude. No developers, no funnel agency.</p>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-preview">
+        <img src="proof-aicreatorworkshop.png" alt="AI Creator Workshop — auto webinar funnel" />
+      </div>
+      <div class="proof-body">
+        <p class="proof-label">Funnel 1 &middot; Auto Webinar</p>
+        <h3>AI Creator Workshop</h3>
+        <p>Evergreen webinar running 24/7. Registration, live-style replay, reminders, follow-up sequences, offer stack — all handled automatically.</p>
+        <a class="proof-visit" href="https://www.aicreatorworkshop.com/workshop" target="_blank" rel="noopener">Visit funnel &nearr;</a>
+      </div>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-preview">
+        <img src="proof-50prompts.png" alt="50 Free AI Influencer Prompts — lead magnet squeeze page" />
+      </div>
+      <div class="proof-body">
+        <p class="proof-label">Funnel 2 &middot; Lead Magnet</p>
+        <h3>50 Free AI Influencer Prompts</h3>
+        <p>Squeeze page that converts cold traffic into email subscribers. Downloaded by 2,400+ creators. Delivers the PDF automatically and drops them straight into the follow-up sequence.</p>
+        <a class="proof-visit" href="https://www.aicreatorworkshop.com/50prompts" target="_blank" rel="noopener">Visit funnel &nearr;</a>
+      </div>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-preview">
+        <img src="proof-automate.png" alt="Automate Her — free video walkthrough squeeze page" />
+      </div>
+      <div class="proof-body">
+        <p class="proof-label">Funnel 3 &middot; Video VSL</p>
+        <h3>Automate Her</h3>
+        <p>Video walkthrough funnel showing how AI writes, records, edits, and publishes videos automatically. Opt-in leads straight into the course offer.</p>
+        <a class="proof-visit" href="https://www.aicreatorworkshop.com/automate" target="_blank" rel="noopener">Visit funnel &nearr;</a>
+      </div>
+    </div>
+
+    <div class="proof-item">
+      <div class="proof-preview">
+        <img src="proof-realism.png" alt="The Hyper-Realism Prompt — free download squeeze page" />
+      </div>
+      <div class="proof-body">
+        <p class="proof-label">Funnel 4 &middot; Lead Magnet</p>
+        <h3>The Hyper-Realism Prompt</h3>
+        <p>Email-for-prompt squeeze page. The exact formula to create AI influencer faces that look 100% real. Used by 5,000+ creators — fully automated delivery.</p>
+        <a class="proof-visit" href="https://www.aicreatorworkshop.com/realism" target="_blank" rel="noopener">Visit funnel &nearr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proof-modal" id="proof-engbrain-ai" aria-hidden="true">
+  <div class="proof-backdrop" onclick="this.parentElement.classList.remove('open')"></div>
+  <div class="proof-card">
+    <button class="proof-close" onclick="this.closest('.proof-modal').classList.remove('open')" aria-label="Close">&times;</button>
+    <div class="proof-preview">
+      <img src="proof-engbrain.jpg" alt="EngBrain AI — Kids Genius Zone" />
+    </div>
+    <div class="proof-body">
+      <p class="proof-label">Engbrain Kids Academy &middot; Product 1</p>
+      <h3>Engbrain AI &mdash; Kids Genius Zone</h3>
+      <p>Thailand's first AI education platform for children. Turns homework into artwork, lets kids ask an AI tutor anything, courses, images, music, games — every line built with Claude.</p>
+      <a class="proof-visit" href="https://www.engbrainai.com/" target="_blank" rel="noopener">Visit platform &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="proof-modal" id="proof-smartmoms" aria-hidden="true">
+  <div class="proof-backdrop" onclick="this.parentElement.classList.remove('open')"></div>
+  <div class="proof-card">
+    <button class="proof-close" onclick="this.closest('.proof-modal').classList.remove('open')" aria-label="Close">&times;</button>
+    <div class="proof-preview">
+      <img src="proof-smartmoms.png" alt="Smartmoms — parent community workshop" />
+    </div>
+    <div class="proof-body">
+      <p class="proof-label">Engbrain Kids Academy &middot; Product 3</p>
+      <h3>Smartmoms</h3>
+      <p>A parent community & workshop in Thai — teaching moms the S.M.A.R.T. Moms method for raising confident speakers and learners. Live sessions, countdown timers, registration, follow-up — everything built with Claude.</p>
+      <a class="proof-visit" href="https://smart-mom-workshop.pages.dev/" target="_blank" rel="noopener">Visit workshop &nearr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="proof-modal" id="proof-storyspark" aria-hidden="true">
+  <div class="proof-backdrop" onclick="this.parentElement.classList.remove('open')"></div>
+  <div class="proof-card">
+    <button class="proof-close" onclick="this.closest('.proof-modal').classList.remove('open')" aria-label="Close">&times;</button>
+    <div class="proof-preview">
+      <img src="proof-storyv2.png" alt="Storyspark — AI storybook creator for children" />
+    </div>
+    <div class="proof-body">
+      <p class="proof-label">Engbrain Kids Academy &middot; Product 2</p>
+      <h3>Storyspark</h3>
+      <p>The first AI storybook creator for children. In 10 minutes, a child creates a magical storybook from their own imagination — while secretly learning the most important skill of the future. 10,000+ families already using it.</p>
+      <a class="proof-visit" href="https://storyv2.vercel.app/" target="_blank" rel="noopener">Visit platform &nearr;</a>
+    </div>
+  </div>
 </div>
 
 <!-- 15. ORG CHART -->
 <div class="slide" id="s15" style="padding: 0;">
   <img src="slide-22-ai-ceo.png" alt="The AI CEO — You command. They execute. Builder (Tools &amp; Apps), Analyst (Data &amp; Reports), Automator (Workflows), Content Pro (Viral Strategy), Support (Customers)." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
-</div>
-
-<!-- WHAT I DO WITH CLAUDE -->
-<div class="slide" style="padding: 0;">
-  <img src="slide-23-my-business.png" alt="Real Example: My Last 30 Days — What Claude does for my business. 10 bullet points of real work shipped, replacing a team of 8-10 people." style="width: 100%; height: 100%; object-fit: contain; display: block;" />
-  <div class="speaker-note">Let this sink in. Go through each one slowly. "I built a real software app. I didn't write one line of code. 68 people are paying for it. My emails go out automatically. My ads get created automatically. All of this... is Claude." Pause. "And I'm going to show you how to do this today."</div>
 </div>
 
 <!-- AI WON'T REPLACE YOU -->
@@ -1855,8 +2257,23 @@
       document.body.classList.toggle('blackout');
       return;
     }
-    if (e.key === 'Escape') { document.body.classList.remove('blackout'); return; }
+    if (e.key === 'Escape') {
+      const openProof = document.querySelector('.proof-modal.open');
+      if (openProof) { openProof.classList.remove('open'); return; }
+      document.body.classList.remove('blackout');
+      return;
+    }
     if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); }
+  });
+
+  // Proof modal click handlers — open the real thing behind each claim
+  document.querySelectorAll('.claim[data-proof]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      const id = a.getAttribute('data-proof');
+      const m = document.getElementById('proof-' + id);
+      if (m) m.classList.add('open');
+    });
   });
 
   // Make ALL slide images clickable for lightbox
